@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<VariablesViewState
+   version = "1.0">
+   <ContextStates>
+      <ContextState
+         contextName = "main:main.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PublicHomeViewController viewDidLoad]:PublicHomeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "([UIScreen mainScreen].bounds.size.width-40)/3">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[HomeViewController collectionView:cellForItemAtIndexPath:]:HomeViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "collectionView.tag">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+   </ContextStates>
+</VariablesViewState>
