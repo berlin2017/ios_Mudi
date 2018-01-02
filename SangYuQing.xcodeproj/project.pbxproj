@@ -131,6 +131,7 @@
 		047720A21FF72EBF00817528 /* PrivateTopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047720A01FF72EBF00817528 /* PrivateTopTableViewCell.m */; };
 		047720A31FF72EBF00817528 /* PrivateTopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047720A11FF72EBF00817528 /* PrivateTopTableViewCell.xib */; };
 		04F59CDF1FFA3391009EEF96 /* PrivateMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F59CDE1FFA3391009EEF96 /* PrivateMoreViewController.m */; };
+		04F59CE21FFB06C8009EEF96 /* PrivateCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F59CE11FFB06C8009EEF96 /* PrivateCreateViewController.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -392,6 +393,8 @@
 		047720A11FF72EBF00817528 /* PrivateTopTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivateTopTableViewCell.xib; sourceTree = "<group>"; };
 		04F59CDD1FFA3391009EEF96 /* PrivateMoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateMoreViewController.h; sourceTree = "<group>"; };
 		04F59CDE1FFA3391009EEF96 /* PrivateMoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateMoreViewController.m; sourceTree = "<group>"; };
+		04F59CE01FFB06C8009EEF96 /* PrivateCreateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateCreateViewController.h; sourceTree = "<group>"; };
+		04F59CE11FFB06C8009EEF96 /* PrivateCreateViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateCreateViewController.m; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -738,6 +741,8 @@
 				04431EBB1FF4D49900A2A116 /* PrivateHomeViewController.m */,
 				04F59CDD1FFA3391009EEF96 /* PrivateMoreViewController.h */,
 				04F59CDE1FFA3391009EEF96 /* PrivateMoreViewController.m */,
+				04F59CE01FFB06C8009EEF96 /* PrivateCreateViewController.h */,
+				04F59CE11FFB06C8009EEF96 /* PrivateCreateViewController.m */,
 			);
 			path = private;
 			sourceTree = "<group>";
@@ -1199,6 +1204,7 @@
 				04203DA51FF5E997003AA051 /* GongMuCollectionViewCell.m in Sources */,
 				04431E761FF4BDA600A2A116 /* MJRefreshComponent.m in Sources */,
 				047720A21FF72EBF00817528 /* PrivateTopTableViewCell.m in Sources */,
+				04F59CE21FFB06C8009EEF96 /* PrivateCreateViewController.m in Sources */,
 				04431E291FF4BD8F00A2A116 /* SDWebImagePrefetcher.m in Sources */,
 				04431EC01FF4D4B300A2A116 /* PublicHomeViewController.m in Sources */,
 				04431F5C1FF4F30A00A2A116 /* DTTimePeriodChain.m in Sources */,

@@ -11,6 +11,7 @@
 #import "PrivateTopTableViewCell.h"
 #import "UIColor+Helper.h"
 #import "PrivateMoreViewController.h"
+#import "PrivateCreateViewController.h"
 
 @interface PrivateHomeViewController ()<UITableViewDelegate,UITableViewDataSource>{
     
@@ -25,7 +26,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationController.navigationBarHidden = YES;
-   
+    
     
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     [self.view setBackgroundColor:bgColor];
@@ -58,7 +59,7 @@
 
 - (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section==0) {
-        return 1;
+        return 0;
     }
     return 5;
 }
@@ -68,16 +69,16 @@
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if (indexPath.section) {
+//    if (indexPath.section) {
         PrivateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"siren_cell" forIndexPath:indexPath];
-         cell.backgroundColor = [UIColor clearColor];
+        cell.backgroundColor = [UIColor clearColor];
         return cell;
-    }else{
-        PrivateTopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"siren_top_cell" forIndexPath:indexPath];
-         cell.backgroundColor = [UIColor clearColor];
-        return cell;
-    }
-//    return nil;
+//    }else{
+//        PrivateTopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"siren_top_cell" forIndexPath:indexPath];
+//        cell.backgroundColor = [UIColor clearColor];
+//        return cell;
+//    }
+    //    return nil;
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -115,12 +116,22 @@
         
         UIView *line = [[UIView alloc]init];
         line.backgroundColor = [UIColor colorWithHexRGB:0x000000 alpha:0.1];
-         [view addSubview:line];
+        [view addSubview:line];
         [line mas_makeConstraints:^(MASConstraintMaker *make) {
             make.right.mas_equalTo(view);
             make.left.mas_equalTo(view);
             make.bottom.mas_equalTo(view);
             make.height.mas_equalTo(1);
+        }];
+        return view;
+    }else{
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 300)];
+        view.userInteractionEnabled = YES;
+        UIImageView *imageview = [[UIImageView alloc]init];
+        [view addSubview:imageview];
+        imageview.image = [UIImage imageNamed:@"siren_home_top"];
+        [imageview mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.edges.mas_equalTo(view);
         }];
         return view;
     }
@@ -135,9 +146,9 @@
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    if(indexPath.section==0){
-        return 400;
-    }
+//    if(indexPath.section==0){
+//        return 400;
+//    }
     return 160;
 }
 
@@ -145,9 +156,46 @@
     if (section) {
         return 40;
     }else{
-        return 0;
+        return 300;
     }
 }
+
+//#pragma mark -- 代理方法
+////实现了这个方法就有滑动的删除按钮了
+//- (void)tableView:(UITableView *)tableView commitEditingStyle:(UITableViewCellEditingStyle)editingStyle forRowAtIndexPath:(NSIndexPath *)indexPath
+//{
+//
+//}
+
+//这个方法就是可以自己添加一些侧滑出来的按钮，并执行一些命令和按钮设置
+- (NSArray *)tableView:(UITableView *)tableView editActionsForRowAtIndexPath:(nonnull NSIndexPath *)indexPath
+{
+    //设置按钮(它默认第一个是修改系统的)
+    UITableViewRowAction *action = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"删除" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        NSLog(@"删除");
+    }];
+    //设置按钮(它默认第一个是修改系统的)
+    UITableViewRowAction *action1 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleNormal title:@"编辑" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        //执行跳转到下个界面操作
+        //        NextViewController *vc = [[NextViewController alloc]init];
+        //        [self presentViewController:vc animated:YES completion:nil];
+    }];
+
+    action1.backgroundColor = [UIColor colorWithRed:0.9305 green:0.3394 blue:1.0 alpha:1.0];
+
+    UITableViewRowAction *action2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
+        NSLog(@"取消关注");
+    }];
+
+
+    if(indexPath.section==1){
+        return @[action,action1];
+    }else if (indexPath.section==2){
+        return @[action2];
+    }
+    return nil;
+}
+
 
 
 // 自定义导航栏
@@ -155,6 +203,7 @@
     
     if(_navigationView == nil){
         _navigationView = [[UIView alloc]init];
+        _navigationView.userInteractionEnabled = YES;
         _navigationView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64+ [[UIApplication sharedApplication] statusBarFrame].size.height);
         
         _scaleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64+ [[UIApplication sharedApplication] statusBarFrame].size.height)];
@@ -172,9 +221,25 @@
         title.font = [UIFont systemFontOfSize:17];
         title.text = @"私人墓园";
         
+        UILabel *right_label = [[UILabel alloc]init];
+        right_label.userInteractionEnabled = YES;
+        [_navigationView addSubview:right_label];
+        [right_label mas_makeConstraints:^(MASConstraintMaker *make) {
+            make.centerY.mas_equalTo(title);
+            make.right.mas_equalTo(_navigationView).mas_offset(-10);;
+        }];
+        right_label.font = [UIFont systemFontOfSize:14];
+        right_label.text = @"快速建墓";
+        UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onclickRightMenu)];
+        [right_label addGestureRecognizer:gesture];
     }
     return _navigationView;
 }
 
+-(void)onclickRightMenu{
+    PrivateCreateViewController *controller = [[PrivateCreateViewController alloc]init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
+}
 
 @end
