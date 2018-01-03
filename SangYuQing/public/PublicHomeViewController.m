@@ -44,8 +44,8 @@
     [collectionView2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.view).mas_offset(-[[UIApplication sharedApplication] statusBarFrame].size.height);
         make.bottom.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.view).mas_offset(-[[UIApplication sharedApplication] statusBarFrame].size.height);
     }];
     
     [self.view addSubview:self.navigationView];

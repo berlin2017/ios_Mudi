@@ -130,6 +130,18 @@
 		04431FD11FF512DB00A2A116 /* HomeNavCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04431FD01FF512DB00A2A116 /* HomeNavCollectionViewCell.m */; };
 		047720A21FF72EBF00817528 /* PrivateTopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047720A01FF72EBF00817528 /* PrivateTopTableViewCell.m */; };
 		047720A31FF72EBF00817528 /* PrivateTopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047720A11FF72EBF00817528 /* PrivateTopTableViewCell.xib */; };
+		04F13F021FFCB950008B1C3B /* UserHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F001FFCB950008B1C3B /* UserHeaderTableViewCell.m */; };
+		04F13F031FFCB950008B1C3B /* UserHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F13F011FFCB950008B1C3B /* UserHeaderTableViewCell.xib */; };
+		04F13F061FFCC98E008B1C3B /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F051FFCC98E008B1C3B /* UserInfoViewController.m */; };
+		04F13F0A1FFCCB39008B1C3B /* UserInfoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F081FFCCB39008B1C3B /* UserInfoTableViewCell.m */; };
+		04F13F0B1FFCCB39008B1C3B /* UserInfoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F13F091FFCCB39008B1C3B /* UserInfoTableViewCell.xib */; };
+		04F13F0F1FFCCCF4008B1C3B /* UserInfoListCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F0D1FFCCCF4008B1C3B /* UserInfoListCell.m */; };
+		04F13F101FFCCCF4008B1C3B /* UserInfoListCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F13F0E1FFCCCF4008B1C3B /* UserInfoListCell.xib */; };
+		04F13F681FFCDA55008B1C3B /* address.txt in Resources */ = {isa = PBXBuildFile; fileRef = 04F13F611FFCDA55008B1C3B /* address.txt */; };
+		04F13F691FFCDA55008B1C3B /* City.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F621FFCDA55008B1C3B /* City.m */; };
+		04F13F6A1FFCDA55008B1C3B /* Province.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F661FFCDA55008B1C3B /* Province.m */; };
+		04F13F6B1FFCDA55008B1C3B /* AddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F671FFCDA55008B1C3B /* AddressPickerView.m */; };
+		04F13F6E1FFCDE7A008B1C3B /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F6D1FFCDE7A008B1C3B /* TestViewController.m */; };
 		04F59CDF1FFA3391009EEF96 /* PrivateMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F59CDE1FFA3391009EEF96 /* PrivateMoreViewController.m */; };
 		04F59CE21FFB06C8009EEF96 /* PrivateCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F59CE11FFB06C8009EEF96 /* PrivateCreateViewController.m */; };
 /* End PBXBuildFile section */
@@ -391,6 +403,26 @@
 		0477209F1FF72EBF00817528 /* PrivateTopTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateTopTableViewCell.h; sourceTree = "<group>"; };
 		047720A01FF72EBF00817528 /* PrivateTopTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateTopTableViewCell.m; sourceTree = "<group>"; };
 		047720A11FF72EBF00817528 /* PrivateTopTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivateTopTableViewCell.xib; sourceTree = "<group>"; };
+		04F13EFF1FFCB950008B1C3B /* UserHeaderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserHeaderTableViewCell.h; sourceTree = "<group>"; };
+		04F13F001FFCB950008B1C3B /* UserHeaderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserHeaderTableViewCell.m; sourceTree = "<group>"; };
+		04F13F011FFCB950008B1C3B /* UserHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserHeaderTableViewCell.xib; sourceTree = "<group>"; };
+		04F13F041FFCC98E008B1C3B /* UserInfoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoViewController.h; sourceTree = "<group>"; };
+		04F13F051FFCC98E008B1C3B /* UserInfoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoViewController.m; sourceTree = "<group>"; };
+		04F13F071FFCCB39008B1C3B /* UserInfoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoTableViewCell.h; sourceTree = "<group>"; };
+		04F13F081FFCCB39008B1C3B /* UserInfoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoTableViewCell.m; sourceTree = "<group>"; };
+		04F13F091FFCCB39008B1C3B /* UserInfoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserInfoTableViewCell.xib; sourceTree = "<group>"; };
+		04F13F0C1FFCCCF4008B1C3B /* UserInfoListCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserInfoListCell.h; sourceTree = "<group>"; };
+		04F13F0D1FFCCCF4008B1C3B /* UserInfoListCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserInfoListCell.m; sourceTree = "<group>"; };
+		04F13F0E1FFCCCF4008B1C3B /* UserInfoListCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserInfoListCell.xib; sourceTree = "<group>"; };
+		04F13F611FFCDA55008B1C3B /* address.txt */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = address.txt; sourceTree = "<group>"; };
+		04F13F621FFCDA55008B1C3B /* City.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = City.m; sourceTree = "<group>"; };
+		04F13F631FFCDA55008B1C3B /* AddressPickerView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = AddressPickerView.h; sourceTree = "<group>"; };
+		04F13F641FFCDA55008B1C3B /* Province.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = Province.h; sourceTree = "<group>"; };
+		04F13F651FFCDA55008B1C3B /* City.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = City.h; sourceTree = "<group>"; };
+		04F13F661FFCDA55008B1C3B /* Province.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = Province.m; sourceTree = "<group>"; };
+		04F13F671FFCDA55008B1C3B /* AddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressPickerView.m; sourceTree = "<group>"; };
+		04F13F6C1FFCDE7A008B1C3B /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
+		04F13F6D1FFCDE7A008B1C3B /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
 		04F59CDD1FFA3391009EEF96 /* PrivateMoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateMoreViewController.h; sourceTree = "<group>"; };
 		04F59CDE1FFA3391009EEF96 /* PrivateMoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateMoreViewController.m; sourceTree = "<group>"; };
 		04F59CE01FFB06C8009EEF96 /* PrivateCreateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateCreateViewController.h; sourceTree = "<group>"; };
@@ -499,6 +531,7 @@
 		04431DFA1FF4BCC200A2A116 /* libray */ = {
 			isa = PBXGroup;
 			children = (
+				04F13F601FFCDA55008B1C3B /* AddressPickerView */,
 				04431F971FF4F36500A2A116 /* MLTransition */,
 				04431F3E1FF4F30A00A2A116 /* DateTools */,
 				04431EF61FF4F01E00A2A116 /* iCarousel */,
@@ -759,8 +792,13 @@
 		04431EC11FF4D4B900A2A116 /* user */ = {
 			isa = PBXGroup;
 			children = (
+				04F13EFE1FFCB8E1008B1C3B /* view */,
 				04431EC21FF4D4C500A2A116 /* UserHomeViewController.h */,
 				04431EC31FF4D4C500A2A116 /* UserHomeViewController.m */,
+				04F13F041FFCC98E008B1C3B /* UserInfoViewController.h */,
+				04F13F051FFCC98E008B1C3B /* UserInfoViewController.m */,
+				04F13F6C1FFCDE7A008B1C3B /* TestViewController.h */,
+				04F13F6D1FFCDE7A008B1C3B /* TestViewController.m */,
 			);
 			path = user;
 			sourceTree = "<group>";
@@ -959,6 +997,37 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		04F13EFE1FFCB8E1008B1C3B /* view */ = {
+			isa = PBXGroup;
+			children = (
+				04F13EFF1FFCB950008B1C3B /* UserHeaderTableViewCell.h */,
+				04F13F001FFCB950008B1C3B /* UserHeaderTableViewCell.m */,
+				04F13F011FFCB950008B1C3B /* UserHeaderTableViewCell.xib */,
+				04F13F071FFCCB39008B1C3B /* UserInfoTableViewCell.h */,
+				04F13F081FFCCB39008B1C3B /* UserInfoTableViewCell.m */,
+				04F13F091FFCCB39008B1C3B /* UserInfoTableViewCell.xib */,
+				04F13F0C1FFCCCF4008B1C3B /* UserInfoListCell.h */,
+				04F13F0D1FFCCCF4008B1C3B /* UserInfoListCell.m */,
+				04F13F0E1FFCCCF4008B1C3B /* UserInfoListCell.xib */,
+			);
+			path = view;
+			sourceTree = "<group>";
+		};
+		04F13F601FFCDA55008B1C3B /* AddressPickerView */ = {
+			isa = PBXGroup;
+			children = (
+				04F13F611FFCDA55008B1C3B /* address.txt */,
+				04F13F621FFCDA55008B1C3B /* City.m */,
+				04F13F631FFCDA55008B1C3B /* AddressPickerView.h */,
+				04F13F641FFCDA55008B1C3B /* Province.h */,
+				04F13F651FFCDA55008B1C3B /* City.h */,
+				04F13F661FFCDA55008B1C3B /* Province.m */,
+				04F13F671FFCDA55008B1C3B /* AddressPickerView.m */,
+			);
+			name = AddressPickerView;
+			path = "../../../../Downloads/AddressPickerView-master/AddressPickerView/AddressPickerView";
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -1077,14 +1146,18 @@
 				04431EE61FF4DB6700A2A116 /* LICENSE in Resources */,
 				04431EF11FF4DB6700A2A116 /* README.md in Resources */,
 				04431E211FF4BD8F00A2A116 /* README.md in Resources */,
+				04F13F101FFCCCF4008B1C3B /* UserInfoListCell.xib in Resources */,
+				04F13F0B1FFCCB39008B1C3B /* UserInfoTableViewCell.xib in Resources */,
 				04203DA11FF5C3C1003AA051 /* HomeNews.xib in Resources */,
 				047720A31FF72EBF00817528 /* PrivateTopTableViewCell.xib in Resources */,
 				04431F531FF4F30A00A2A116 /* LICENSE in Resources */,
 				04431E201FF4BD8F00A2A116 /* LICENSE in Resources */,
 				04431F9D1FF4F36500A2A116 /* LICENSE in Resources */,
+				04F13F681FFCDA55008B1C3B /* address.txt in Resources */,
 				04431EFD1FF4F01E00A2A116 /* README.md in Resources */,
 				04431F551FF4F30A00A2A116 /* DateTools.bundle in Resources */,
 				04431EA21FF4BDAE00A2A116 /* LICENSE in Resources */,
+				04F13F031FFCB950008B1C3B /* UserHeaderTableViewCell.xib in Resources */,
 				04431E771FF4BDA600A2A116 /* README.md in Resources */,
 				04203DAE1FF645C7003AA051 /* Test.xib in Resources */,
 				04431DD01FF4B7BE00A2A116 /* Main.storyboard in Resources */,
@@ -1114,6 +1187,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				04431EA51FF4BDAE00A2A116 /* UIProgressView+AFNetworking.m in Sources */,
+				04F13F0F1FFCCCF4008B1C3B /* UserInfoListCell.m in Sources */,
 				04431F361FF4F17800A2A116 /* UIColor+Helper.m in Sources */,
 				04431F2D1FF4F17800A2A116 /* UIWebView+Helper.m in Sources */,
 				04431E241FF4BD8F00A2A116 /* UIImageView+HighlightedWebCache.m in Sources */,
@@ -1137,7 +1211,9 @@
 				04431EC41FF4D4C500A2A116 /* UserHomeViewController.m in Sources */,
 				04431F351FF4F17800A2A116 /* UIImageView+WebCacheExtension.m in Sources */,
 				04431F5B1FF4F30A00A2A116 /* DTTimePeriodCollection.m in Sources */,
+				04F13F6A1FFCDA55008B1C3B /* Province.m in Sources */,
 				04431E641FF4BDA600A2A116 /* MJRefreshConst.m in Sources */,
+				04F13F691FFCDA55008B1C3B /* City.m in Sources */,
 				04431E661FF4BDA600A2A116 /* UIScrollView+MJExtension.m in Sources */,
 				04431EB31FF4BDAE00A2A116 /* AFNetworkReachabilityManager.m in Sources */,
 				04431FD11FF512DB00A2A116 /* HomeNavCollectionViewCell.m in Sources */,
@@ -1154,6 +1230,7 @@
 				04431F5A1FF4F30A00A2A116 /* DTError.m in Sources */,
 				04431EB11FF4BDAE00A2A116 /* AFURLRequestSerialization.m in Sources */,
 				04431EAE1FF4BDAE00A2A116 /* AFURLConnectionOperation.m in Sources */,
+				04F13F6E1FFCDE7A008B1C3B /* TestViewController.m in Sources */,
 				04431E741FF4BDA600A2A116 /* MJRefreshBackFooter.m in Sources */,
 				04431EAB1FF4BDAE00A2A116 /* UIWebView+AFNetworking.m in Sources */,
 				04431F391FF4F17800A2A116 /* UIView+Helper.m in Sources */,
@@ -1172,8 +1249,10 @@
 				04431E6C1FF4BDA600A2A116 /* MJRefreshAutoStateFooter.m in Sources */,
 				04431E261FF4BD8F00A2A116 /* UIImage+GIF.m in Sources */,
 				04431EEE1FF4DB6700A2A116 /* MASConstraint.m in Sources */,
+				04F13F021FFCB950008B1C3B /* UserHeaderTableViewCell.m in Sources */,
 				04431E681FF4BDA600A2A116 /* UIView+MJExtension.m in Sources */,
 				04431EA61FF4BDAE00A2A116 /* UIRefreshControl+AFNetworking.m in Sources */,
+				04F13F0A1FFCCB39008B1C3B /* UserInfoTableViewCell.m in Sources */,
 				04431E2C1FF4BD8F00A2A116 /* NSData+ImageContentType.m in Sources */,
 				04431F9E1FF4F36500A2A116 /* MLTransition.m in Sources */,
 				04431EBC1FF4D49900A2A116 /* PrivateHomeViewController.m in Sources */,
@@ -1183,6 +1262,7 @@
 				04431DD81FF4B7BE00A2A116 /* main.m in Sources */,
 				04431EA81FF4BDAE00A2A116 /* UIImageView+AFNetworking.m in Sources */,
 				04431E251FF4BD8F00A2A116 /* SDWebImageDownloader.m in Sources */,
+				04F13F061FFCC98E008B1C3B /* UserInfoViewController.m in Sources */,
 				04431E2A1FF4BD8F00A2A116 /* SDImageCache.m in Sources */,
 				04431E691FF4BDA600A2A116 /* MJRefreshBackGifFooter.m in Sources */,
 				04431E281FF4BD8F00A2A116 /* SDWebImageCompat.m in Sources */,
@@ -1200,6 +1280,7 @@
 				04431E701FF4BDA600A2A116 /* MJRefreshStateHeader.m in Sources */,
 				04431F581FF4F30A00A2A116 /* DTTimePeriodGroup.m in Sources */,
 				04431EFE1FF4F01E00A2A116 /* iCarousel.m in Sources */,
+				04F13F6B1FFCDA55008B1C3B /* AddressPickerView.m in Sources */,
 				04431E6A1FF4BDA600A2A116 /* MJRefreshBackStateFooter.m in Sources */,
 				04203DA51FF5E997003AA051 /* GongMuCollectionViewCell.m in Sources */,
 				04431E761FF4BDA600A2A116 /* MJRefreshComponent.m in Sources */,

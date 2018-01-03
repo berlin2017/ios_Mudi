@@ -21,13 +21,13 @@
                 <autoresizingMask key="autoresizingMask"/>
                 <subviews>
                     <imageView userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" translatesAutoresizingMaskIntoConstraints="NO" id="ume-lz-mjn">
-                        <rect key="frame" x="0.0" y="0.0" width="100" height="133.5"/>
+                        <rect key="frame" x="5" y="0.0" width="95" height="127"/>
                         <constraints>
                             <constraint firstAttribute="width" secondItem="ume-lz-mjn" secondAttribute="height" multiplier="3:4" id="2Gf-MS-cR6"/>
                         </constraints>
                     </imageView>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SSC-G0-Of8">
-                        <rect key="frame" x="33" y="142" width="35.5" height="17"/>
+                        <rect key="frame" x="33" y="135.5" width="35.5" height="17"/>
                         <fontDescription key="fontDescription" type="system" pointSize="14"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -38,8 +38,8 @@
                 <constraint firstAttribute="trailing" secondItem="ume-lz-mjn" secondAttribute="trailing" id="0Ol-7t-evp"/>
                 <constraint firstItem="ume-lz-mjn" firstAttribute="top" secondItem="ttg-ZY-Lxa" secondAttribute="top" id="5kG-Ev-Dhk"/>
                 <constraint firstItem="SSC-G0-Of8" firstAttribute="centerX" secondItem="K2h-Re-DVo" secondAttribute="centerX" id="DB9-nd-YZI"/>
-                <constraint firstItem="ume-lz-mjn" firstAttribute="leading" secondItem="ttg-ZY-Lxa" secondAttribute="leading" id="Q5w-as-JjQ"/>
                 <constraint firstItem="SSC-G0-Of8" firstAttribute="top" secondItem="ume-lz-mjn" secondAttribute="bottom" constant="8.5" id="qyK-f1-6FE"/>
+                <constraint firstItem="ume-lz-mjn" firstAttribute="leading" secondItem="ttg-ZY-Lxa" secondAttribute="leading" constant="5" id="taN-oJ-7oI"/>
             </constraints>
             <viewLayoutGuide key="safeArea" id="K2h-Re-DVo"/>
             <size key="customSize" width="320" height="124"/>

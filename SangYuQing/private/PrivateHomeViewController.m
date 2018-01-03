@@ -33,7 +33,7 @@
     
     UITableView *tableview = [[UITableView alloc]init];
     [self.view addSubview:tableview];
-    tableview.backgroundColor = [UIColor clearColor];
+    tableview.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
     [tableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
         make.top.mas_equalTo(self.view).mas_offset(-[[UIApplication sharedApplication] statusBarFrame].size.height);
@@ -181,7 +181,7 @@
         //        [self presentViewController:vc animated:YES completion:nil];
     }];
 
-    action1.backgroundColor = [UIColor colorWithRed:0.9305 green:0.3394 blue:1.0 alpha:1.0];
+//    action1.backgroundColor = [UIColor colorWithRed:0.9305 green:0.3394 blue:1.0 alpha:1.0];
 
     UITableViewRowAction *action2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         NSLog(@"取消关注");

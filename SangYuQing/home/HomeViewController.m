@@ -39,17 +39,17 @@
     _scorllview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-tabBarHeight)];
     _scorllview.showsHorizontalScrollIndicator = NO;
     _scorllview.showsVerticalScrollIndicator = YES;
-//    _scorllview.scrollsToTop = NO;
+    //    _scorllview.scrollsToTop = NO;
     _scorllview.delegate = self;
     _scorllview.userInteractionEnabled = YES;
     [self.view addSubview:_scorllview];
-
+    
     
     _contentView = [[UIView alloc]init];
     _contentView.userInteractionEnabled = YES;
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
-                        
-                        
+    
+    
     [self.view setBackgroundColor:bgColor];
     [_scorllview addSubview:_contentView];
     
@@ -60,7 +60,7 @@
     
     
     //导航
-     UICollectionViewFlowLayout *collectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
+    UICollectionViewFlowLayout *collectionViewLayout = [[UICollectionViewFlowLayout alloc] init];
     collectionViewLayout.scrollDirection = UICollectionViewScrollDirectionVertical;
     collectionViewLayout.minimumInteritemSpacing = 10;
     collectionViewLayout.minimumLineSpacing = 0;
@@ -70,25 +70,24 @@
     _nav_collectionview = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:collectionViewLayout];
     _nav_collectionview.bounces = NO;
     _nav_collectionview.scrollsToTop = NO;
-//    _nav_collectionview.backgroundColor = [UIColor colorWithHexRGB:0x000000 alpha:0.1];
-    _nav_collectionview.backgroundColor = [UIColor clearColor];
+    _nav_collectionview.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
+//    _nav_collectionview.backgroundColor = [UIColor clearColor];
     [_nav_collectionview registerClass:[HomeNavCollectionViewCell class] forCellWithReuseIdentifier:@"nav_cell"];
     _nav_collectionview.dataSource = self;
     _nav_collectionview.delegate = self;
     _nav_collectionview.tag = 1000;
     [self.contentView addSubview:_nav_collectionview];
-
+    
     [_nav_collectionview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
         make.top.mas_equalTo(bannerView.mas_bottom);
-        make.height.mas_equalTo(80*2);
+        make.height.mas_equalTo(80);
     }];
     
     //最新
     UIView *new_header = [[UIView alloc]init];
-//    new_header.backgroundColor = [UIColor colorWithHexRGB:0x000000 alpha:0.1];
-    new_header.backgroundColor = [UIColor clearColor];
+    new_header.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
     [_contentView addSubview:new_header];
     [new_header mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
@@ -109,24 +108,24 @@
     UIImageView *bottom_imageview = [[UIImageView alloc]init];
     [new_header addSubview:bottom_imageview];
     [bottom_imageview mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.top.mas_equalTo(imageView);
+        //        make.top.mas_equalTo(imageView);
         make.bottom.mas_equalTo(new_header).mas_offset(-5);
         make.centerX.mas_equalTo(new_header);
         make.left.mas_equalTo(new_header).mas_offset(10);
         make.right.mas_equalTo(new_header).mas_offset(-10);
     }];
     bottom_imageview.image = [UIImage imageNamed:@"new_title_bottom"];
-//    bottom_imageview.contentMode = UIViewContentModeScaleAspectFit;
+    //    bottom_imageview.contentMode = UIViewContentModeScaleAspectFit;
     
     
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     layout.itemSize = CGSizeMake(100, 170);
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.minimumLineSpacing = 2;
-
+    
     UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
-//    collectionView.backgroundColor = [UIColor colorWithHexRGB:0x000000 alpha:0.1];
-    collectionView.backgroundColor = [UIColor clearColor];
+    collectionView.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
+//    collectionView.backgroundColor = [UIColor clearColor];
     collectionView.delegate = self;
     collectionView.dataSource = self;
     collectionView.scrollsToTop = NO;
@@ -137,7 +136,7 @@
     [_contentView addSubview:collectionView];
     
     [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view).mas_offset(10);
+        make.left.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
         make.top.mas_equalTo(new_header.mas_bottom);
         make.height.mas_equalTo(170);
@@ -146,8 +145,7 @@
     //公墓
     UIView *new_header2 = [[UIView alloc]init];
     new_header2.userInteractionEnabled = YES;
-//    new_header2.backgroundColor = [UIColor colorWithHexRGB:0x000000 alpha:0.1];
-    new_header2.backgroundColor = [UIColor clearColor];
+    new_header2.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
     [_contentView addSubview:new_header2];
     [new_header2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
@@ -189,15 +187,15 @@
     UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(labelClick)];
     [label addGestureRecognizer:labelTapGestureRecognizer];
     
-
+    
     UICollectionViewFlowLayout *layout2 = [UICollectionViewFlowLayout new];
     layout2.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width)/3, ([UIScreen mainScreen].bounds.size.width)/3/3*4+45);
     layout2.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout2.minimumLineSpacing = 2;
     
     UICollectionView *collectionView2 = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout2];
-//    collectionView2.backgroundColor = [UIColor colorWithHexRGB:0x000000 alpha:0.1];
-    collectionView2.backgroundColor = [UIColor clearColor];
+    collectionView2.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
+//    collectionView2.backgroundColor = [UIColor clearColor];
     collectionView2.delegate = self;
     collectionView2.dataSource = self;
     collectionView2.scrollsToTop = NO;
@@ -215,7 +213,7 @@
     }];
     
     [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.edges.mas_equalTo(bannerView);
+        //        make.edges.mas_equalTo(bannerView);
         make.top.mas_equalTo(self.scorllview);
         make.bottom.mas_equalTo(collectionView2);
         make.left.mas_equalTo(bannerView);
@@ -249,10 +247,10 @@
         _navigationView.frame = CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64+ [[UIApplication sharedApplication] statusBarFrame].size.height);
         
         _scaleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64+ [[UIApplication sharedApplication] statusBarFrame].size.height)];
-//        _scaleImageView.contentMode = UIViewContentModeScaleAspectFill;
-//        _scaleImageView.clipsToBounds = YES;
+        //        _scaleImageView.contentMode = UIViewContentModeScaleAspectFill;
+        //        _scaleImageView.clipsToBounds = YES;
         _scaleImageView.image = [UIImage imageNamed:@"bar_bg"];
-         _scaleImageView.alpha = 0;
+        _scaleImageView.alpha = 0;
         [_navigationView addSubview:_scaleImageView];
         
         UIImageView *imageview = [[UIImageView alloc] initWithImage:[UIImage imageNamed:@"logo"]];
@@ -263,7 +261,7 @@
             make.height.mas_equalTo(30);
             make.width.mas_equalTo(60);
         }];
-       
+        
         
     }
     return _navigationView;
@@ -286,15 +284,15 @@
 
 - (NSString *)bannerView:(HZBannerView *)bannerView imageTextAtIndex:(NSInteger)index
 {
-//    return @"this is title!";
+    //    return @"this is title!";
     return nil;
 }
 
 - (void)bannerView:(HZBannerView *)bannerView didClickIndex:(NSInteger)index
 {
-//    ZANNewsModel *model = _bannerArray[index];
-//    [self analyzeNewsModel:model];
-//    [ZANReadNewsManager readNewsWithId:model.newsId];
+    //    ZANNewsModel *model = _bannerArray[index];
+    //    [self analyzeNewsModel:model];
+    //    [ZANReadNewsManager readNewsWithId:model.newsId];
 }
 
 
@@ -305,7 +303,7 @@
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
     if (collectionView.tag==1000) {
-        return 6;
+        return 2;
     }else{
         return 10;
     }
@@ -323,7 +321,7 @@
         return cell;
     }else if (collectionView.tag==3000){
         GongMuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"homeGongmu" forIndexPath:indexPath];
-        cell.contentView.backgroundColor = [UIColor clearColor];
+        cell.contentView.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
         [cell configWithModel];
         return cell;
     }
