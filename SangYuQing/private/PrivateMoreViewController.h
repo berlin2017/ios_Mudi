@@ -10,4 +10,5 @@
 
 @interface PrivateMoreViewController : UIViewController
 
+@property(nonatomic,copy)NSString * titleName;
 @end

@@ -10,4 +10,7 @@
 
 @interface UserInfoTableViewCell : UITableViewCell
 
+-(void)setPhotoWithUrl:(NSString *)url;
+
+-(void)setPhotoWithImage:(UIImage *)image;
 @end

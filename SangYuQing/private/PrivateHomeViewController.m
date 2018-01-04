@@ -33,7 +33,7 @@
     
     UITableView *tableview = [[UITableView alloc]init];
     [self.view addSubview:tableview];
-    tableview.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
+    tableview.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
     [tableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
         make.top.mas_equalTo(self.view).mas_offset(-[[UIApplication sharedApplication] statusBarFrame].size.height);

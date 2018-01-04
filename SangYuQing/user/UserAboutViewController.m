@@ -1,76 +1,71 @@
 //
-//  PrivateMoreViewController.m
+//  UserAboutViewController.m
 //  SangYuQing
 //
-//  Created by mac on 2018/1/1.
+//  Created by mac on 2018/1/4.
 //  Copyright © 2018年 mac. All rights reserved.
 //
 
-#import "PrivateMoreViewController.h"
-#import "PrivateTableViewCell.h"
-#import "PrivateTopTableViewCell.h"
-#import "UIColor+Helper.h"
+#import "UserAboutViewController.h"
 
-@interface PrivateMoreViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface UserAboutViewController ()
 
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
-
 @end
 
-@implementation PrivateMoreViewController
+@implementation UserAboutViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationController.navigationBarHidden = YES;
-    //    UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
-    //    [self.view setBackgroundColor:bgColor];
+    UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
+    [self.view setBackgroundColor:bgColor];
     [self.view addSubview:self.navigationView];
     
-    UITableView *tableview = [[UITableView alloc]init];
-    [self.view addSubview:tableview];
-//    tableview.backgroundColor = [UIColor clearColor];
-    [tableview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.left.mas_equalTo(self.view);
-        make.right.mas_equalTo(self.view);
-        make.bottom.mas_equalTo(self.view);
-        make.top.mas_equalTo(self.navigationView.mas_bottom);
+    UIImageView *image = [[UIImageView alloc]init];
+    [self.view addSubview:image];
+    [image mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.navigationView.mas_bottom).mas_offset(50);
+        make.height.mas_equalTo(100);
+        make.width.mas_equalTo(100);
     }];
-    tableview.delegate = self;
-    tableview.dataSource = self;
-    [tableview registerNib:[UINib nibWithNibName:@"PrivateTableViewCell" bundle:nil] forCellReuseIdentifier:@"siren_cell"];
-    //    [tableview registerNib:[UINib nibWithNibName:@"PrivateTopTableViewCell" bundle:nil] forCellReuseIdentifier:@"siren_top_cell"];
+    image.image = [UIImage imageNamed:@"AppIcon"];
+    
+    UILabel *company = [[UILabel alloc]init];
+    [self.view addSubview:company];
+    [company mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view);
+        make.top.mas_equalTo(image.mas_bottom).mas_offset(20);
+    }];
+    company.text = @"华晚集团旗下品牌";
+    company.font = [UIFont systemFontOfSize:19];
+    
+    UILabel *app_info = [[UILabel alloc]init];
+    [self.view addSubview:app_info];
+    [app_info mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view);
+        make.top.mas_equalTo(company.mas_bottom).mas_offset(20);
+    }];
+    app_info.text = @"桑榆情ios版 1.0";
+    app_info.font = [UIFont systemFontOfSize:15];
     
     
+    UILabel *info = [[UILabel alloc]init];
+    [self.view addSubview:info];
+    [info mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.centerX.mas_equalTo(self.view);
+        make.top.mas_equalTo(app_info.mas_bottom).mas_offset(100);
+        make.left.mas_equalTo(self.view).mas_offset(10);
+        make.right.mas_equalTo(self.view).mas_offset(-10);
+    }];
+    info.textColor = [UIColor darkGrayColor];
+    info.numberOfLines = 0;//表示label可以多行显示
+    info.text = @"支付密码必须为6位数字组合。\n您可依次进入 '功能列表' -> '安全中心' 修改支付密码。";
+    info.font = [UIFont systemFontOfSize:17];
 }
-
-- (NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 5;
-}
-
--(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 1;
-}
-
--(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    PrivateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"siren_cell" forIndexPath:indexPath];
-//    cell.backgroundColor = [UIColor clearColor];
-    return cell;
-}
-
-
-
--(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-    
-    return 160;
-}
-
--(CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section{
-    
-    return 0;
-}
-
 
 // 自定义导航栏
 -(UIView *)navigationView{
@@ -81,7 +76,7 @@
         
         _scaleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64+ [[UIApplication sharedApplication] statusBarFrame].size.height)];
         _scaleImageView.image = [UIImage imageNamed:@"bar_bg"];
-//        _scaleImageView.alpha = 0;
+        _scaleImageView.alpha = 1;
         [_navigationView addSubview:_scaleImageView];
         
         UILabel *title = [[UILabel alloc]init];
@@ -92,13 +87,7 @@
             make.height.mas_equalTo(30);
         }];
         title.font = [UIFont systemFontOfSize:17];
-        if (_titleName) {
-            title.text = _titleName;
-        }else{
-            title.text = @"私人墓园";
-        }
-        
-        
+        title.text = @"关于桑榆情";
         UIImageView *back_imageview = [[UIImageView alloc]init];
         [_navigationView addSubview:back_imageview];
         [back_imageview mas_makeConstraints:^(MASConstraintMaker *make) {

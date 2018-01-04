@@ -142,6 +142,16 @@
 		04F13F6A1FFCDA55008B1C3B /* Province.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F661FFCDA55008B1C3B /* Province.m */; };
 		04F13F6B1FFCDA55008B1C3B /* AddressPickerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F671FFCDA55008B1C3B /* AddressPickerView.m */; };
 		04F13F6E1FFCDE7A008B1C3B /* TestViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F6D1FFCDE7A008B1C3B /* TestViewController.m */; };
+		04F13F711FFE7B3D008B1C3B /* UserSettingsViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F701FFE7B3D008B1C3B /* UserSettingsViewController.m */; };
+		04F13F741FFE836A008B1C3B /* UserAboutViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F731FFE836A008B1C3B /* UserAboutViewController.m */; };
+		04F13F771FFE87DF008B1C3B /* UserRuleViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F761FFE87DF008B1C3B /* UserRuleViewController.m */; };
+		04F13F791FFE8F00008B1C3B /* UIView+ToastHelper.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F781FFE8EFF008B1C3B /* UIView+ToastHelper.m */; };
+		04F13F811FFE8F5D008B1C3B /* license in Resources */ = {isa = PBXBuildFile; fileRef = 04F13F7B1FFE8F5C008B1C3B /* license */; };
+		04F13F821FFE8F5D008B1C3B /* UIView+Toast.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F7F1FFE8F5C008B1C3B /* UIView+Toast.m */; };
+		04F13F831FFE8F5D008B1C3B /* README.markdown in Resources */ = {isa = PBXBuildFile; fileRef = 04F13F801FFE8F5C008B1C3B /* README.markdown */; };
+		04F13F871FFE90FA008B1C3B /* UserLoginViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F851FFE90FA008B1C3B /* UserLoginViewController.m */; };
+		04F13F8A1FFE91AF008B1C3B /* user.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04F13F891FFE91AF008B1C3B /* user.storyboard */; };
+		04F13F8D1FFE9D0D008B1C3B /* UserRegisterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F8C1FFE9D0D008B1C3B /* UserRegisterViewController.m */; };
 		04F59CDF1FFA3391009EEF96 /* PrivateMoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F59CDE1FFA3391009EEF96 /* PrivateMoreViewController.m */; };
 		04F59CE21FFB06C8009EEF96 /* PrivateCreateViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F59CE11FFB06C8009EEF96 /* PrivateCreateViewController.m */; };
 /* End PBXBuildFile section */
@@ -423,6 +433,22 @@
 		04F13F671FFCDA55008B1C3B /* AddressPickerView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = AddressPickerView.m; sourceTree = "<group>"; };
 		04F13F6C1FFCDE7A008B1C3B /* TestViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = TestViewController.h; sourceTree = "<group>"; };
 		04F13F6D1FFCDE7A008B1C3B /* TestViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = TestViewController.m; sourceTree = "<group>"; };
+		04F13F6F1FFE7B3D008B1C3B /* UserSettingsViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserSettingsViewController.h; sourceTree = "<group>"; };
+		04F13F701FFE7B3D008B1C3B /* UserSettingsViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserSettingsViewController.m; sourceTree = "<group>"; };
+		04F13F721FFE836A008B1C3B /* UserAboutViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserAboutViewController.h; sourceTree = "<group>"; };
+		04F13F731FFE836A008B1C3B /* UserAboutViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserAboutViewController.m; sourceTree = "<group>"; };
+		04F13F751FFE87DF008B1C3B /* UserRuleViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserRuleViewController.h; sourceTree = "<group>"; };
+		04F13F761FFE87DF008B1C3B /* UserRuleViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserRuleViewController.m; sourceTree = "<group>"; };
+		04F13F781FFE8EFF008B1C3B /* UIView+ToastHelper.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+ToastHelper.m"; sourceTree = "<group>"; };
+		04F13F7B1FFE8F5C008B1C3B /* license */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = license; sourceTree = "<group>"; };
+		04F13F7E1FFE8F5C008B1C3B /* UIView+Toast.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = "UIView+Toast.h"; sourceTree = "<group>"; };
+		04F13F7F1FFE8F5C008B1C3B /* UIView+Toast.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = "UIView+Toast.m"; sourceTree = "<group>"; };
+		04F13F801FFE8F5C008B1C3B /* README.markdown */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = net.daringfireball.markdown; path = README.markdown; sourceTree = "<group>"; };
+		04F13F841FFE90FA008B1C3B /* UserLoginViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserLoginViewController.h; sourceTree = "<group>"; };
+		04F13F851FFE90FA008B1C3B /* UserLoginViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserLoginViewController.m; sourceTree = "<group>"; };
+		04F13F891FFE91AF008B1C3B /* user.storyboard */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; path = user.storyboard; sourceTree = "<group>"; };
+		04F13F8B1FFE9D0D008B1C3B /* UserRegisterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserRegisterViewController.h; sourceTree = "<group>"; };
+		04F13F8C1FFE9D0D008B1C3B /* UserRegisterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserRegisterViewController.m; sourceTree = "<group>"; };
 		04F59CDD1FFA3391009EEF96 /* PrivateMoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateMoreViewController.h; sourceTree = "<group>"; };
 		04F59CDE1FFA3391009EEF96 /* PrivateMoreViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateMoreViewController.m; sourceTree = "<group>"; };
 		04F59CE01FFB06C8009EEF96 /* PrivateCreateViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateCreateViewController.h; sourceTree = "<group>"; };
@@ -531,6 +557,7 @@
 		04431DFA1FF4BCC200A2A116 /* libray */ = {
 			isa = PBXGroup;
 			children = (
+				04F13F7A1FFE8F5C008B1C3B /* Toast */,
 				04F13F601FFCDA55008B1C3B /* AddressPickerView */,
 				04431F971FF4F36500A2A116 /* MLTransition */,
 				04431F3E1FF4F30A00A2A116 /* DateTools */,
@@ -799,6 +826,16 @@
 				04F13F051FFCC98E008B1C3B /* UserInfoViewController.m */,
 				04F13F6C1FFCDE7A008B1C3B /* TestViewController.h */,
 				04F13F6D1FFCDE7A008B1C3B /* TestViewController.m */,
+				04F13F6F1FFE7B3D008B1C3B /* UserSettingsViewController.h */,
+				04F13F701FFE7B3D008B1C3B /* UserSettingsViewController.m */,
+				04F13F721FFE836A008B1C3B /* UserAboutViewController.h */,
+				04F13F731FFE836A008B1C3B /* UserAboutViewController.m */,
+				04F13F751FFE87DF008B1C3B /* UserRuleViewController.h */,
+				04F13F761FFE87DF008B1C3B /* UserRuleViewController.m */,
+				04F13F841FFE90FA008B1C3B /* UserLoginViewController.h */,
+				04F13F851FFE90FA008B1C3B /* UserLoginViewController.m */,
+				04F13F8B1FFE9D0D008B1C3B /* UserRegisterViewController.h */,
+				04F13F8C1FFE9D0D008B1C3B /* UserRegisterViewController.m */,
 			);
 			path = user;
 			sourceTree = "<group>";
@@ -888,6 +925,7 @@
 		04431F021FF4F17800A2A116 /* Category */ = {
 			isa = PBXGroup;
 			children = (
+				04F13F781FFE8EFF008B1C3B /* UIView+ToastHelper.m */,
 				04431F031FF4F17800A2A116 /* NSDate+Helper.m */,
 				04431F051FF4F17800A2A116 /* NSFileManager+Helper.m */,
 				04431F061FF4F17800A2A116 /* UIWebView+Helper.m */,
@@ -1009,6 +1047,7 @@
 				04F13F0C1FFCCCF4008B1C3B /* UserInfoListCell.h */,
 				04F13F0D1FFCCCF4008B1C3B /* UserInfoListCell.m */,
 				04F13F0E1FFCCCF4008B1C3B /* UserInfoListCell.xib */,
+				04F13F891FFE91AF008B1C3B /* user.storyboard */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -1026,6 +1065,33 @@
 			);
 			name = AddressPickerView;
 			path = "../../../../Downloads/AddressPickerView-master/AddressPickerView/AddressPickerView";
+			sourceTree = "<group>";
+		};
+		04F13F7A1FFE8F5C008B1C3B /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				04F13F7B1FFE8F5C008B1C3B /* license */,
+				04F13F7C1FFE8F5C008B1C3B /* Toast */,
+				04F13F801FFE8F5C008B1C3B /* README.markdown */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
+		04F13F7C1FFE8F5C008B1C3B /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				04F13F7D1FFE8F5C008B1C3B /* Toast */,
+			);
+			path = Toast;
+			sourceTree = "<group>";
+		};
+		04F13F7D1FFE8F5C008B1C3B /* Toast */ = {
+			isa = PBXGroup;
+			children = (
+				04F13F7E1FFE8F5C008B1C3B /* UIView+Toast.h */,
+				04F13F7F1FFE8F5C008B1C3B /* UIView+Toast.m */,
+			);
+			path = Toast;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -1138,6 +1204,7 @@
 				04431DD51FF4B7BE00A2A116 /* LaunchScreen.storyboard in Resources */,
 				04203DA61FF5E997003AA051 /* GongMuCollectionViewCell.xib in Resources */,
 				04431EA31FF4BDAE00A2A116 /* README.md in Resources */,
+				04F13F811FFE8F5D008B1C3B /* license in Resources */,
 				04431F9F1FF4F36500A2A116 /* README.md in Resources */,
 				04431E651FF4BDA600A2A116 /* MJRefresh.bundle in Resources */,
 				04431EFC1FF4F01E00A2A116 /* LICENCE.md in Resources */,
@@ -1155,10 +1222,12 @@
 				04431F9D1FF4F36500A2A116 /* LICENSE in Resources */,
 				04F13F681FFCDA55008B1C3B /* address.txt in Resources */,
 				04431EFD1FF4F01E00A2A116 /* README.md in Resources */,
+				04F13F8A1FFE91AF008B1C3B /* user.storyboard in Resources */,
 				04431F551FF4F30A00A2A116 /* DateTools.bundle in Resources */,
 				04431EA21FF4BDAE00A2A116 /* LICENSE in Resources */,
 				04F13F031FFCB950008B1C3B /* UserHeaderTableViewCell.xib in Resources */,
 				04431E771FF4BDA600A2A116 /* README.md in Resources */,
+				04F13F831FFE8F5D008B1C3B /* README.markdown in Resources */,
 				04203DAE1FF645C7003AA051 /* Test.xib in Resources */,
 				04431DD01FF4B7BE00A2A116 /* Main.storyboard in Resources */,
 				04203DAC1FF62E5C003AA051 /* PrivateTableViewCell.xib in Resources */,
@@ -1200,10 +1269,12 @@
 				04431EE71FF4DB6700A2A116 /* NSLayoutConstraint+MASDebugAdditions.m in Sources */,
 				04431EED1FF4DB6700A2A116 /* View+MASAdditions.m in Sources */,
 				04431E671FF4BDA600A2A116 /* NSBundle+MJRefresh.m in Sources */,
+				04F13F711FFE7B3D008B1C3B /* UserSettingsViewController.m in Sources */,
 				04431E2F1FF4BD8F00A2A116 /* UIButton+WebCache.m in Sources */,
 				04431F3A1FF4F17800A2A116 /* UIButton+Helper.m in Sources */,
 				04431F311FF4F17800A2A116 /* NSURL+Helper.m in Sources */,
 				04431F561FF4F30A00A2A116 /* DTTimePeriod.m in Sources */,
+				04F13F771FFE87DF008B1C3B /* UserRuleViewController.m in Sources */,
 				04431DCD1FF4B7BE00A2A116 /* ViewController.m in Sources */,
 				04431EAF1FF4BDAE00A2A116 /* AFURLSessionManager.m in Sources */,
 				04431E6E1FF4BDA600A2A116 /* MJRefreshAutoNormalFooter.m in Sources */,
@@ -1233,6 +1304,7 @@
 				04F13F6E1FFCDE7A008B1C3B /* TestViewController.m in Sources */,
 				04431E741FF4BDA600A2A116 /* MJRefreshBackFooter.m in Sources */,
 				04431EAB1FF4BDAE00A2A116 /* UIWebView+AFNetworking.m in Sources */,
+				04F13F871FFE90FA008B1C3B /* UserLoginViewController.m in Sources */,
 				04431F391FF4F17800A2A116 /* UIView+Helper.m in Sources */,
 				04431EE81FF4DB6700A2A116 /* ViewController+MASAdditions.m in Sources */,
 				04431EB81FF4D44600A2A116 /* HomeViewController.m in Sources */,
@@ -1263,16 +1335,20 @@
 				04431EA81FF4BDAE00A2A116 /* UIImageView+AFNetworking.m in Sources */,
 				04431E251FF4BD8F00A2A116 /* SDWebImageDownloader.m in Sources */,
 				04F13F061FFCC98E008B1C3B /* UserInfoViewController.m in Sources */,
+				04F13F8D1FFE9D0D008B1C3B /* UserRegisterViewController.m in Sources */,
 				04431E2A1FF4BD8F00A2A116 /* SDImageCache.m in Sources */,
 				04431E691FF4BDA600A2A116 /* MJRefreshBackGifFooter.m in Sources */,
 				04431E281FF4BD8F00A2A116 /* SDWebImageCompat.m in Sources */,
 				04431E2E1FF4BD8F00A2A116 /* UIView+WebCacheOperation.m in Sources */,
 				04431F341FF4F17800A2A116 /* UIImage+Helper.m in Sources */,
+				04F13F741FFE836A008B1C3B /* UserAboutViewController.m in Sources */,
 				04431EEF1FF4DB6700A2A116 /* MASViewConstraint.m in Sources */,
 				04431EAA1FF4BDAE00A2A116 /* UIActivityIndicatorView+AFNetworking.m in Sources */,
 				04431F591FF4F30A00A2A116 /* DTConstants.m in Sources */,
+				04F13F821FFE8F5D008B1C3B /* UIView+Toast.m in Sources */,
 				04431F331FF4F17800A2A116 /* NSAttributedString+Helper.m in Sources */,
 				04431E631FF4BDA600A2A116 /* UIScrollView+MJRefresh.m in Sources */,
+				04F13F791FFE8F00008B1C3B /* UIView+ToastHelper.m in Sources */,
 				04203DAB1FF62E5C003AA051 /* PrivateTableViewCell.m in Sources */,
 				04431EEB1FF4DB6700A2A116 /* MASLayoutConstraint.m in Sources */,
 				04431EA41FF4BDAE00A2A116 /* UIAlertView+AFNetworking.m in Sources */,

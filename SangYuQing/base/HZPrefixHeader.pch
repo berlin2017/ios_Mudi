@@ -19,6 +19,7 @@
 #import "UIKit+AFNetworking.h"
 #import "UIImageView+WebCache.h"
 #import "DateTools.h"
+#import "UIView+Toast.h"
 //#import "Mantle.h"
 
 //#import "DKNightVersion.h"

@@ -70,7 +70,7 @@
     _nav_collectionview = [[UICollectionView alloc] initWithFrame:CGRectZero collectionViewLayout:collectionViewLayout];
     _nav_collectionview.bounces = NO;
     _nav_collectionview.scrollsToTop = NO;
-    _nav_collectionview.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
+    _nav_collectionview.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
 //    _nav_collectionview.backgroundColor = [UIColor clearColor];
     [_nav_collectionview registerClass:[HomeNavCollectionViewCell class] forCellWithReuseIdentifier:@"nav_cell"];
     _nav_collectionview.dataSource = self;
@@ -87,7 +87,7 @@
     
     //最新
     UIView *new_header = [[UIView alloc]init];
-    new_header.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
+    new_header.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
     [_contentView addSubview:new_header];
     [new_header mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
@@ -124,7 +124,7 @@
     layout.minimumLineSpacing = 2;
     
     UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
-    collectionView.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
+    collectionView.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
 //    collectionView.backgroundColor = [UIColor clearColor];
     collectionView.delegate = self;
     collectionView.dataSource = self;
@@ -145,7 +145,7 @@
     //公墓
     UIView *new_header2 = [[UIView alloc]init];
     new_header2.userInteractionEnabled = YES;
-    new_header2.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
+    new_header2.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
     [_contentView addSubview:new_header2];
     [new_header2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
@@ -194,7 +194,7 @@
     layout2.minimumLineSpacing = 2;
     
     UICollectionView *collectionView2 = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout2];
-    collectionView2.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
+    collectionView2.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
 //    collectionView2.backgroundColor = [UIColor clearColor];
     collectionView2.delegate = self;
     collectionView2.dataSource = self;
@@ -321,7 +321,7 @@
         return cell;
     }else if (collectionView.tag==3000){
         GongMuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"homeGongmu" forIndexPath:indexPath];
-        cell.contentView.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
+        cell.contentView.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
         [cell configWithModel];
         return cell;
     }

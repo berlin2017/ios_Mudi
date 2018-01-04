@@ -11,6 +11,9 @@
 #import "UserHeaderTableViewCell.h"
 #import "UserInfoViewController.h"
 #import "TestViewController.h"
+#import "PrivateMoreViewController.h"
+#import "UserSettingsViewController.h"
+#import "UserLoginViewController.h"
 
 
 @interface UserHomeViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -103,7 +106,7 @@
     if (cell==nil) {
         cell = [[UITableViewCell alloc]initWithStyle:UITableViewCellStyleValue1 reuseIdentifier:@"user_cell"];
     }
-    cell.backgroundColor = [UIColor colorWithHexString:@"D9D9D9"];
+    cell.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
     cell.accessoryType = UITableViewCellAccessoryDisclosureIndicator;
     
     switch (indexPath.section) {
@@ -114,11 +117,11 @@
             break;
         case 2:
             if(indexPath.row){
-                cell.imageView.image = [UIImage imageNamed:@"user_siren"];
-                cell.textLabel.text = @"私人墓园";
-            }else{
                 cell.imageView.image = [UIImage imageNamed:@"user_like"];
                 cell.textLabel.text = @"我的关注";
+            }else{
+                cell.imageView.image = [UIImage imageNamed:@"user_siren"];
+                cell.textLabel.text = @"私人墓园";
             }
             break;
         case 3:
@@ -157,21 +160,36 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
         case 0:{
-            UserInfoViewController *controller = [[UserInfoViewController alloc]init];
-//             TestViewController *controller = [[TestViewController alloc]init];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
+//            UserInfoViewController *controller = [[UserInfoViewController alloc]init];
+////             TestViewController *controller = [[TestViewController alloc]init];
+//            controller.hidesBottomBarWhenPushed = YES;
+//            [self.navigationController pushViewController:controller animated:YES];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [self.navigationController pushViewController:viewController animated:YES];
             break;
         }
         case 1:
             
             break;
         case 2:
-            
+            if(indexPath.row){
+                PrivateMoreViewController *controller = [[PrivateMoreViewController alloc]init];
+                controller.hidesBottomBarWhenPushed = YES;
+                controller.titleName = @"我的关注";
+                [self.navigationController pushViewController:controller animated:YES];
+            }else{
+                PrivateMoreViewController *controller = [[PrivateMoreViewController alloc]init];
+                controller.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:controller animated:YES];
+            }
             break;
-        case 3:
-            
+        case 3:{
+            UserSettingsViewController *controller = [[UserSettingsViewController alloc]init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
             break;
+        }
         default:
             break;
     }
