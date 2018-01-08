@@ -8,11 +8,13 @@
 
 #import "UserLoginViewController.h"
 #import "UserRegisterViewController.h"
+#import "UserFrogetPassViewController.h"
 
 @interface UserLoginViewController (){
     
     __weak IBOutlet UIButton *login_btn;
     __weak IBOutlet UIButton *register_btn;
+    __weak IBOutlet UILabel *forget_label;
 }
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
@@ -34,9 +36,20 @@
     register_btn.layer.borderWidth = 1;
     register_btn.layer.borderColor = [UIColor blackColor].CGColor;
     [register_btn addTarget:self action:@selector(toRegister) forControlEvents:UIControlEventTouchUpInside];
+    UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(toFroget)];
+    forget_label.userInteractionEnabled = YES;
+    [forget_label addGestureRecognizer:tap];
     
 //    [self.view addSubview:self.navigationView];
-    
+    self.view.userInteractionEnabled = YES;
+    UITapGestureRecognizer *key_recognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKey)];
+    [self.view addGestureRecognizer:key_recognizer];
+}
+
+-(void)toFroget{
+    UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+    UserFrogetPassViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_froget"];
+    [self.navigationController pushViewController:viewController animated:YES];
 }
 
 -(void)toRegister{
@@ -84,5 +97,9 @@
 
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
+}
+
+-(void)hideKey{
+    [self.view endEditing:YES];
 }
 @end

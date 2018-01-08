@@ -14,6 +14,7 @@
 #import "PrivateMoreViewController.h"
 #import "UserSettingsViewController.h"
 #import "UserLoginViewController.h"
+#import "UserScoreViewController.h"
 
 
 @interface UserHomeViewController ()<UITableViewDelegate,UITableViewDataSource>
@@ -160,18 +161,22 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
         case 0:{
-//            UserInfoViewController *controller = [[UserInfoViewController alloc]init];
-////             TestViewController *controller = [[TestViewController alloc]init];
-//            controller.hidesBottomBarWhenPushed = YES;
-//            [self.navigationController pushViewController:controller animated:YES];
+            //            UserInfoViewController *controller = [[UserInfoViewController alloc]init];
+            ////             TestViewController *controller = [[TestViewController alloc]init];
+            //            controller.hidesBottomBarWhenPushed = YES;
+            //            [self.navigationController pushViewController:controller animated:YES];
             UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
             UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [viewController setHidesBottomBarWhenPushed:YES];
             [self.navigationController pushViewController:viewController animated:YES];
             break;
         }
-        case 1:
-            
+        case 1:{
+            UserScoreViewController *controller = [[UserScoreViewController alloc]init];
+            controller.hidesBottomBarWhenPushed = YES;
+            [self.navigationController pushViewController:controller animated:YES];
             break;
+        }
         case 2:
             if(indexPath.row){
                 PrivateMoreViewController *controller = [[PrivateMoreViewController alloc]init];
