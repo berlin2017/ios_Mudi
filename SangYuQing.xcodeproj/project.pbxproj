@@ -87,6 +87,17 @@
 		0491022A2004AAB5003D56DF /* StoreKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 049102292004AAB5003D56DF /* StoreKit.framework */; };
 		0491022C2004AAC9003D56DF /* AddressBookUI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0491022B2004AAC9003D56DF /* AddressBookUI.framework */; };
 		0491022E2004AAD0003D56DF /* AddressBook.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0491022D2004AAD0003D56DF /* AddressBook.framework */; };
+		049102312004B799003D56DF /* MDDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049102302004B799003D56DF /* MDDetailViewController.m */; };
+		049102352004D6A3003D56DF /* ButtomBarCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049102332004D6A3003D56DF /* ButtomBarCollectionViewCell.m */; };
+		049102362004D6A3003D56DF /* ButtomBarCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049102342004D6A3003D56DF /* ButtomBarCollectionViewCell.xib */; };
+		0491023A2004EAE8003D56DF /* DetailMenuCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 049102382004EAE8003D56DF /* DetailMenuCollectionViewCell.m */; };
+		0491023B2004EAE8003D56DF /* DetailMenuCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 049102392004EAE8003D56DF /* DetailMenuCollectionViewCell.xib */; };
+		0491023E2004F41F003D56DF /* UILabel+Extension.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491023D2004F41F003D56DF /* UILabel+Extension.m */; };
+		049102412004F797003D56DF /* DetailTabBarViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049102402004F797003D56DF /* DetailTabBarViewController.m */; };
+		049102442004FABD003D56DF /* ZhuiSiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049102432004FABD003D56DF /* ZhuiSiViewController.m */; };
+		049102472004FE58003D56DF /* DetailXiangCeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049102462004FE58003D56DF /* DetailXiangCeViewController.m */; };
+		0491024A2004FE6A003D56DF /* DetailVideoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 049102492004FE6A003D56DF /* DetailVideoViewController.m */; };
+		0491024D2004FE82003D56DF /* DetailJPGLViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491024C2004FE82003D56DF /* DetailJPGLViewController.m */; };
 		0491FF632002FB9A003D56DF /* UserFrogetPassViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491FF622002FB9A003D56DF /* UserFrogetPassViewController.m */; };
 		0491FF66200304CD003D56DF /* UserScoreViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491FF65200304CD003D56DF /* UserScoreViewController.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		0491FF6F20037827003D56DF /* UserScoreCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0491FF6D20037827003D56DF /* UserScoreCollectionViewCell.m */; };
@@ -371,6 +382,26 @@
 		049102292004AAB5003D56DF /* StoreKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = StoreKit.framework; path = System/Library/Frameworks/StoreKit.framework; sourceTree = SDKROOT; };
 		0491022B2004AAC9003D56DF /* AddressBookUI.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBookUI.framework; path = System/Library/Frameworks/AddressBookUI.framework; sourceTree = SDKROOT; };
 		0491022D2004AAD0003D56DF /* AddressBook.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = AddressBook.framework; path = System/Library/Frameworks/AddressBook.framework; sourceTree = SDKROOT; };
+		0491022F2004B799003D56DF /* MDDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MDDetailViewController.h; sourceTree = "<group>"; };
+		049102302004B799003D56DF /* MDDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MDDetailViewController.m; sourceTree = "<group>"; };
+		049102322004D6A3003D56DF /* ButtomBarCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ButtomBarCollectionViewCell.h; sourceTree = "<group>"; };
+		049102332004D6A3003D56DF /* ButtomBarCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ButtomBarCollectionViewCell.m; sourceTree = "<group>"; };
+		049102342004D6A3003D56DF /* ButtomBarCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ButtomBarCollectionViewCell.xib; sourceTree = "<group>"; };
+		049102372004EAE8003D56DF /* DetailMenuCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailMenuCollectionViewCell.h; sourceTree = "<group>"; };
+		049102382004EAE8003D56DF /* DetailMenuCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailMenuCollectionViewCell.m; sourceTree = "<group>"; };
+		049102392004EAE8003D56DF /* DetailMenuCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = DetailMenuCollectionViewCell.xib; sourceTree = "<group>"; };
+		0491023C2004F41F003D56DF /* UILabel+Extension.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "UILabel+Extension.h"; sourceTree = "<group>"; };
+		0491023D2004F41F003D56DF /* UILabel+Extension.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = "UILabel+Extension.m"; sourceTree = "<group>"; };
+		0491023F2004F797003D56DF /* DetailTabBarViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailTabBarViewController.h; sourceTree = "<group>"; };
+		049102402004F797003D56DF /* DetailTabBarViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailTabBarViewController.m; sourceTree = "<group>"; };
+		049102422004FABD003D56DF /* ZhuiSiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZhuiSiViewController.h; sourceTree = "<group>"; };
+		049102432004FABD003D56DF /* ZhuiSiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZhuiSiViewController.m; sourceTree = "<group>"; };
+		049102452004FE58003D56DF /* DetailXiangCeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailXiangCeViewController.h; sourceTree = "<group>"; };
+		049102462004FE58003D56DF /* DetailXiangCeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailXiangCeViewController.m; sourceTree = "<group>"; };
+		049102482004FE6A003D56DF /* DetailVideoViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailVideoViewController.h; sourceTree = "<group>"; };
+		049102492004FE6A003D56DF /* DetailVideoViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailVideoViewController.m; sourceTree = "<group>"; };
+		0491024B2004FE82003D56DF /* DetailJPGLViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailJPGLViewController.h; sourceTree = "<group>"; };
+		0491024C2004FE82003D56DF /* DetailJPGLViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailJPGLViewController.m; sourceTree = "<group>"; };
 		0491FF612002FB9A003D56DF /* UserFrogetPassViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserFrogetPassViewController.h; sourceTree = "<group>"; };
 		0491FF622002FB9A003D56DF /* UserFrogetPassViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserFrogetPassViewController.m; sourceTree = "<group>"; };
 		0491FF64200304CD003D56DF /* UserScoreViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserScoreViewController.h; sourceTree = "<group>"; };
@@ -495,6 +526,12 @@
 				0477209F1FF72EBF00817528 /* PrivateTopTableViewCell.h */,
 				047720A01FF72EBF00817528 /* PrivateTopTableViewCell.m */,
 				047720A11FF72EBF00817528 /* PrivateTopTableViewCell.xib */,
+				049102322004D6A3003D56DF /* ButtomBarCollectionViewCell.h */,
+				049102332004D6A3003D56DF /* ButtomBarCollectionViewCell.m */,
+				049102342004D6A3003D56DF /* ButtomBarCollectionViewCell.xib */,
+				049102372004EAE8003D56DF /* DetailMenuCollectionViewCell.h */,
+				049102382004EAE8003D56DF /* DetailMenuCollectionViewCell.m */,
+				049102392004EAE8003D56DF /* DetailMenuCollectionViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -594,6 +631,18 @@
 				04F59CDE1FFA3391009EEF96 /* PrivateMoreViewController.m */,
 				04F59CE01FFB06C8009EEF96 /* PrivateCreateViewController.h */,
 				04F59CE11FFB06C8009EEF96 /* PrivateCreateViewController.m */,
+				0491022F2004B799003D56DF /* MDDetailViewController.h */,
+				049102302004B799003D56DF /* MDDetailViewController.m */,
+				0491023F2004F797003D56DF /* DetailTabBarViewController.h */,
+				049102402004F797003D56DF /* DetailTabBarViewController.m */,
+				049102422004FABD003D56DF /* ZhuiSiViewController.h */,
+				049102432004FABD003D56DF /* ZhuiSiViewController.m */,
+				049102452004FE58003D56DF /* DetailXiangCeViewController.h */,
+				049102462004FE58003D56DF /* DetailXiangCeViewController.m */,
+				049102482004FE6A003D56DF /* DetailVideoViewController.h */,
+				049102492004FE6A003D56DF /* DetailVideoViewController.m */,
+				0491024B2004FE82003D56DF /* DetailJPGLViewController.h */,
+				0491024C2004FE82003D56DF /* DetailJPGLViewController.m */,
 			);
 			path = private;
 			sourceTree = "<group>";
@@ -903,6 +952,8 @@
 				0491012920049D43003D56DF /* NSURL+Helper.h */,
 				0491012A20049D43003D56DF /* UIView+ToastHelper.m */,
 				0491012B20049D43003D56DF /* UIImage+Helper.h */,
+				0491023C2004F41F003D56DF /* UILabel+Extension.h */,
+				0491023D2004F41F003D56DF /* UILabel+Extension.m */,
 			);
 			path = Category;
 			sourceTree = "<group>";
@@ -1173,6 +1224,7 @@
 				0491015020049D44003D56DF /* ZANLaunchHelperView.xib in Resources */,
 				0491014F20049D44003D56DF /* LaunchHelper.bundle in Resources */,
 				0491FF7D200391F9003D56DF /* UserScoreLogTableViewCell.xib in Resources */,
+				0491023B2004EAE8003D56DF /* DetailMenuCollectionViewCell.xib in Resources */,
 				04431DD21FF4B7BE00A2A116 /* Assets.xcassets in Resources */,
 				049100C420046652003D56DF /* README.txt in Resources */,
 				0491017320049D44003D56DF /* theme_default.plist in Resources */,
@@ -1185,6 +1237,7 @@
 				04F13F8A1FFE91AF008B1C3B /* user.storyboard in Resources */,
 				04F13F031FFCB950008B1C3B /* UserHeaderTableViewCell.xib in Resources */,
 				0491FF7520038ADA003D56DF /* UserScorePayCollectionViewCell.xib in Resources */,
+				049102362004D6A3003D56DF /* ButtomBarCollectionViewCell.xib in Resources */,
 				049100622003A632003D56DF /* AlipaySDK.bundle in Resources */,
 				04203DAE1FF645C7003AA051 /* Test.xib in Resources */,
 				04431DD01FF4B7BE00A2A116 /* Main.storyboard in Resources */,
@@ -1302,12 +1355,15 @@
 				0491FF7820038F75003D56DF /* UserScoreDetailViewController.m in Sources */,
 				0491017620049D44003D56DF /* HZHelper.m in Sources */,
 				04F13F6E1FFCDE7A008B1C3B /* TestViewController.m in Sources */,
+				049102442004FABD003D56DF /* ZhuiSiViewController.m in Sources */,
 				0491015720049D44003D56DF /* HZInputViewController.m in Sources */,
 				04F13F871FFE90FA008B1C3B /* UserLoginViewController.m in Sources */,
 				0491016320049D44003D56DF /* UIImage+Helper.m in Sources */,
 				04431EB81FF4D44600A2A116 /* HomeViewController.m in Sources */,
 				0491016120049D44003D56DF /* HZSwizzling.m in Sources */,
+				049102412004F797003D56DF /* DetailTabBarViewController.m in Sources */,
 				04431F011FF4F13000A2A116 /* HZBannerView.m in Sources */,
+				049102312004B799003D56DF /* MDDetailViewController.m in Sources */,
 				0491FF6F20037827003D56DF /* UserScoreCollectionViewCell.m in Sources */,
 				0491015820049D44003D56DF /* HZQRCode.m in Sources */,
 				04F13F021FFCB950008B1C3B /* UserHeaderTableViewCell.m in Sources */,
@@ -1320,6 +1376,7 @@
 				04F13F061FFCC98E008B1C3B /* UserInfoViewController.m in Sources */,
 				0491016920049D44003D56DF /* UIButton+Helper.m in Sources */,
 				04F13F8D1FFE9D0D008B1C3B /* UserRegisterViewController.m in Sources */,
+				0491023E2004F41F003D56DF /* UILabel+Extension.m in Sources */,
 				0491016E20049D44003D56DF /* HZRoutePathConstVarables.m in Sources */,
 				0491015320049D44003D56DF /* ZANLaunchHelperView.m in Sources */,
 				0491015120049D44003D56DF /* HZCustomTextFieldCell.m in Sources */,
@@ -1329,13 +1386,18 @@
 				0491017220049D44003D56DF /* HZThemeManager.m in Sources */,
 				04203DAB1FF62E5C003AA051 /* PrivateTableViewCell.m in Sources */,
 				0491015B20049D44003D56DF /* NSFileManager+Helper.m in Sources */,
+				049102472004FE58003D56DF /* DetailXiangCeViewController.m in Sources */,
+				0491024D2004FE82003D56DF /* DetailJPGLViewController.m in Sources */,
 				0491FF632002FB9A003D56DF /* UserFrogetPassViewController.m in Sources */,
 				0491017120049D44003D56DF /* HZURLConstVarables.m in Sources */,
 				0491016A20049D44003D56DF /* UITabBar+Helper.m in Sources */,
+				049102352004D6A3003D56DF /* ButtomBarCollectionViewCell.m in Sources */,
+				0491023A2004EAE8003D56DF /* DetailMenuCollectionViewCell.m in Sources */,
 				04F13F6B1FFCDA55008B1C3B /* AddressPickerView.m in Sources */,
 				04203DA51FF5E997003AA051 /* GongMuCollectionViewCell.m in Sources */,
 				049100BA2003A64F003D56DF /* APRSASigner.m in Sources */,
 				047720A21FF72EBF00817528 /* PrivateTopTableViewCell.m in Sources */,
+				0491024A2004FE6A003D56DF /* DetailVideoViewController.m in Sources */,
 				04F59CE21FFB06C8009EEF96 /* PrivateCreateViewController.m in Sources */,
 				0491016C20049D44003D56DF /* HZSettingsManager.m in Sources */,
 				0491015220049D44003D56DF /* HZRefreshTableView.m in Sources */,

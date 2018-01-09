@@ -12,6 +12,7 @@
 #import "UIColor+Helper.h"
 #import "PrivateMoreViewController.h"
 #import "PrivateCreateViewController.h"
+#import "MDDetailViewController.h"
 
 @interface PrivateHomeViewController ()<UITableViewDelegate,UITableViewDataSource>{
     
@@ -196,6 +197,11 @@
     return nil;
 }
 
+-(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
+    MDDetailViewController *controller = [[MDDetailViewController alloc]init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
+}
 
 
 // 自定义导航栏

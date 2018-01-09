@@ -12,7 +12,7 @@
 
 + (instancetype)httpClient
 {
-    return [[[self class] alloc] initWithBaseURL:[NSURL URLWithString:@"http://m.anhuinews.com"]];
+    return [[[self class] alloc] initWithBaseURL:[NSURL URLWithString:@"http://jk.hwsyq.com"]];
 }
 
 - (instancetype)init

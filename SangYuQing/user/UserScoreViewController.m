@@ -341,49 +341,35 @@
     [self.view makeCenterOffsetToast:@"hsdfjklsd;fl"];
 }
 
--(void)weixinPay{
-    NSString *urlString   = @"http://jk.hwsyq.com/v1/jifen/gopay";
-    //解析服务端返回json数据
-    NSError *error;
-    //加载一个NSURL对象
-    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
-    //将请求的url数据放到NSData对象中
-    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
-    if ( response != nil) {
-        NSMutableDictionary *dict = NULL;
-        //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
-        dict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
-        
-        NSLog(@"url:%@",urlString);
-        if(dict != nil){
-            NSMutableString *retcode = [dict objectForKey:@"retcode"];
-            if (retcode.intValue == 0){
-                NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
-                
-                //调起微信支付
-                PayReq* req             = [[[PayReq alloc] init]autorelease];
-                req.partnerId           = [dict objectForKey:@"partnerid"];
-                req.prepayId            = [dict objectForKey:@"prepayid"];
-                req.nonceStr            = [dict objectForKey:@"noncestr"];
-                req.timeStamp           = stamp.intValue;
-                req.package             = [dict objectForKey:@"package"];
-                req.sign                = [dict objectForKey:@"sign"];
-                [WXApi sendReq:req];
-                //日志输出
-                NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
-//                return @"";
-            }else{
-//                return [dict objectForKey:@"retmsg"];
-            }
-        }else{
-//            return @"服务器返回错误，未获取到json对象";
-        }
+-(void)toPay{
+    if (_lastPayIndexPath.row==0) {
+        [self weixinPay];
     }else{
-//        return @"服务器返回错误";
+        [self aliPay];
     }
 }
 
--(void)toPay{
+-(void)weixinPay{
+    //调起微信支付
+    PayReq *request = [[[PayReq alloc] init] autorelease];
+    
+    request.partnerId = @"10000100";
+    
+    request.prepayId= @"1101000000140415649af9fc314aa427";
+    
+    request.package = @"Sign=WXPay";
+    
+    request.nonceStr= @"a462b76e7436e98e0ed6e13c64b4fd1c";
+    
+    request.timeStamp= @"1397527777";
+    
+    request.sign= @"582282D72DD2B03AD892830965F428CB16E7A256";
+    
+    [WXApi sendReq:request];
+    
+}
+
+-(void)aliPay{
     // 重要说明
     // 这里只是为了方便直接向商户展示支付宝的整个支付流程；所以Demo中加签过程直接放在客户端完成；
     // 真实App里，privateKey等数据严禁放在客户端，加签过程务必要放在服务端完成；
@@ -391,15 +377,15 @@
     /*============================================================================*/
     /*=======================需要填写商户app申请的===================================*/
     /*============================================================================*/
-    NSString *appID = @"2017101109241081";
+    NSString *appID = @"2017101009233282";
     
     // 如下私钥，rsa2PrivateKey 或者 rsaPrivateKey 只需要填入一个
     // 如果商户两个都设置了，优先使用 rsa2PrivateKey
     // rsa2PrivateKey 可以保证商户交易在更加安全的环境下进行，建议使用 rsa2PrivateKey
     // 获取 rsa2PrivateKey，建议使用支付宝提供的公私钥生成工具生成，
     // 工具地址：https://doc.open.alipay.com/docs/doc.htm?treeId=291&articleId=106097&docType=1
-    NSString *rsa2PrivateKey = @"";
-    NSString *rsaPrivateKey = @"MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA6gJ2qbFrVyHpvu8P3DOtVUd8uOhR4RM8KW7G22n0YBWAniHQuPsieyXXRAsE+Hr/IYQodyGrot1LonyhZzNtl7KJzTpcI/4Lr74Rj3hhnii5HQHQJ3JJvdZFuVvhLFzM4703v3maesCFd5DFe+V0KKLOayScW40a3QTdpxXbEsUKPLODXB920scG947nUA16LasIDaZCHEEmcG214JROfGhMf9fB2BdP0CX+VHKvhjwln4qJUf6Jvtg4hf7C0S5yfRDJZFrycVMPxQmML720RNLzRDXzWax9crrU/svpDLHzu5kcaITHoSHi1ZzP/qEu6lldGSbBSjlOhxpKos5iyQIDAQAB";
+    NSString *rsa2PrivateKey = @"MIIEvAIBADANBgkqhkiG9w0BAQEFAASCBKYwggSiAgEAAoIBAQCZArg62iof19Bphh+AJa0VbU/ilQDVQzj7iGhjq4ntZFSUec21xeA1jNw5oo+stHJT40n8UFE3K4ev+kaGkhouXlZYJLsxksRtMPQ3cSEcE1ufIL8/2W8uXKr273PtW4n/jg23nBXUyusQLT6L57kk/pU0dV7R8d/fZTEzbnTIFXneXTdQp+LmITotSQ3UxFAM6Dv7ofVc2THJwKeJueGl4Xogrv1lvU1+T+cszQ+Zvi1hFm2h4Vr+Ibtv9GKlRlJURvrB+rBeHAvsiehBNMxFXXwJWjsr+yoCbfnTWsKnSUrKMSZRiR+HnGeJ/8UjLexe0HR6Hgyhy2xJrBuDuvUvAgMBAAECggEATehFl6mnkykWs/QXq+8DDwrmhu7pSqz8oY4V4NHh256fNi5CoJANFhcPtsTftMb4A2CSNkdK4vVmFCMxr6lKbVuZSS4Cpj4dh59KacRPYHU2zHInDsKOSqPiZPMNKsjWHendcCSoNP3Q7B6tXxzwdzatD9XHHsyx+ZQTliVijtEY/WzteW9sZdnf2LaTbQ0uDgxWd+u/oJc2HHiWiVXZKVT+xBwRP+1j9S6uZ2hHNDRp6Uzc5ENSAymjCIFvn0aR6QC8AC5tpIRMxgLRU8NzVqJEmk5e0KPtQkKlaG8O4t30SmuImS3umAaxOf2M59s1F1/3uFHVpB9UqsHMsvtSsQKBgQD8dYjdNeDHjNBGmnwnioL9fQyk8B12741UicTYBOwD1krdil7eqUkrA20FiD8N9wOKO2SrDKPOeMAYnDwiIdZYPSf0QQPZ1Yic+TDrNQ+ARfDr3VTETcuqpCVeDxV2u6NYWn7x9seTN/f9tJDE/SI+jZS+A+PBGlXRie+HsB/eNwKBgQCbKBxkD08o30VyMxOCeamFHBB9oFlAXgH4y0pS3ERuH6J0xwW/OO5kqvfYC3GMCermTuyf0D4XbDpwedlJJ3GIabnhZ1RX2YGOT3s1sQWYo2dp4K1IqR8qQYnEfOlqr1ljla41FeXMjhSsPEp/viNU3bj0OaeYaJKupCkfQ1hkyQKBgFIEMRmEhmjtw0Acshb6dcG6XWA8LaZU/ronI872EmLQvHOqn1WA86dIrqNsduenhvvifbrgGVtbeTTFlPeVvJfgDlnYwVKEf6RXhF/1VfrbPgCyX/aCO5dNSmJ7TgLLxK5QgAtFm+Kk/Sjr/1gv0G83+cmdY+F5F8ZCJJIVUtUTAoGAdnfR9bSaxKJ17BSDuQQcI76h+MoOW89rwgO25D27IjqVWIT+JlvZ6pOAWj2inUKVUPTCR+RBBLFmjar79ZdgYMAZZbn39HvnKDoX4Y8grsNVmsoqhWhcm28fOiAGOadZoWgQdAgcRmvV7Qy79X3AjHQfXJsJFJ4EIcTGgVBylcECgYAB7UEd6dAzh33B1VKUTK3GBue8TeX9A0tQHP4e348stwWmFAxQmZxX/WV7/ePaQLFpcXrPoUEVgc92T0gRC/JcQisnzwZP++fOL5a6eVEuXI3KdC0qeKtRcYkqs7bIA+fDFp13XlhWHy6fYmE/J3Ytp5mmZdVAGSQZMzRMqhu/Nw==";
+    NSString *rsaPrivateKey = @"";
     /*============================================================================*/
     /*============================================================================*/
     /*============================================================================*/
