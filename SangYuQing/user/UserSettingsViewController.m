@@ -201,7 +201,7 @@
             CGFloat cacheSize = [NSFileManager folderSizeAtPath:[NSFileManager cacheDirectory]];
 //            [HZLoadingHUD showHUDInView:self.view];
             dispatch_async(dispatch_get_global_queue(DISPATCH_QUEUE_PRIORITY_DEFAULT, 0), ^{
-                [[SDImageCache sharedImageCache] clearDisk];
+                [[SDImageCache sharedImageCache] clearDiskOnCompletion:nil];
                 [[SDImageCache sharedImageCache] clearMemory];
                 [[NSFileManager defaultManager] removeItemAtPath:[NSFileManager cacheDirectory] error:nil];
                 dispatch_async(dispatch_get_main_queue(), ^{

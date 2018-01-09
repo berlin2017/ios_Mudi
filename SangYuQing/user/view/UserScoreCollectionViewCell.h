@@ -10,4 +10,5 @@
 
 @interface UserScoreCollectionViewCell : UICollectionViewCell
 
+-(void)setBackColor:(UIColor*)color;
 @end

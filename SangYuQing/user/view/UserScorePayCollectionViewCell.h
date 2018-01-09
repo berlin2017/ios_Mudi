@@ -11,4 +11,5 @@
 @interface UserScorePayCollectionViewCell : UICollectionViewCell
 
 -(void)configWithIndex:(NSInteger)index;
+-(void)setBoraderColor:(UIColor*)color;
 @end

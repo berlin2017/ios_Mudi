@@ -22,6 +22,7 @@
     self.contentView.layer.borderWidth = 1;
     self.contentView.layer.cornerRadius = 5;
     self.contentView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.contentView.layer.masksToBounds = YES;
 }
 
 -(void)configWithIndex:(NSInteger)index{
@@ -32,6 +33,10 @@
         _name.text = @"微信支付";
         _image.image = [UIImage imageNamed:@"ic_weixin"];
     }
+}
+
+-(void)setBoraderColor:(UIColor*)color{
+    self.contentView.layer.borderColor = color.CGColor;
 }
 
 @end

@@ -16,6 +16,11 @@
     self.contentView.layer.borderWidth = 1;
     self.contentView.layer.cornerRadius = 5;
     self.contentView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+    self.contentView.layer.masksToBounds = YES;
+}
+
+-(void)setBackColor:(UIColor*)color{
+     self.contentView.layer.backgroundColor = color.CGColor;
 }
 
 @end

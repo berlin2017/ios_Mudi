@@ -15,10 +15,13 @@
 #import <AlipaySDK/AlipaySDK.h>
 #import "APOrderInfo.h"
 #import "APRSASigner.h"
+#import "WXApi.h"
 
-@interface UserScoreViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
+@interface UserScoreViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,WXApiDelegate>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
+@property(nonatomic,copy)NSIndexPath *lastIndexPath;
+@property(nonatomic,copy)NSIndexPath *lastPayIndexPath;
 @end
 
 @implementation UserScoreViewController
@@ -31,10 +34,9 @@
     [self.view setBackgroundColor:bgColor];
     [self.view addSubview:self.navigationView];
     
-
-//    UITapGestureRecognizer *key_recognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKey)];
-//    [self.view addGestureRecognizer:key_recognizer];
-//    self.view.userInteractionEnabled = YES;
+    self.view.userInteractionEnabled = YES;
+    UITapGestureRecognizer *key_recognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(back)];
+    
     
     UIScrollView * scrollview = [[UIScrollView alloc]init];
     [self.view addSubview:scrollview];
@@ -45,15 +47,14 @@
         make.bottom.mas_equalTo(self.view);
         make.top.mas_equalTo(self.navigationView.mas_bottom);
     }];
-    
+
     UIView *contentview = [[UIView alloc]init];
     [scrollview addSubview:contentview];
     contentview.userInteractionEnabled = YES;
-    UITapGestureRecognizer *key_recognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKey)];
-    [contentview addGestureRecognizer:key_recognizer];
-    
+
     UIView *topview = [[UIView alloc]init];
     [contentview addSubview:topview];
+    topview.userInteractionEnabled = YES;
     [topview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).mas_offset(10);
         make.right.mas_equalTo(self.view).mas_offset(-10);
@@ -66,8 +67,8 @@
         make.edges.mas_equalTo(topview);
     }];
     bg.image = [UIImage imageNamed:@"user_jifen_bg"];
-    
-    
+
+
     UILabel *score = [[UILabel alloc]init];
     [topview addSubview:score];
     [score mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -75,9 +76,9 @@
     }];
     score.text = @"0";
     score.font = [UIFont systemFontOfSize:19];
-    
-    
-    
+
+
+
     UILabel *name = [[UILabel alloc]init];
     [topview addSubview:name];
     [name mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -86,7 +87,7 @@
     }];
     name.text = @"当前积分:";
     name.font = [UIFont systemFontOfSize:15];
-    
+
     UILabel *jifen = [[UILabel alloc]init];
     [topview addSubview:jifen];
     [jifen mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -95,9 +96,9 @@
     }];
     jifen.text = @"积分";
     jifen.font = [UIFont systemFontOfSize:15];
-    
-   
-    
+
+
+
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
     layout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width-60)/3 , 60);
     layout.minimumLineSpacing = 10;
@@ -106,9 +107,10 @@
     collectionview.delegate = self;
     collectionview.dataSource = self;
     collectionview.tag = 1000;
-//    collectionview.userInteractionEnabled = YES;
+    collectionview.userInteractionEnabled = YES;
     [collectionview registerNib:[UINib nibWithNibName:@"UserScoreCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"score_jifen_cell"];
     [contentview addSubview:collectionview];
+
     collectionview.backgroundColor = [UIColor clearColor];
     [collectionview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).mas_offset(10);
@@ -125,7 +127,7 @@
     collectionview2.delegate = self;
     collectionview2.dataSource = self;
     collectionview2.tag = 2000;
-//        collectionview2.userInteractionEnabled = YES;
+        collectionview2.userInteractionEnabled = YES;
     [collectionview2 registerNib:[UINib nibWithNibName:@"UserScorePayCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"score_pay_cell"];
     [contentview addSubview:collectionview2];
     collectionview2.backgroundColor = [UIColor clearColor];
@@ -135,7 +137,7 @@
         make.top.mas_equalTo(collectionview.mas_bottom).mas_offset(20);
         make.height.mas_equalTo(60);
     }];
-    
+
     UIButton * btn = [UIButton buttonWithType:UIButtonTypeSystem];
     [contentview addSubview:btn];
     [btn mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -151,7 +153,7 @@
     btn.layer.masksToBounds = YES;
     btn.layer.cornerRadius = 5;
     [btn addTarget:self action:@selector(toPay) forControlEvents:UIControlEventTouchUpInside];
-    
+
     UILabel *bottom_name = [[UILabel alloc]init];
     [contentview addSubview:bottom_name];
     [bottom_name mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -160,8 +162,9 @@
         make.right.mas_equalTo(self.view).mas_equalTo(-10);
     }];
     bottom_name.text = @"支付说明";
+    bottom_name.userInteractionEnabled = YES;
     bottom_name.font = [UIFont systemFontOfSize:19];
-    
+
     UILabel *bottom_detail = [[UILabel alloc]init];
     [contentview addSubview:bottom_detail];
     [bottom_detail mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -172,7 +175,7 @@
     bottom_detail.numberOfLines = 0;
     bottom_detail.text = @"支付说明shjdkfl;kksdffffffffffffffff";
     bottom_detail.font = [UIFont systemFontOfSize:15];
-    
+
     UILabel *bottom_name2 = [[UILabel alloc]init];
     [contentview addSubview:bottom_name2];
     [bottom_name2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -182,7 +185,7 @@
     }];
     bottom_name2.text = @"支付说明";
     bottom_name2.font = [UIFont systemFontOfSize:19];
-    
+
     UILabel *bottom_detail2 = [[UILabel alloc]init];
     [contentview addSubview:bottom_detail2];
     [bottom_detail2 mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -193,12 +196,12 @@
     bottom_detail2.numberOfLines = 0;
     bottom_detail2.text = @"支付说明shjdkfl;kksdffffffffffffffff";
     bottom_detail2.font = [UIFont systemFontOfSize:15];
-    
+
     [contentview mas_makeConstraints:^(MASConstraintMaker *make) {
-        make.top.mas_equalTo(scrollview);
-        make.left.mas_equalTo(scrollview);
+        make.top.mas_equalTo(self.view);
+        make.left.mas_equalTo(self.view);
         make.bottom.mas_equalTo(bottom_detail2.mas_bottom);
-        make.right.mas_equalTo(scrollview);
+        make.right.mas_equalTo(self.view);
     }];
 }
 
@@ -233,6 +236,7 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    
     NSLog(@"cell #%d was selected", indexPath.row);
     return;
 }
@@ -243,20 +247,34 @@
     return YES;
 }
 
-- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
-{
-     UserScoreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"score_jifen_cell" forIndexPath:indexPath];
-    //设置(Highlight)高亮下的颜色
-    [cell setBackgroundColor:[UIColor colorWithHexString:@"CD853F"]];
-}
+//- (void)collectionView:(UICollectionView *)collectionView didHighlightItemAtIndexPath:(NSIndexPath *)indexPath
+//{
+//     UserScoreCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath ];
+//    //设置(Highlight)高亮下的颜色
+//   [cell setBackgroundColor:[UIColor clearColor]];
+//}
 
 - (void)collectionView:(UICollectionView *)collectionView  didUnhighlightItemAtIndexPath:(NSIndexPath *)indexPath
 {
-     UserScoreCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"score_jifen_cell" forIndexPath:indexPath];
-    //设置(Nomal)正常状态下的颜色
-    [cell setBackgroundColor:[UIColor clearColor]];
+    if (collectionView.tag == 1000) {
+        if (indexPath!=_lastIndexPath) {
+            UserScoreCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath ];
+            [cell setBackColor:[UIColor colorWithHexString:@"CD853F"]];
+            UserScoreCollectionViewCell *cell2 = [collectionView cellForItemAtIndexPath:_lastIndexPath ];
+            [cell2 setBackColor:[UIColor clearColor]];
+            _lastIndexPath = indexPath;
+        }
+    }else if(collectionView.tag == 2000){
+        if (indexPath!=_lastPayIndexPath) {
+            UserScorePayCollectionViewCell *cell = [collectionView cellForItemAtIndexPath:indexPath ];
+            [cell setBoraderColor:[UIColor colorWithHexString:@"CD853F"]];
+            UserScorePayCollectionViewCell *cell2 = [collectionView cellForItemAtIndexPath:_lastPayIndexPath ];
+            [cell2 setBoraderColor:[UIColor clearColor]];
+            _lastPayIndexPath = indexPath;
+        }
+    }
+   
 }
-
 
 
 // 自定义导航栏
@@ -321,6 +339,48 @@
 -(void)hideKey{
 //    [self.view endEditing:YES];
     [self.view makeCenterOffsetToast:@"hsdfjklsd;fl"];
+}
+
+-(void)weixinPay{
+    NSString *urlString   = @"http://jk.hwsyq.com/v1/jifen/gopay";
+    //解析服务端返回json数据
+    NSError *error;
+    //加载一个NSURL对象
+    NSURLRequest *request = [NSURLRequest requestWithURL:[NSURL URLWithString:urlString]];
+    //将请求的url数据放到NSData对象中
+    NSData *response = [NSURLConnection sendSynchronousRequest:request returningResponse:nil error:nil];
+    if ( response != nil) {
+        NSMutableDictionary *dict = NULL;
+        //IOS5自带解析类NSJSONSerialization从response中解析出数据放到字典中
+        dict = [NSJSONSerialization JSONObjectWithData:response options:NSJSONReadingMutableLeaves error:&error];
+        
+        NSLog(@"url:%@",urlString);
+        if(dict != nil){
+            NSMutableString *retcode = [dict objectForKey:@"retcode"];
+            if (retcode.intValue == 0){
+                NSMutableString *stamp  = [dict objectForKey:@"timestamp"];
+                
+                //调起微信支付
+                PayReq* req             = [[[PayReq alloc] init]autorelease];
+                req.partnerId           = [dict objectForKey:@"partnerid"];
+                req.prepayId            = [dict objectForKey:@"prepayid"];
+                req.nonceStr            = [dict objectForKey:@"noncestr"];
+                req.timeStamp           = stamp.intValue;
+                req.package             = [dict objectForKey:@"package"];
+                req.sign                = [dict objectForKey:@"sign"];
+                [WXApi sendReq:req];
+                //日志输出
+                NSLog(@"appid=%@\npartid=%@\nprepayid=%@\nnoncestr=%@\ntimestamp=%ld\npackage=%@\nsign=%@",[dict objectForKey:@"appid"],req.partnerId,req.prepayId,req.nonceStr,(long)req.timeStamp,req.package,req.sign );
+//                return @"";
+            }else{
+//                return [dict objectForKey:@"retmsg"];
+            }
+        }else{
+//            return @"服务器返回错误，未获取到json对象";
+        }
+    }else{
+//        return @"服务器返回错误";
+    }
 }
 
 -(void)toPay{
