@@ -10,5 +10,5 @@
 
 @interface HomeNavCollectionViewCell : UICollectionViewCell
 
--(void)configWithMode;
+-(void)configWithIndex:(int)index;
 @end

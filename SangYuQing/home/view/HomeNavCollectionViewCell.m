@@ -19,7 +19,7 @@
 
 
 
--(void)configWithMode{
+-(void)configWithIndex:(int)index{
     _imageView = [[UIImageView alloc] init];
     [self.contentView addSubview:_imageView];
     [_imageView mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -37,9 +37,14 @@
     }];
     _label.font = [UIFont systemFontOfSize:14];
     
-//    [_imageView sd_setImageWithURL:[NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514450989988&di=b9d2b71adc10306f918cc5ff3db4ebae&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01e4a1564da3d76ac7251c94308050.png%401280w_1l_2o_100sh.png"]];
-    _imageView.image = [UIImage imageNamed:@"ic_siren_light"];
-    _label.text = @"私人墓园";
+    if (index==0) {
+        _imageView.image = [UIImage imageNamed:@"ic_siren_light"];
+        _label.text = @"私人墓园";
+    }else{
+        _imageView.image = [UIImage imageNamed:@"ic_gonggong_light"];
+        _label.text = @"公共墓园";
+    }
+    
 }
 
 @end

@@ -13,6 +13,7 @@
 #import "UIColor+Helper.h"
 #import "HomeNewCollectionViewCell.h"
 #import "GongMuCollectionViewCell.h"
+#import "MDDetailViewController.h"
 
 @interface HomeViewController ()<HZBannerViewDelegate,HZBannerViewDataSource,UICollectionViewDataSource, UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>{
     
@@ -313,7 +314,7 @@
 {
     if (collectionView.tag==1000) {
         HomeNavCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"nav_cell" forIndexPath:indexPath];
-        [cell configWithMode];
+        [cell configWithIndex:(int)(indexPath.row)];
         return cell;
     }else if (collectionView.tag==2000){
         HomeNewCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"homeNew" forIndexPath:indexPath];
@@ -330,7 +331,18 @@
 }
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.tabBarController.selectedIndex = 1;
+    if (collectionView.tag==1000) {
+        self.tabBarController.selectedIndex = indexPath.row+1;
+    }else if (collectionView.tag==2000){
+        MDDetailViewController *controller = [[MDDetailViewController alloc]init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    }else if (collectionView.tag==3000){
+        MDDetailViewController *controller = [[MDDetailViewController alloc]init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+    
 }
 
 

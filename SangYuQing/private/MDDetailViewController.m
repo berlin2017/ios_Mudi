@@ -33,7 +33,8 @@
     [self.view setBackgroundColor:bgColor];
     [self.view addSubview:self.navigationView];
     
-    _names = [NSMutableArray arrayWithObjects:@"追思一生",@"相册",@"视频",@"祭品管理", nil];
+    _names = [NSMutableArray arrayWithObjects:@"追思一生",@"相册",@"视频", nil];
+    //    _names = [NSMutableArray arrayWithObjects:@"追思一生",@"相册",@"视频",@"祭品管理", nil];
     _images = [NSMutableArray arrayWithObjects:@"ic_bottom_zhuisi_light",@"ic_bottom_photo_light",@"ic_bottom_video_light",@"ic_bottom_jipin_light", nil];
     
     _names2 = [NSMutableArray arrayWithObjects:@"鲜花",@"上香",@"祭品",@"装饰", nil];
@@ -42,10 +43,10 @@
     UITabBarController *tabBarVC = [[UITabBarController alloc] init];
     CGFloat tabBarHeight = tabBarVC.tabBar.frame.size.height;
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    layout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width)/4 , tabBarHeight);
+    layout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width)/(_names.count) , tabBarHeight);
     layout.minimumLineSpacing = 0;
     layout.minimumInteritemSpacing = 0;
-   
+    
     UICollectionView *collectionview = [[UICollectionView alloc]initWithFrame:CGRectMake(0, [UIScreen mainScreen].bounds.size.height- tabBarHeight, [UIScreen mainScreen].bounds.size.width, tabBarHeight) collectionViewLayout:layout];
     [self.view addSubview:collectionview];
     collectionview.tag = 1000;
@@ -65,7 +66,7 @@
         make.bottom.mas_equalTo(collectionview.mas_top);
     }];
     
-      CGFloat height = ([UIScreen mainScreen].bounds.size.height-64-[[UIApplication sharedApplication] statusBarFrame].size.height-tabBarHeight);
+    CGFloat height = ([UIScreen mainScreen].bounds.size.height-64-[[UIApplication sharedApplication] statusBarFrame].size.height-tabBarHeight);
     
     UIImageView *bg_imageview = [[UIImageView alloc]init];
     [contentView addSubview:bg_imageview];
@@ -132,7 +133,7 @@
         make.width.mas_equalTo(30);
     }];
     photo.backgroundColor = [UIColor clearColor];
-//    photo.contentMode = UIViewContentModeScaleAspectFill;
+    //    photo.contentMode = UIViewContentModeScaleAspectFill;
     [photo sd_setImageWithURL:[NSURL URLWithString:@"http://www.hwsyq.com/data/images/shizhe/2017091422292149.jpg"]];
 }
 
@@ -142,7 +143,10 @@
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 4;
+    if (collectionView.tag == 1000) {
+        return _names.count;
+    }
+    return _names2.count;
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
@@ -165,15 +169,15 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     if(collectionView.tag==1000){
-//        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
-//        DetailTabBarViewController *controller = [sb instantiateViewControllerWithIdentifier:@"detail_story"];
-//        UITabBarController *tabbar = [[UITabBarController alloc]init];
-//        for (int i=0; i<_names.count; i++) {
-//            ZhuiSiViewController *cont= [[ZhuiSiViewController alloc]init];
-//            cont.navigationItem.title = _names[i];
-//            [tabbar addChildViewController:cont];
-//        }
-//        [self.navigationController pushViewController:tabbar animated:YES];
+        //        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"Main" bundle:nil];
+        //        DetailTabBarViewController *controller = [sb instantiateViewControllerWithIdentifier:@"detail_story"];
+        //        UITabBarController *tabbar = [[UITabBarController alloc]init];
+        //        for (int i=0; i<_names.count; i++) {
+        //            ZhuiSiViewController *cont= [[ZhuiSiViewController alloc]init];
+        //            cont.navigationItem.title = _names[i];
+        //            [tabbar addChildViewController:cont];
+        //        }
+        //        [self.navigationController pushViewController:tabbar animated:YES];
         
         
         [[UITabBarItem appearance] setTitleTextAttributes:@{
@@ -193,13 +197,23 @@
                                   ];
         
         NSInteger index = 0;
+        NSMutableArray *array =[NSMutableArray new];
         for (UIViewController *viewController in tabBarController.viewControllers) {
-            UITabBarItem *item = [[UITabBarItem alloc] initWithTitle:_names[index]
-                                                               image:[[UIImage imageNamed:normalImages[index]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
-                                                       selectedImage:[[UIImage imageNamed:_images[index]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
-            viewController.tabBarItem = item;
-            ++ index;
+            
+            if ([tabBarController.viewControllers lastObject]==viewController&&_names.count==3) {
+                
+
+            }else{
+                UITabBarItem *item = [[UITabBarItem alloc] initWithTitle:_names[index]
+                                                                   image:[[UIImage imageNamed:normalImages[index]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]
+                                                           selectedImage:[[UIImage imageNamed:_images[index]] imageWithRenderingMode:UIImageRenderingModeAlwaysOriginal]];
+                viewController.tabBarItem = item;
+                [array addObject:viewController];
+                ++ index;
+            }
         }
+        [tabBarController setViewControllers:array];
+        tabBarController.selectedIndex = indexPath.row;
         [self.navigationController pushViewController:tabBarController animated:YES];
     }else{
         

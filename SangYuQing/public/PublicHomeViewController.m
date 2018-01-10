@@ -8,6 +8,7 @@
 
 #import "PublicHomeViewController.h"
 #import "GongMuCollectionViewCell.h"
+#import "MDDetailViewController.h"
 
 @interface PublicHomeViewController ()<UICollectionViewDelegate,UICollectionViewDataSource>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
@@ -121,7 +122,9 @@
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    self.tabBarController.selectedIndex = 1;
+    MDDetailViewController *controller = [[MDDetailViewController alloc]init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 -(UICollectionReusableView*)collectionView:(UICollectionView *)collectionView viewForSupplementaryElementOfKind:(NSString *)kind atIndexPath:(NSIndexPath *)indexPath{

@@ -7,8 +7,14 @@
 //
 
 #import "DetailVideoViewController.h"
+#import "ZhuiSiHeaderTableViewCell.h"
+#import "SZDetailModel.h"
+#import "XiangCeCollectionTableViewCell.h"
+#import "PhotoModel.h"
+#import "DetailVideoCollectionViewCell.h"
+#import "VideoPlayViewController.h"
 
-@interface DetailVideoViewController ()
+@interface DetailVideoViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
 @end
@@ -22,6 +28,103 @@
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     [self.view setBackgroundColor:bgColor];
     [self.view addSubview:self.navigationView];
+    UITableView *tableview = [[UITableView alloc]init];
+    tableview.tableFooterView = [UIView new];
+    [self.view addSubview:tableview];
+    [tableview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view);
+        make.top.mas_equalTo(self.navigationView.mas_bottom);
+        make.right.mas_equalTo(self.view);
+        make.height.mas_equalTo(140);
+    }];
+    tableview.delegate = self;
+    tableview.dataSource = self;
+    [tableview registerNib:[UINib nibWithNibName:@"ZhuiSiHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:@"zhuisi_header_cell"];
+    
+    UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
+    layout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width-10)/2, ([UIScreen mainScreen].bounds.size.width-10)/8*3+25);
+    layout.minimumLineSpacing = 10;
+    layout.minimumInteritemSpacing = 10;
+    
+    UICollectionView* _collectionview = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+    [self.view addSubview:_collectionview];
+    [_collectionview mas_makeConstraints:^(MASConstraintMaker *make) {
+        make.left.mas_equalTo(self.view);
+        make.right.mas_equalTo(self.view);
+        make.top.mas_equalTo(tableview.mas_bottom).mas_offset(20);
+        make.bottom.mas_equalTo(self.view);
+    }];
+    _collectionview.delegate = self;
+    _collectionview.dataSource = self;
+    _collectionview.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
+    [_collectionview registerNib:[UINib nibWithNibName:@"DetailVideoCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"video_cell"];
+}
+
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
+    return 1;
+}
+
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
+    return 2;
+}
+
+-(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
+    return 140;
+}
+
+- (CGFloat)tableView:(UITableView *)tableView heightForFooterInSection:(NSInteger)section
+{
+    return 0.01f;
+}
+- (CGFloat)tableView:(UITableView *)tableView heightForHeaderInSection:(NSInteger)section
+{
+    if (section) {
+        return 20;
+    }
+    return 0.01f;
+}
+
+-(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    SZDetailModel *model = [[SZDetailModel alloc]init];
+    model.image = @"https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=60c889ffb051f819f125044ce28f2dd0/ae51f3deb48f8c54cd34cafb3a292df5e1fe7f7a.jpg";
+    model.name = @"小明";
+    model.birthday = @"2018-01-10";
+    model.death = @"2018-01-11";
+    model.fangke = 100;
+    model.jidian = 200;
+    ZhuiSiHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zhuisi_header_cell"];
+    
+    [cell configWithModel:model];
+    cell.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
+    return cell;
+    
+}
+
+- (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
+{
+    return 1;
+}
+- (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
+{
+    return 7;
+    
+}
+- (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    PhotoModel *model1 = [[PhotoModel alloc]init];
+    model1.name = @"为人";
+    model1.image = @"https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=60c889ffb051f819f125044ce28f2dd0/ae51f3deb48f8c54cd34cafb3a292df5e1fe7f7a.jpg";
+    DetailVideoCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"video_cell" forIndexPath:indexPath];
+    cell.backgroundColor = [UIColor whiteColor];
+    [cell configWithModel:model1];
+    return cell;
+}
+
+- (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    VideoPlayViewController *controller = [[VideoPlayViewController alloc]init];
+    controller.hidesBottomBarWhenPushed = YES;
+    [self.navigationController pushViewController:controller animated:YES];
 }
 
 // 自定义导航栏
