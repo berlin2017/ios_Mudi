@@ -126,7 +126,7 @@
         }];
         return view;
     }else{
-        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 200)];
+        UIView *view = [[UIView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 250)];
         view.userInteractionEnabled = YES;
         UIImageView *imageview = [[UIImageView alloc]init];
         [view addSubview:imageview];
@@ -157,7 +157,7 @@
     if (section) {
         return 40;
     }else{
-        return 200;
+        return 250;
     }
 }
 

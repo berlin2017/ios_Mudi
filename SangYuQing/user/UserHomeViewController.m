@@ -138,7 +138,7 @@
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section==0) {
-        return 300;
+        return 250;
     }
     return 60;
 }
@@ -161,14 +161,14 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
         case 0:{
-            //            UserInfoViewController *controller = [[UserInfoViewController alloc]init];
-            ////             TestViewController *controller = [[TestViewController alloc]init];
-            //            controller.hidesBottomBarWhenPushed = YES;
-            //            [self.navigationController pushViewController:controller animated:YES];
-            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
-            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
-            [viewController setHidesBottomBarWhenPushed:YES];
-            [self.navigationController pushViewController:viewController animated:YES];
+                        UserInfoViewController *controller = [[UserInfoViewController alloc]init];
+            //             TestViewController *controller = [[TestViewController alloc]init];
+                        controller.hidesBottomBarWhenPushed = YES;
+                        [self.navigationController pushViewController:controller animated:YES];
+//            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+//            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+//            [viewController setHidesBottomBarWhenPushed:YES];
+//            [self.navigationController pushViewController:viewController animated:YES];
             break;
         }
         case 1:{

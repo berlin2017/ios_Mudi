@@ -10,4 +10,6 @@
 
 @interface MDDetailViewController : UIViewController
 
+@property(nonatomic,copy)NSString *sz_id;
+
 @end

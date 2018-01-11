@@ -12,6 +12,8 @@
 #import "UIColor+Helper.h"
 #import "AddressPickerView.h"
 #import "UserLoginViewController.h"
+#import "MMSheetView.h"
+#import "MMPopupItem.h"
 
 @interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,AddressPickerViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
@@ -188,44 +190,66 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section== 0 ) {
-        self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-        UIAlertController * alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-        alert.view.tintColor = [UIColor blackColor];
-        //通过拍照上传图片
-        UIAlertAction * takingPicAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
-            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-
-                UIImagePickerController * imagePicker = [[UIImagePickerController alloc]init];
-                imagePicker.delegate = self;
-                imagePicker.allowsEditing = YES;
-                imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-                [self presentViewController:imagePicker animated:YES completion:nil];
+//        self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
+//        UIAlertController * alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
+//        alert.view.tintColor = [UIColor blackColor];
+//        //通过拍照上传图片
+//        UIAlertAction * takingPicAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
+//
+//                UIImagePickerController * imagePicker = [[UIImagePickerController alloc]init];
+//                imagePicker.delegate = self;
+//                imagePicker.allowsEditing = YES;
+//                imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
+//                [self presentViewController:imagePicker animated:YES completion:nil];
+//            }
+//
+//        }];
+//        //从手机相册中选择上传图片
+//        UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"从手机相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+//
+//            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
+//                UIImagePickerController * imagePicker = [[UIImagePickerController alloc]init];
+//                imagePicker.delegate = self;
+//                imagePicker.allowsEditing = YES;
+//                imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
+//                [self presentViewController:imagePicker animated:YES completion:nil];
+//            }
+//
+//        }];
+//
+//        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
+//
+//        }];
+//
+//        [alert addAction:takingPicAction];
+//        [alert addAction:okAction];
+//        [alert addAction:cancelAction];
+//        [self presentViewController:alert animated:YES completion:nil];
+        
+        MMPopupItem *albumItem = MMItemMake(@"打开相册", MMItemTypeNormal, ^(NSInteger index) {
+            UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+            picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+            picker.delegate = self;
+            picker.allowsEditing = YES;
+            [self presentViewController:picker animated:YES completion:nil];
+        });
+        MMPopupItem *cameraItem = MMItemMake(@"打开相机", MMItemTypeNormal, ^(NSInteger index) {
+            if ([UIImagePickerController isSourceTypeAvailable: UIImagePickerControllerSourceTypeCamera]) {
+                UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+                picker.delegate = self;
+                picker.allowsEditing = YES;
+                picker.sourceType = UIImagePickerControllerSourceTypeCamera;
+                picker.modalPresentationStyle = UIModalPresentationFullScreen;
+                [self presentViewController:picker animated:YES completion:nil];
             }
-
-        }];
-        //从手机相册中选择上传图片
-        UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"从手机相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-
-            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
-                UIImagePickerController * imagePicker = [[UIImagePickerController alloc]init];
-                imagePicker.delegate = self;
-                imagePicker.allowsEditing = YES;
-                imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-                [self presentViewController:imagePicker animated:YES completion:nil];
+            else {
+                [[[MMAlertView alloc] initWithConfirmTitle:@"温馨提示" detail:@"无法打开相机"] show];
             }
-
-        }];
-
-        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-
-        }];
-
-        [alert addAction:takingPicAction];
-        [alert addAction:okAction];
-        [alert addAction:cancelAction];
-        [self presentViewController:alert animated:YES completion:nil];
-       
+        });
+        MMSheetView *sheet = [[MMSheetView alloc] initWithTitle:@"选择头像" items:@[albumItem, cameraItem]];
+        [sheet show];
         return;
     }
     switch (indexPath.row) {

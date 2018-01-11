@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MuDIModel;
 
 @interface HomeNewCollectionViewCell : UICollectionViewCell
 
--(void)configWithModel;
+-(void)configWithModel:(MuDIModel*)model;
 @end

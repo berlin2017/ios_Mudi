@@ -7,57 +7,46 @@
 //
 
 #import "PrivateTableViewCell.h"
+#import "MuDIModel.h"
+
+@interface PrivateTableViewCell()
+@property (weak, nonatomic) IBOutlet UIImageView *imageview;
+@property (weak, nonatomic) IBOutlet UILabel *name_label;
+@property (weak, nonatomic) IBOutlet UILabel *birthday_label;
+@property (weak, nonatomic) IBOutlet UILabel *death_label;
+@property (weak, nonatomic) IBOutlet UILabel *look_label;
+@property (weak, nonatomic) IBOutlet UILabel *jidian_label;
+@property (weak, nonatomic) IBOutlet UILabel *time_label;
+
+@end
 
 @implementation PrivateTableViewCell
 
 - (void)awakeFromNib {
     [super awakeFromNib];
     // Initialization code
-    // 画虚线
-    // 创建一个imageView 高度是你想要的虚线的高度 一般设为2
-    self.contentView.backgroundColor = [UIColor clearColor];
-    self.backgroundView.backgroundColor = [UIColor clearColor];
-    UIImageView * _lineImg = [[UIImageView alloc] init];
-//    [self.contentView addSubview:_lineImg];
-//    [_lineImg mas_makeConstraints:^(MASConstraintMaker *make) {
-//        make.left.mas_equalTo(self.contentView);
-//        make.right.mas_equalTo(self.contentView);
-//        make.bottom.mas_equalTo(self.contentView);
-//        make.height.height.mas_equalTo(2);
-//    }];
-//    // 调用方法 返回的iamge就是虚线
-//    _lineImg.image = [self drawLineByImageView:_lineImg];
-    // 添加到控制器的view上
+
     
 }
 
-
-
-
-// 返回虚线image的方法
-- (UIImage *)drawLineByImageView:(UIImageView *)imageView{
-    UIGraphicsBeginImageContext(imageView.frame.size); //开始画线 划线的frame
-    [imageView.image drawInRect:CGRectMake(0, 0, imageView.frame.size.width, imageView.frame.size.height)];
-    //设置线条终点形状
-    CGContextSetLineCap(UIGraphicsGetCurrentContext(), kCGLineCapRound);
-    // 5是每个虚线的长度 1是高度
-    float lengths[] = {5,1};
-    CGContextRef line = UIGraphicsGetCurrentContext();
-    // 设置颜色
-    CGContextSetStrokeColorWithColor(line, [UIColor colorWithWhite:0.408 alpha:1.000].CGColor);
-    CGContextSetLineDash(line, 0, 10, 2); //画虚线
-    CGContextMoveToPoint(line, 0.0, 2.0); //开始画线
-    CGContextAddLineToPoint(line, self.contentView.frame.size.width - 10, 2.0);
-    
-    CGContextStrokePath(line);
-    // UIGraphicsGetImageFromCurrentImageContext()返回的就是image
-    return UIGraphicsGetImageFromCurrentImageContext();
+-(void)configWithModel:(MuDIModel*)model{
+    [_imageview sd_setImageWithURL:[NSURL URLWithString:model.sz_avatar]];
+    _name_label.text = model.sz_name;
+    _birthday_label.text = [NSString stringWithFormat:@"生辰:%@",model.birthdate];
+    _death_label.text = [NSString stringWithFormat:@"忌辰:%@",model.deathdate];
+    _time_label.text = [NSString stringWithFormat:@"创建时间:%@",[self formateTime:model.create_time]];
+     _look_label.text = [NSString stringWithFormat:@"访客:%@人",model.liulan_count];
+     _jidian_label.text = [NSString stringWithFormat:@"祭奠:%zd人",model.follow];
 }
 
-- (void)setSelected:(BOOL)selected animated:(BOOL)animated {
-    [super setSelected:selected animated:animated];
-
-    // Configure the view for the selected state
+-(NSString*)formateTime:(NSString*)time{
+    NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
+    [stampFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    //以 1970/01/01 GMT为基准，然后过了secs秒的时间
+    NSDate *stampDate2 = [NSDate dateWithTimeIntervalSince1970:[time intValue]];
+    return [stampFormatter stringFromDate:stampDate2];
 }
+
+
 
 @end

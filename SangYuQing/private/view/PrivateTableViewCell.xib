@@ -99,6 +99,15 @@
                 </constraints>
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="aW0-zy-SZf"/>
+            <connections>
+                <outlet property="birthday_label" destination="XcF-oe-Q05" id="WMH-Fl-Qbm"/>
+                <outlet property="death_label" destination="Gfj-Uq-Yex" id="WYe-Uu-ZD8"/>
+                <outlet property="imageview" destination="jVn-17-uBm" id="Zeo-H7-B3w"/>
+                <outlet property="jidian_label" destination="LjD-Hv-yNm" id="Nzf-rp-aPB"/>
+                <outlet property="look_label" destination="QIN-is-LdP" id="bjR-N6-zFP"/>
+                <outlet property="name_label" destination="2RU-QQ-IvJ" id="DzI-Yc-d8j"/>
+                <outlet property="time_label" destination="li4-0C-PTz" id="LPp-dY-aTG"/>
+            </connections>
             <point key="canvasLocation" x="191" y="-152"/>
         </tableViewCell>
     </objects>

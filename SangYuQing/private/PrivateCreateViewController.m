@@ -8,11 +8,16 @@
 
 #import "PrivateCreateViewController.h"
 #import "CreatEditTableViewCell.h"
+#import "CreatPhotoTableViewCell.h"
+#import "CreatCheckBoxTableViewCell.h"
 
-@interface PrivateCreateViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface PrivateCreateViewController ()<UITableViewDelegate,UITableViewDataSource,CreatCheckBoxTableViewCellDelegate,UIImagePickerControllerDelegate,CreatPhotoTableViewCellDelegate>
 
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
+@property (nonatomic,strong)UITableView *tableview;
+@property(nonatomic,copy)NSMutableArray *array;
+@property(nonatomic,copy)UIImage *choseImage;
 @end
 
 @implementation PrivateCreateViewController
@@ -20,25 +25,29 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
-     self.navigationController.navigationBarHidden = YES;
+    self.navigationController.navigationBarHidden = YES;
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     [self.view setBackgroundColor:bgColor];
     [self.view addSubview:self.navigationView];
     UITapGestureRecognizer *key_recognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKey)];
-    [self.view addGestureRecognizer:key_recognizer];
+    [self.navigationView addGestureRecognizer:key_recognizer];
     
-    UITableView *tableview = [[UITableView alloc]init];
-    [self.view addSubview:tableview];
-    [tableview mas_makeConstraints:^(MASConstraintMaker *make) {
+    _array = [NSMutableArray arrayWithObjects:@"逝者姓名:",@"生辰日期:",@"忌辰日期:",@"情感关系:",@"上传照片:",@"是否公开:", nil];
+    _tableview = [[UITableView alloc]init];
+    [self.view addSubview:_tableview];
+    [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
         make.top.mas_equalTo(self.navigationView.mas_bottom);
         make.bottom.mas_equalTo(self.view);
     }];
-    tableview.delegate = self;
-    tableview.dataSource = self;
-    tableview.backgroundColor = [UIColor clearColor];
-    [tableview registerNib:[UINib nibWithNibName:@"CreatEditTableViewCell" bundle:nil] forCellReuseIdentifier:@"creat_edit_cell"];
+    _tableview.delegate = self;
+    _tableview.dataSource = self;
+    _tableview.userInteractionEnabled = YES;
+    _tableview.backgroundColor = [UIColor clearColor];
+    [_tableview registerNib:[UINib nibWithNibName:@"CreatEditTableViewCell" bundle:nil] forCellReuseIdentifier:@"creat_edit_cell"];
+    [_tableview registerNib:[UINib nibWithNibName:@"CreatPhotoTableViewCell" bundle:nil] forCellReuseIdentifier:@"creat_photo_cell"];
+    [_tableview registerNib:[UINib nibWithNibName:@"CreatCheckBoxTableViewCell" bundle:nil] forCellReuseIdentifier:@"creat_check_cell"];
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -54,7 +63,7 @@
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
-    return 7;
+    return _array.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -62,10 +71,23 @@
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
+    if (indexPath.row==4) {
+        CreatPhotoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"creat_photo_cell"];
+        cell.delegate = self;
+        cell.backgroundColor = [UIColor clearColor];
+        return cell;
+    }
+    if (indexPath.row==5) {
+        CreatCheckBoxTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"creat_check_cell"];
+        cell.backgroundColor = [UIColor clearColor];
+        cell.delegate = self;
+        return cell;
+    }
     CreatEditTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"creat_edit_cell"];
     if (indexPath.row==1||indexPath.row==2) {
         cell.edittext.enabled = NO;
     }
+    cell.name_label.text = _array[indexPath.row];
     cell.backgroundColor = [UIColor clearColor];
     return cell;
 }
@@ -92,6 +114,46 @@
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.row==1||indexPath.row==2) {
         
+    }
+    
+    if(indexPath.row==4){
+        UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+        picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+        picker.delegate = self;
+        picker.allowsEditing = YES;
+        [self presentViewController:picker animated:YES completion:nil];
+    }
+}
+
+-(void)choseImage{
+    UIImagePickerController *picker = [[UIImagePickerController alloc] init];
+    picker.sourceType = UIImagePickerControllerSourceTypePhotoLibrary;
+    picker.delegate = self;
+    picker.allowsEditing = YES;
+    [self presentViewController:picker animated:YES completion:nil];
+}
+
+#pragma mark 调用系统相册及拍照功能实现方法
+- (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
+{
+    UIImage * chosenImage = info[UIImagePickerControllerEditedImage];
+    CreatPhotoTableViewCell *cell = [_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
+    cell.imageview.image = chosenImage;
+    [picker dismissViewControllerAnimated:YES completion:^{
+        
+    }];
+    
+}
+
+-(void)checkedChanged:(BOOL)isChecked{
+    NSIndexPath *indexPath = [NSIndexPath indexPathForRow:6 inSection:0];
+    if (isChecked) {
+        [_array removeObjectAtIndex:6];
+        [_tableview deleteRowsAtIndexPaths:@[indexPath] withRowAnimation:UITableViewRowAnimationFade];
+        [_tableview reloadData];
+    }else{
+        [_array insertObject:@"设置密码:" atIndex:6];
+        [_tableview reloadData];
     }
 }
 
@@ -139,17 +201,17 @@
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(back)];
         [back_imageview addGestureRecognizer:gesture];
         
-//        UILabel *right_label = [[UILabel alloc]init];
-//        right_label.userInteractionEnabled = YES;
-//        [_navigationView addSubview:right_label];
-//        [right_label mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.centerY.mas_equalTo(title);
-//            make.right.mas_equalTo(_navigationView).mas_offset(-10);;
-//        }];
-//        right_label.font = [UIFont systemFontOfSize:14];
-//        right_label.text = @"快速建墓";
-//        UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onclickRightMenu)];
-//        [right_label addGestureRecognizer:gesture];
+        //        UILabel *right_label = [[UILabel alloc]init];
+        //        right_label.userInteractionEnabled = YES;
+        //        [_navigationView addSubview:right_label];
+        //        [right_label mas_makeConstraints:^(MASConstraintMaker *make) {
+        //            make.centerY.mas_equalTo(title);
+        //            make.right.mas_equalTo(_navigationView).mas_offset(-10);;
+        //        }];
+        //        right_label.font = [UIFont systemFontOfSize:14];
+        //        right_label.text = @"快速建墓";
+        //        UITapGestureRecognizer * gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(onclickRightMenu)];
+        //        [right_label addGestureRecognizer:gesture];
     }
     return _navigationView;
 }
@@ -159,3 +221,4 @@
 }
 
 @end
+

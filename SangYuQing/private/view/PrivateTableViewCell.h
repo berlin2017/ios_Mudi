@@ -7,7 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+@class MuDIModel;
 
 @interface PrivateTableViewCell : UITableViewCell
 
+-(void)configWithModel:(MuDIModel*)model;
 @end

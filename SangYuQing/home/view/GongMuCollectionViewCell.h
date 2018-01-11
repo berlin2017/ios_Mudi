@@ -7,8 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
+#import "MuDIModel.h"
 
 @interface GongMuCollectionViewCell : UICollectionViewCell
 
--(void)configWithModel;
+-(void)configWithModel:(MuDIModel*)model;
 @end

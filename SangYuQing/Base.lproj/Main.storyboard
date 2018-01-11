@@ -368,9 +368,106 @@
             </objects>
             <point key="canvasLocation" x="3297" y="346"/>
         </scene>
+        <!--上香-->
+        <scene sceneID="ImJ-c3-bnm">
+            <objects>
+                <viewController id="Xkc-6R-a3d" customClass="ShangXiangViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="SAP-uY-9w1">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="naP-9f-KnW"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="上香" image="ic_detail_shangxiang_normal" selectedImage="ic_detail_shangxiang" id="Bzf-FW-t8h"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="chR-kB-BCJ" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4548" y="778"/>
+        </scene>
+        <!--鲜花-->
+        <scene sceneID="VHB-qV-PiE">
+            <objects>
+                <viewController id="aI9-Pu-Nsm" customClass="XianHuaViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="ace-uX-1qm">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="7bp-SK-ntO"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="鲜花" image="ic_detail_xianghua_normal" selectedImage="ic_detail_xianhua" id="68B-gx-bBR"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="iPe-wD-G8G" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="3924" y="778"/>
+        </scene>
+        <!--祭品-->
+        <scene sceneID="vbe-Je-C9h">
+            <objects>
+                <viewController id="gey-Ow-kjM" customClass="JiPinViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="dnV-DQ-Hs2">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="uXS-gQ-W02"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="祭品" image="ic_detail_jipin_normal" selectedImage="ic_detail_jipin" id="AfX-O1-mhH"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="2cO-LL-dA6" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5190" y="778"/>
+        </scene>
+        <!--装饰-->
+        <scene sceneID="nAf-GT-Itc">
+            <objects>
+                <viewController id="IMS-u3-4eD" customClass="ZhuangShiViewController" sceneMemberID="viewController">
+                    <view key="view" contentMode="scaleToFill" id="mV8-Fj-Cpq">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="667"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <viewLayoutGuide key="safeArea" id="EWb-Wb-6d9"/>
+                    </view>
+                    <tabBarItem key="tabBarItem" title="装饰" image="ic_detail_zhuangshi_normal" selectedImage="ic_detail_zhuangshi" id="sGX-1e-UxZ"/>
+                </viewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="4xn-z4-m6N" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="5806" y="778"/>
+        </scene>
+        <!--Tab Bar Controller-->
+        <scene sceneID="eyX-Ca-40B">
+            <objects>
+                <tabBarController storyboardIdentifier="detail_xianhua" id="19n-Hq-isn" sceneMemberID="viewController">
+                    <tabBar key="tabBar" contentMode="scaleToFill" insetsLayoutMarginsFromSafeArea="NO" id="Vmg-H9-AHu">
+                        <rect key="frame" x="0.0" y="0.0" width="375" height="49"/>
+                        <autoresizingMask key="autoresizingMask"/>
+                        <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <userDefinedRuntimeAttributes>
+                            <userDefinedRuntimeAttribute type="color" keyPath="tintColor">
+                                <color key="value" red="0.54841572046279907" green="0.41436147689819336" blue="0.090679667890071869" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                            </userDefinedRuntimeAttribute>
+                        </userDefinedRuntimeAttributes>
+                    </tabBar>
+                    <connections>
+                        <segue destination="aI9-Pu-Nsm" kind="relationship" relationship="viewControllers" id="2dK-ch-V1z"/>
+                        <segue destination="Xkc-6R-a3d" kind="relationship" relationship="viewControllers" id="DoF-GG-MB8"/>
+                        <segue destination="gey-Ow-kjM" kind="relationship" relationship="viewControllers" id="szb-HH-UPy"/>
+                        <segue destination="IMS-u3-4eD" kind="relationship" relationship="viewControllers" id="SFF-qu-qL7"/>
+                    </connections>
+                </tabBarController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="vTC-Kp-XcW" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="4209" y="23"/>
+        </scene>
     </scenes>
     <resources>
         <image name="button_bg" width="375" height="49"/>
+        <image name="ic_detail_jipin" width="25" height="25"/>
+        <image name="ic_detail_jipin_normal" width="25" height="25"/>
+        <image name="ic_detail_shangxiang" width="25" height="25"/>
+        <image name="ic_detail_shangxiang_normal" width="25" height="25"/>
+        <image name="ic_detail_xianghua_normal" width="25" height="25"/>
+        <image name="ic_detail_xianhua" width="25" height="25"/>
+        <image name="ic_detail_zhuangshi" width="25" height="25"/>
+        <image name="ic_detail_zhuangshi_normal" width="25" height="25"/>
         <image name="ic_gonggong" width="25" height="25"/>
         <image name="ic_gonggong_light" width="25" height="25"/>
         <image name="ic_shouye_light" width="25" height="25"/>

@@ -14,6 +14,8 @@
 #import "HomeNewCollectionViewCell.h"
 #import "GongMuCollectionViewCell.h"
 #import "MDDetailViewController.h"
+#import "HZHttpClient.h"
+#import "MuDIModel.h"
 
 @interface HomeViewController ()<HZBannerViewDelegate,HZBannerViewDataSource,UICollectionViewDataSource, UICollectionViewDelegate,UITableViewDataSource,UITableViewDelegate,UIScrollViewDelegate>{
     
@@ -25,6 +27,12 @@
 @property (nonatomic,strong) UIScrollView *scorllview;
 @property (nonatomic,strong) UICollectionView *nav_collectionview;
 @property(nonatomic,strong) UITableView * top_table;
+@property(nonatomic,strong) NSArray * top_array;
+
+@property(nonatomic,strong) NSArray * bottom_array;
+
+@property(nonatomic,strong)UICollectionView *collectionView;//最新
+@property(nonatomic,strong)UICollectionView *collectionView2;//公墓
 
 @end
 
@@ -37,6 +45,7 @@
     self.navigationController.navigationBarHidden = YES;
     self.automaticallyAdjustsScrollViewInsets = YES;
     
+    [self requestPage];
     _scorllview = [[UIScrollView alloc]initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, [UIScreen mainScreen].bounds.size.height-tabBarHeight)];
     _scorllview.showsHorizontalScrollIndicator = NO;
     _scorllview.showsVerticalScrollIndicator = YES;
@@ -54,7 +63,7 @@
     [self.view setBackgroundColor:bgColor];
     [_scorllview addSubview:_contentView];
     
-    HZBannerView *bannerView = [[HZBannerView alloc] initWithFrame:CGRectMake(0, -[[UIApplication sharedApplication] statusBarFrame].size.height, [UIScreen mainScreen].bounds.size.width, 300)];
+    HZBannerView *bannerView = [[HZBannerView alloc] initWithFrame:CGRectMake(0, -[[UIApplication sharedApplication] statusBarFrame].size.height, [UIScreen mainScreen].bounds.size.width, 250)];
     bannerView.delegate = self;
     bannerView.dataSource = self;
     [_contentView addSubview:bannerView];
@@ -124,19 +133,19 @@
     layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout.minimumLineSpacing = 2;
     
-    UICollectionView *collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
-    collectionView.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
+    _collectionView = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+    _collectionView.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
 //    collectionView.backgroundColor = [UIColor clearColor];
-    collectionView.delegate = self;
-    collectionView.dataSource = self;
-    collectionView.scrollsToTop = NO;
-    collectionView.showsVerticalScrollIndicator = NO;
-    collectionView.showsHorizontalScrollIndicator = NO;
-    collectionView.tag = 2000;
-    [collectionView registerNib:[UINib nibWithNibName:@"HomeNews" bundle:nil] forCellWithReuseIdentifier:@"homeNew"];
-    [_contentView addSubview:collectionView];
+    _collectionView.delegate = self;
+    _collectionView.dataSource = self;
+    _collectionView.scrollsToTop = NO;
+    _collectionView.showsVerticalScrollIndicator = NO;
+    _collectionView.showsHorizontalScrollIndicator = NO;
+    _collectionView.tag = 2000;
+    [_collectionView registerNib:[UINib nibWithNibName:@"HomeNews" bundle:nil] forCellWithReuseIdentifier:@"homeNew"];
+    [_contentView addSubview:_collectionView];
     
-    [collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_collectionView mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
         make.top.mas_equalTo(new_header.mas_bottom);
@@ -151,7 +160,7 @@
     [new_header2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
-        make.top.mas_equalTo(collectionView.mas_bottom).mas_equalTo(10);;
+        make.top.mas_equalTo(_collectionView.mas_bottom).mas_equalTo(10);;
         make.height.mas_equalTo(50);
     }];
     UIImageView *imageView2 = [[UIImageView alloc]init];
@@ -194,19 +203,19 @@
     layout2.scrollDirection = UICollectionViewScrollDirectionHorizontal;
     layout2.minimumLineSpacing = 2;
     
-    UICollectionView *collectionView2 = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout2];
-    collectionView2.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
+    _collectionView2 = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout2];
+    _collectionView2.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
 //    collectionView2.backgroundColor = [UIColor clearColor];
-    collectionView2.delegate = self;
-    collectionView2.dataSource = self;
-    collectionView2.scrollsToTop = NO;
-    collectionView2.showsVerticalScrollIndicator = NO;
-    collectionView2.showsHorizontalScrollIndicator = NO;
-    collectionView2.tag = 3000;
-    [collectionView2 registerNib:[UINib nibWithNibName:@"GongMuCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"homeGongmu"];
-    [_contentView addSubview:collectionView2];
+    _collectionView2.delegate = self;
+    _collectionView2.dataSource = self;
+    _collectionView2.scrollsToTop = NO;
+    _collectionView2.showsVerticalScrollIndicator = NO;
+    _collectionView2.showsHorizontalScrollIndicator = NO;
+    _collectionView2.tag = 3000;
+    [_collectionView2 registerNib:[UINib nibWithNibName:@"GongMuCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"homeGongmu"];
+    [_contentView addSubview:_collectionView2];
     
-    [collectionView2 mas_makeConstraints:^(MASConstraintMaker *make) {
+    [_collectionView2 mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
         make.top.mas_equalTo(new_header2.mas_bottom);
@@ -216,13 +225,53 @@
     [_contentView mas_makeConstraints:^(MASConstraintMaker *make) {
         //        make.edges.mas_equalTo(bannerView);
         make.top.mas_equalTo(self.scorllview);
-        make.bottom.mas_equalTo(collectionView2);
+        make.bottom.mas_equalTo(_collectionView2);
         make.left.mas_equalTo(bannerView);
         make.right.mas_equalTo(bannerView);
         make.bottom.equalTo(_contentView.superview.mas_bottom);
     }];
     
     [self.view addSubview:self.navigationView];
+}
+
+-(void)requestPage{
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [HZLoadingHUD showHUDInView:self.view];
+    [client hcGET:@"/v1/gongmu/list" parameters:@{@"order":@"1",@"page":@"0",} success:^(NSURLSessionDataTask *task, id object) {
+        
+        if(object[@"state"]){
+//             [self.view makeCenterOffsetToast:@"success"];
+            _top_array = [MTLJSONAdapter modelsOfClass:[MuDIModel class] fromJSONArray:object[@"data"][@"CemeteryData"] error:nil];
+            [_collectionView reloadData];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+        [HZLoadingHUD hideHUDInView:self.view];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败，请重试"];
+        [HZLoadingHUD hideHUDInView:self.view];
+    }];
+    
+    [self requestList];
+}
+
+-(void)requestList{
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [HZLoadingHUD showHUDInView:self.view];
+    [client hcGET:@"/v1/gongmu/list" parameters:@{@"order":@"2",} success:^(NSURLSessionDataTask *task, id object) {
+        
+        if(object[@"state"]){
+            //             [self.view makeCenterOffsetToast:@"success"];
+            _bottom_array = [MTLJSONAdapter modelsOfClass:[MuDIModel class] fromJSONArray:object[@"data"][@"CemeteryData"] error:nil];
+            [_collectionView2 reloadData];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+        [HZLoadingHUD hideHUDInView:self.view];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败，请重试"];
+        [HZLoadingHUD hideHUDInView:self.view];
+    }];
 }
 
 -(void)labelClick{
@@ -305,10 +354,10 @@
 {
     if (collectionView.tag==1000) {
         return 2;
-    }else{
-        return 10;
+    }else if(collectionView.tag == 2000){
+        return _top_array.count;
     }
-    
+    return _bottom_array.count;
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
@@ -318,12 +367,12 @@
         return cell;
     }else if (collectionView.tag==2000){
         HomeNewCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"homeNew" forIndexPath:indexPath];
-        [cell configWithModel];
+        [cell configWithModel:_top_array[indexPath.row]];
         return cell;
     }else if (collectionView.tag==3000){
         GongMuCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"homeGongmu" forIndexPath:indexPath];
         cell.contentView.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
-        [cell configWithModel];
+        [cell configWithModel:_bottom_array[indexPath.row]];
         return cell;
     }
     return nil;
@@ -335,10 +384,14 @@
         self.tabBarController.selectedIndex = indexPath.row+1;
     }else if (collectionView.tag==2000){
         MDDetailViewController *controller = [[MDDetailViewController alloc]init];
+        MuDIModel *model =  _top_array[indexPath.row];
+        controller.sz_id = model.sz_id;
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }else if (collectionView.tag==3000){
         MDDetailViewController *controller = [[MDDetailViewController alloc]init];
+        MuDIModel *model =  _bottom_array[indexPath.row];
+        controller.sz_id = model.sz_id;
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }

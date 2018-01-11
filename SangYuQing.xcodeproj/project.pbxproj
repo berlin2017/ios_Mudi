@@ -151,6 +151,23 @@
 		0497C87720063C4F0075232C /* VideoPlayer.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 0497C87320063C4F0075232C /* VideoPlayer.bundle */; };
 		0497C87B200645850075232C /* CreatEditTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C879200645850075232C /* CreatEditTableViewCell.m */; };
 		0497C87C200645850075232C /* CreatEditTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0497C87A200645850075232C /* CreatEditTableViewCell.xib */; };
+		0497C8802006E9250075232C /* CreatPhotoTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C87E2006E9250075232C /* CreatPhotoTableViewCell.m */; };
+		0497C8812006E9250075232C /* CreatPhotoTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0497C87F2006E9250075232C /* CreatPhotoTableViewCell.xib */; };
+		0497C8852006ED800075232C /* CreatCheckBoxTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C8832006ED800075232C /* CreatCheckBoxTableViewCell.m */; };
+		0497C8862006ED800075232C /* CreatCheckBoxTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0497C8842006ED800075232C /* CreatCheckBoxTableViewCell.xib */; };
+		0497C889200703FC0075232C /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C888200703FC0075232C /* SearchViewController.m */; };
+		0497C88C20070F480075232C /* GiftView.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C88B20070F480075232C /* GiftView.m */; };
+		0497C88F200751DD0075232C /* XianHuaViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C88E200751DD0075232C /* XianHuaViewController.m */; };
+		0497C892200751F20075232C /* ShangXiangViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C891200751F20075232C /* ShangXiangViewController.m */; };
+		0497C895200752020075232C /* JiPinViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C894200752020075232C /* JiPinViewController.m */; };
+		0497C8982007520D0075232C /* ZhuangShiViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C8972007520D0075232C /* ZhuangShiViewController.m */; };
+		0497C89B20075A9D0075232C /* HZPageViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C89A20075A9D0075232C /* HZPageViewController.m */; };
+		0497C89E20075CE20075232C /* GifListViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C89D20075CE20075232C /* GifListViewController.m */; };
+		0497C8A220076E980075232C /* GiftCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C8A020076E980075232C /* GiftCollectionViewCell.m */; };
+		0497C8A320076E980075232C /* GiftCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 0497C8A120076E980075232C /* GiftCollectionViewCell.xib */; };
+		0497C8A6200772560075232C /* GiftModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C8A5200772560075232C /* GiftModel.m */; };
+		0497C8AA200784B60075232C /* MuDIModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C8A9200784B60075232C /* MuDIModel.m */; };
+		0497C8AD2007905F0075232C /* MuDiDetailModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 0497C8AC2007905F0075232C /* MuDiDetailModel.m */; };
 		04F13F021FFCB950008B1C3B /* UserHeaderTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F001FFCB950008B1C3B /* UserHeaderTableViewCell.m */; };
 		04F13F031FFCB950008B1C3B /* UserHeaderTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04F13F011FFCB950008B1C3B /* UserHeaderTableViewCell.xib */; };
 		04F13F061FFCC98E008B1C3B /* UserInfoViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04F13F051FFCC98E008B1C3B /* UserInfoViewController.m */; };
@@ -516,6 +533,37 @@
 		0497C878200645850075232C /* CreatEditTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreatEditTableViewCell.h; sourceTree = "<group>"; };
 		0497C879200645850075232C /* CreatEditTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreatEditTableViewCell.m; sourceTree = "<group>"; };
 		0497C87A200645850075232C /* CreatEditTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatEditTableViewCell.xib; sourceTree = "<group>"; };
+		0497C87D2006E9250075232C /* CreatPhotoTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreatPhotoTableViewCell.h; sourceTree = "<group>"; };
+		0497C87E2006E9250075232C /* CreatPhotoTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreatPhotoTableViewCell.m; sourceTree = "<group>"; };
+		0497C87F2006E9250075232C /* CreatPhotoTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatPhotoTableViewCell.xib; sourceTree = "<group>"; };
+		0497C8822006ED800075232C /* CreatCheckBoxTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = CreatCheckBoxTableViewCell.h; sourceTree = "<group>"; };
+		0497C8832006ED800075232C /* CreatCheckBoxTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = CreatCheckBoxTableViewCell.m; sourceTree = "<group>"; };
+		0497C8842006ED800075232C /* CreatCheckBoxTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CreatCheckBoxTableViewCell.xib; sourceTree = "<group>"; };
+		0497C887200703FC0075232C /* SearchViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = SearchViewController.h; sourceTree = "<group>"; };
+		0497C888200703FC0075232C /* SearchViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = SearchViewController.m; sourceTree = "<group>"; };
+		0497C88A20070F480075232C /* GiftView.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftView.h; sourceTree = "<group>"; };
+		0497C88B20070F480075232C /* GiftView.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftView.m; sourceTree = "<group>"; };
+		0497C88D200751DD0075232C /* XianHuaViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = XianHuaViewController.h; sourceTree = "<group>"; };
+		0497C88E200751DD0075232C /* XianHuaViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = XianHuaViewController.m; sourceTree = "<group>"; };
+		0497C890200751F20075232C /* ShangXiangViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ShangXiangViewController.h; sourceTree = "<group>"; };
+		0497C891200751F20075232C /* ShangXiangViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ShangXiangViewController.m; sourceTree = "<group>"; };
+		0497C893200752020075232C /* JiPinViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JiPinViewController.h; sourceTree = "<group>"; };
+		0497C894200752020075232C /* JiPinViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JiPinViewController.m; sourceTree = "<group>"; };
+		0497C8962007520D0075232C /* ZhuangShiViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ZhuangShiViewController.h; sourceTree = "<group>"; };
+		0497C8972007520D0075232C /* ZhuangShiViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ZhuangShiViewController.m; sourceTree = "<group>"; };
+		0497C89920075A9D0075232C /* HZPageViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; path = HZPageViewController.h; sourceTree = "<group>"; };
+		0497C89A20075A9D0075232C /* HZPageViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; path = HZPageViewController.m; sourceTree = "<group>"; };
+		0497C89C20075CE20075232C /* GifListViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GifListViewController.h; sourceTree = "<group>"; };
+		0497C89D20075CE20075232C /* GifListViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GifListViewController.m; sourceTree = "<group>"; };
+		0497C89F20076E980075232C /* GiftCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftCollectionViewCell.h; sourceTree = "<group>"; };
+		0497C8A020076E980075232C /* GiftCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftCollectionViewCell.m; sourceTree = "<group>"; };
+		0497C8A120076E980075232C /* GiftCollectionViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = GiftCollectionViewCell.xib; sourceTree = "<group>"; };
+		0497C8A4200772560075232C /* GiftModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftModel.h; sourceTree = "<group>"; };
+		0497C8A5200772560075232C /* GiftModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftModel.m; sourceTree = "<group>"; };
+		0497C8A8200784B60075232C /* MuDIModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MuDIModel.h; sourceTree = "<group>"; };
+		0497C8A9200784B60075232C /* MuDIModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MuDIModel.m; sourceTree = "<group>"; };
+		0497C8AB2007905F0075232C /* MuDiDetailModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MuDiDetailModel.h; sourceTree = "<group>"; };
+		0497C8AC2007905F0075232C /* MuDiDetailModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MuDiDetailModel.m; sourceTree = "<group>"; };
 		04F13EFF1FFCB950008B1C3B /* UserHeaderTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserHeaderTableViewCell.h; sourceTree = "<group>"; };
 		04F13F001FFCB950008B1C3B /* UserHeaderTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserHeaderTableViewCell.m; sourceTree = "<group>"; };
 		04F13F011FFCB950008B1C3B /* UserHeaderTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = UserHeaderTableViewCell.xib; sourceTree = "<group>"; };
@@ -647,6 +695,17 @@
 				0497C878200645850075232C /* CreatEditTableViewCell.h */,
 				0497C879200645850075232C /* CreatEditTableViewCell.m */,
 				0497C87A200645850075232C /* CreatEditTableViewCell.xib */,
+				0497C87D2006E9250075232C /* CreatPhotoTableViewCell.h */,
+				0497C87E2006E9250075232C /* CreatPhotoTableViewCell.m */,
+				0497C87F2006E9250075232C /* CreatPhotoTableViewCell.xib */,
+				0497C8822006ED800075232C /* CreatCheckBoxTableViewCell.h */,
+				0497C8832006ED800075232C /* CreatCheckBoxTableViewCell.m */,
+				0497C8842006ED800075232C /* CreatCheckBoxTableViewCell.xib */,
+				0497C88A20070F480075232C /* GiftView.h */,
+				0497C88B20070F480075232C /* GiftView.m */,
+				0497C89F20076E980075232C /* GiftCollectionViewCell.h */,
+				0497C8A020076E980075232C /* GiftCollectionViewCell.m */,
+				0497C8A120076E980075232C /* GiftCollectionViewCell.xib */,
 			);
 			path = view;
 			sourceTree = "<group>";
@@ -730,9 +789,12 @@
 		04431EB51FF4D42900A2A116 /* home */ = {
 			isa = PBXGroup;
 			children = (
+				0497C8A7200784A60075232C /* model */,
 				04431FCB1FF5128800A2A116 /* view */,
 				04431EB61FF4D44600A2A116 /* HomeViewController.h */,
 				04431EB71FF4D44600A2A116 /* HomeViewController.m */,
+				0497C887200703FC0075232C /* SearchViewController.h */,
+				0497C888200703FC0075232C /* SearchViewController.m */,
 			);
 			path = home;
 			sourceTree = "<group>";
@@ -740,6 +802,8 @@
 		04431EB91FF4D47D00A2A116 /* private */ = {
 			isa = PBXGroup;
 			children = (
+				0497C89920075A9D0075232C /* HZPageViewController.h */,
+				0497C89A20075A9D0075232C /* HZPageViewController.m */,
 				0491025B2005B3AB003D56DF /* model */,
 				04203DA71FF62E39003AA051 /* view */,
 				04431EBA1FF4D49900A2A116 /* PrivateHomeViewController.h */,
@@ -774,6 +838,16 @@
 				0497C86020062DC90075232C /* XiangCeListViewController.m */,
 				0497C86A20063C0D0075232C /* VideoPlayViewController.h */,
 				0497C86B20063C0D0075232C /* VideoPlayViewController.m */,
+				0497C88D200751DD0075232C /* XianHuaViewController.h */,
+				0497C88E200751DD0075232C /* XianHuaViewController.m */,
+				0497C890200751F20075232C /* ShangXiangViewController.h */,
+				0497C891200751F20075232C /* ShangXiangViewController.m */,
+				0497C893200752020075232C /* JiPinViewController.h */,
+				0497C894200752020075232C /* JiPinViewController.m */,
+				0497C8962007520D0075232C /* ZhuangShiViewController.h */,
+				0497C8972007520D0075232C /* ZhuangShiViewController.m */,
+				0497C89C20075CE20075232C /* GifListViewController.h */,
+				0497C89D20075CE20075232C /* GifListViewController.m */,
 			);
 			path = private;
 			sourceTree = "<group>";
@@ -1176,6 +1250,8 @@
 				049102652005BA18003D56DF /* SZDetailModel.m */,
 				0497C85C20061F040075232C /* PhotoModel.h */,
 				0497C85D20061F040075232C /* PhotoModel.m */,
+				0497C8A4200772560075232C /* GiftModel.h */,
+				0497C8A5200772560075232C /* GiftModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1217,6 +1293,17 @@
 				0497C87320063C4F0075232C /* VideoPlayer.bundle */,
 			);
 			path = HZVideoPlayer;
+			sourceTree = "<group>";
+		};
+		0497C8A7200784A60075232C /* model */ = {
+			isa = PBXGroup;
+			children = (
+				0497C8A8200784B60075232C /* MuDIModel.h */,
+				0497C8A9200784B60075232C /* MuDIModel.m */,
+				0497C8AB2007905F0075232C /* MuDiDetailModel.h */,
+				0497C8AC2007905F0075232C /* MuDiDetailModel.m */,
+			);
+			path = model;
 			sourceTree = "<group>";
 		};
 		04F13EFE1FFCB8E1008B1C3B /* view */ = {
@@ -1386,17 +1473,20 @@
 				0491014F20049D44003D56DF /* LaunchHelper.bundle in Resources */,
 				0491FF7D200391F9003D56DF /* UserScoreLogTableViewCell.xib in Resources */,
 				0491023B2004EAE8003D56DF /* DetailMenuCollectionViewCell.xib in Resources */,
+				0497C8862006ED800075232C /* CreatCheckBoxTableViewCell.xib in Resources */,
 				04431DD21FF4B7BE00A2A116 /* Assets.xcassets in Resources */,
 				0491025220059E82003D56DF /* ZhuiSiLiuYanTableViewCell.xib in Resources */,
 				0497C8692006365E0075232C /* DetailVideoCollectionViewCell.xib in Resources */,
 				049100C420046652003D56DF /* README.txt in Resources */,
 				0497C85620061B7B0075232C /* XiangCeCollectionTableViewCell.xib in Resources */,
+				0497C8812006E9250075232C /* CreatPhotoTableViewCell.xib in Resources */,
 				0497C87C200645850075232C /* CreatEditTableViewCell.xib in Resources */,
 				0491017320049D44003D56DF /* theme_default.plist in Resources */,
 				0497C85B20061DB30075232C /* XiangCeCollectionViewCell.xib in Resources */,
 				04F13F101FFCCCF4008B1C3B /* UserInfoListCell.xib in Resources */,
 				04F13F0B1FFCCB39008B1C3B /* UserInfoTableViewCell.xib in Resources */,
 				04203DA11FF5C3C1003AA051 /* HomeNews.xib in Resources */,
+				0497C8A320076E980075232C /* GiftCollectionViewCell.xib in Resources */,
 				047720A31FF72EBF00817528 /* PrivateTopTableViewCell.xib in Resources */,
 				0491025A2005B1BB003D56DF /* ZhuiSiJiWenTableViewCell.xib in Resources */,
 				0497C87720063C4F0075232C /* VideoPlayer.bundle in Resources */,
@@ -1516,12 +1606,15 @@
 				0497C84C200605250075232C /* JiWenMoreViewController.m in Sources */,
 				0491015920049D44003D56DF /* NSDate+Helper.m in Sources */,
 				0491015420049D44003D56DF /* HZHttpClient.m in Sources */,
+				0497C8AA200784B60075232C /* MuDIModel.m in Sources */,
 				04431EC41FF4D4C500A2A116 /* UserHomeViewController.m in Sources */,
+				0497C88F200751DD0075232C /* XianHuaViewController.m in Sources */,
 				0491FF7420038ADA003D56DF /* UserScorePayCollectionViewCell.m in Sources */,
 				049102242004A7B1003D56DF /* HZLoadingHUD.m in Sources */,
 				0497C86C20063C0D0075232C /* VideoPlayViewController.m in Sources */,
 				04F13F6A1FFCDA55008B1C3B /* Province.m in Sources */,
 				0497C846200604870075232C /* WriteJiWenViewController.m in Sources */,
+				0497C8AD2007905F0075232C /* MuDiDetailModel.m in Sources */,
 				049102592005B1BB003D56DF /* ZhuiSiJiWenTableViewCell.m in Sources */,
 				04F13F691FFCDA55008B1C3B /* City.m in Sources */,
 				0491015E20049D44003D56DF /* NSArray+Helper.m in Sources */,
@@ -1534,7 +1627,10 @@
 				04431FD11FF512DB00A2A116 /* HomeNavCollectionViewCell.m in Sources */,
 				0491016420049D44003D56DF /* UIImageView+WebCacheExtension.m in Sources */,
 				0491017420049D44003D56DF /* HZSystemInfoManager.m in Sources */,
+				0497C8982007520D0075232C /* ZhuangShiViewController.m in Sources */,
 				04203D9F1FF5C377003AA051 /* HomeNewCollectionViewCell.m in Sources */,
+				0497C8802006E9250075232C /* CreatPhotoTableViewCell.m in Sources */,
+				0497C892200751F20075232C /* ShangXiangViewController.m in Sources */,
 				0491FF7820038F75003D56DF /* UserScoreDetailViewController.m in Sources */,
 				0491017620049D44003D56DF /* HZHelper.m in Sources */,
 				04F13F6E1FFCDE7A008B1C3B /* TestViewController.m in Sources */,
@@ -1558,9 +1654,12 @@
 				04431EBC1FF4D49900A2A116 /* PrivateHomeViewController.m in Sources */,
 				0491015C20049D44003D56DF /* UIWebView+Helper.m in Sources */,
 				04431DD81FF4B7BE00A2A116 /* main.m in Sources */,
+				0497C88C20070F480075232C /* GiftView.m in Sources */,
 				04F13F061FFCC98E008B1C3B /* UserInfoViewController.m in Sources */,
+				0497C89E20075CE20075232C /* GifListViewController.m in Sources */,
 				0491026A2005BD89003D56DF /* ZhuiSiJieShaoTableViewCell.m in Sources */,
 				0497C85E20061F040075232C /* PhotoModel.m in Sources */,
+				0497C89B20075A9D0075232C /* HZPageViewController.m in Sources */,
 				0491016920049D44003D56DF /* UIButton+Helper.m in Sources */,
 				04F13F8D1FFE9D0D008B1C3B /* UserRegisterViewController.m in Sources */,
 				0491023E2004F41F003D56DF /* UILabel+Extension.m in Sources */,
@@ -1568,6 +1667,7 @@
 				0491015320049D44003D56DF /* ZANLaunchHelperView.m in Sources */,
 				0491015120049D44003D56DF /* HZCustomTextFieldCell.m in Sources */,
 				0491015620049D44003D56DF /* HZWebBaseViewController.m in Sources */,
+				0497C8852006ED800075232C /* CreatCheckBoxTableViewCell.m in Sources */,
 				04F13F741FFE836A008B1C3B /* UserAboutViewController.m in Sources */,
 				0497C87520063C4F0075232C /* HZVideoPlayerView.m in Sources */,
 				0491015D20049D44003D56DF /* NSError+Helper.m in Sources */,
@@ -1575,6 +1675,8 @@
 				049102552005A065003D56DF /* LiuYanModel.m in Sources */,
 				04203DAB1FF62E5C003AA051 /* PrivateTableViewCell.m in Sources */,
 				0491015B20049D44003D56DF /* NSFileManager+Helper.m in Sources */,
+				0497C889200703FC0075232C /* SearchViewController.m in Sources */,
+				0497C8A6200772560075232C /* GiftModel.m in Sources */,
 				049102472004FE58003D56DF /* DetailXiangCeViewController.m in Sources */,
 				0497C8682006365E0075232C /* DetailVideoCollectionViewCell.m in Sources */,
 				0491024D2004FE82003D56DF /* DetailJPGLViewController.m in Sources */,
@@ -1582,6 +1684,7 @@
 				0491017120049D44003D56DF /* HZURLConstVarables.m in Sources */,
 				0491016A20049D44003D56DF /* UITabBar+Helper.m in Sources */,
 				049102352004D6A3003D56DF /* ButtomBarCollectionViewCell.m in Sources */,
+				0497C895200752020075232C /* JiPinViewController.m in Sources */,
 				0491023A2004EAE8003D56DF /* DetailMenuCollectionViewCell.m in Sources */,
 				04F13F6B1FFCDA55008B1C3B /* AddressPickerView.m in Sources */,
 				04203DA51FF5E997003AA051 /* GongMuCollectionViewCell.m in Sources */,
@@ -1589,6 +1692,7 @@
 				047720A21FF72EBF00817528 /* PrivateTopTableViewCell.m in Sources */,
 				0491024A2004FE6A003D56DF /* DetailVideoViewController.m in Sources */,
 				0491025E2005B3D3003D56DF /* JiWenModel.m in Sources */,
+				0497C8A220076E980075232C /* GiftCollectionViewCell.m in Sources */,
 				0491025120059E82003D56DF /* ZhuiSiLiuYanTableViewCell.m in Sources */,
 				04F59CE21FFB06C8009EEF96 /* PrivateCreateViewController.m in Sources */,
 				0491016C20049D44003D56DF /* HZSettingsManager.m in Sources */,

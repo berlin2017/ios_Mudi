@@ -3,10 +3,35 @@
    version = "1.0">
    <ContextStates>
       <ContextState
+         contextName = "__33-[HomeViewController requestPage]_block_invoke:HomeViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[GiftView touchesBegan:withEvent:]:GiftView.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "self.addImageView.layer">
+            </PersistentString>
+            <PersistentString
+               value = "[self.addImageView.layer containsPoint:curP]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__39-[PublicHomeViewController requestList]_block_invoke:PublicHomeViewController.m">
+      </ContextState>
+      <ContextState
          contextName = "-[MDDetailViewController viewDidLoad]:MDDetailViewController.m">
          <PersistentStrings>
             <PersistentString
                value = "contentView.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__39-[MDDetailViewController requestDetail]_block_invoke:MDDetailViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "object[@&quot;data&quot;][@&quot;CemeteryInfo&quot;]">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
