@@ -19,12 +19,15 @@
 #import "WriteJiWenViewController.h"
 #import "LiuYanMoreViewController.h"
 #import "JiWenMoreViewController.h"
+#import "UserLoginViewController.h"
 
 @interface ZhuiSiViewController ()<UITableViewDelegate,UITableViewDataSource,ZhuiSiJieShaoTableViewCellDelegate>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,assign)int type;
+@property(nonatomic,copy)NSString* jieshao;
+@property(nonatomic,copy)NSArray* jiwenList;
 @end
 
 @implementation ZhuiSiViewController
@@ -32,6 +35,7 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+        [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserModel) name:kZANUserLoginSuccessNotification object:nil];
     _type = 4;
     self.navigationController.navigationBarHidden = YES;
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
@@ -53,6 +57,49 @@
     [_tableview registerNib:[UINib nibWithNibName:@"ZhuiSiJiWenTableViewCell" bundle:nil] forCellReuseIdentifier:@"zhuisi_jiwen_cell"];
     [_tableview registerNib:[UINib nibWithNibName:@"ZhuiSiHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:@"zhuisi_header_cell"];
     [_tableview registerNib:[UINib nibWithNibName:@"ZhuiSiJieShaoTableViewCell" bundle:nil] forCellReuseIdentifier:@"zhuisi_jieshao_cell"];
+    [self requestPage];
+}
+
+-(void)requestPage{
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcGET:@"/v1/jiwen/zyys" parameters:@{@"sz_id":_sz_id}  success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            _jieshao = object[@"data"][@"Content"];
+            [_tableview reloadData];
+        }else if([object[@"state_code"] isEqualToString:@"8888"]){
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
+}
+
+-(void)requestJW{
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcGET:@"/v1/gongmu/articles" parameters:@{@"id":_sz_id}  success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            _jiwenList = object[@"data"][@"CemeteryInfo"][@"articles"];
+            [_tableview reloadData];
+        }else if([object[@"state_code"] isEqualToString:@"8888"]){
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
+}
+
+-(void)updateUserModel{
+    [self requestPage];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -101,7 +148,7 @@
             model.death = @"2018-01-11";
             model.fangke = 100;
             model.jidian = 200;
-            model.jieshao = @"中共第十五届中央候补委员，十六届、十七届、十八届、十九届中央委员，十七届中央政治局委员、常委、中央书记处书记，十八届、十九届中央政治局委员、常委、中央委员会总书记。第十一届全国人大第一次会议当选为中华人民共和国副主席。十七届五中全会增补为中共中央军事委员会副主席。第十一届全国人大常委会第十七次会议任命为中华人民共和国中央军事委员会副主席。十八届一中全会任中共中央军事委员会主席。第十二届全国人大第一次会议当选为中华人民共和国主席、中华人民共和国中央军事委员会主席。十九届一中全会任中共中央军事委员会主席。";
+            model.jieshao = _jieshao;
             [cell configWithModel:model type:_type];
             cell.delegate = self;
             cell.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];

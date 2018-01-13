@@ -9,5 +9,5 @@
 #import <UIKit/UIKit.h>
 
 @interface ZhuiSiViewController : UIViewController
-
+@property(nonatomic,copy)NSString *sz_id;
 @end

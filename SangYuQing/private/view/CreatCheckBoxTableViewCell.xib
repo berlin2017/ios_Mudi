@@ -29,8 +29,8 @@
                         <rect key="frame" x="113" y="20.5" width="51" height="31"/>
                     </switch>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="注：不公开则仅对创建者可见" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="p8O-uY-plK">
-                        <rect key="frame" x="207" y="28.5" width="172.5" height="16"/>
-                        <fontDescription key="fontDescription" type="system" pointSize="13"/>
+                        <rect key="frame" x="192" y="29" width="146.5" height="13.5"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="11"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
@@ -41,7 +41,7 @@
                     <constraint firstAttribute="bottom" secondItem="Syf-kf-yAu" secondAttribute="bottom" constant="20" id="fYK-l7-GDY"/>
                     <constraint firstItem="p8O-uY-plK" firstAttribute="centerY" secondItem="Syf-kf-yAu" secondAttribute="centerY" id="jPI-la-fbK"/>
                     <constraint firstItem="bng-my-jsH" firstAttribute="centerY" secondItem="Syf-kf-yAu" secondAttribute="centerY" id="n1j-F9-uQW"/>
-                    <constraint firstItem="p8O-uY-plK" firstAttribute="leading" secondItem="bng-my-jsH" secondAttribute="trailing" constant="45" id="psX-oK-SoG"/>
+                    <constraint firstItem="p8O-uY-plK" firstAttribute="leading" secondItem="bng-my-jsH" secondAttribute="trailing" constant="30" id="psX-oK-SoG"/>
                     <constraint firstItem="bng-my-jsH" firstAttribute="leading" secondItem="Syf-kf-yAu" secondAttribute="trailing" constant="29" id="zd9-ZQ-ujH"/>
                 </constraints>
             </tableViewCellContentView>

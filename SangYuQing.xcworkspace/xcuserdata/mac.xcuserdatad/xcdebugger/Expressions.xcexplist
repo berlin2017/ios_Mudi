@@ -39,10 +39,21 @@
          contextName = "-[GiftView touchesBegan:withEvent:]:GiftView.m">
          <PersistentStrings>
             <PersistentString
-               value = "[self.addImageView.layer containsPoint:curP]">
+               value = "self.addImageView.layer">
             </PersistentString>
             <PersistentString
-               value = "self.addImageView.layer">
+               value = "[self.addImageView.layer containsPoint:curP]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__41-[PrivateCreateViewController requestAdd]_block_invoke:PrivateCreateViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[PrivateCreateViewController valueChange:]:PrivateCreateViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "datePicker.tag">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
@@ -51,6 +62,14 @@
          <PersistentStrings>
             <PersistentString
                value = "object[@&quot;data&quot;][@&quot;CemeteryInfo&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PrivateCreateViewController textFieldDidBeginEditing:]:PrivateCreateViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = " _datePicker.tag ">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

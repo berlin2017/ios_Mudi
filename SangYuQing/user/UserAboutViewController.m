@@ -63,8 +63,8 @@
     }];
     info.textColor = [UIColor darkGrayColor];
     info.numberOfLines = 0;//表示label可以多行显示
-    info.text = @"支付密码必须为6位数字组合。\n您可依次进入 '功能列表' -> '安全中心' 修改支付密码。";
-    info.font = [UIFont systemFontOfSize:17];
+    info.text = @"         近两年在社会上提倡“网络祭祀”这可以说是一种新型的祭祀形式也被越来越多的人开始接受尤其是在青年人中比较流行。因为“网络祭祀”既经济又便利既环保又实惠省去了人们用整天的时间去陵园扫墓又免去了因扫墓而引起的多种事故。“网络祭祀”可以说是种既便利可行又节省时间和经济既能表达对亲人的怀念又能强化人们的环保意识。\n\n       桑榆晴APP为用户提供网络祭祀的服务，用户可以在APP中创建墓地，供自己或亲戚朋友在线上香、献花、写祷文等。";
+    info.font = [UIFont systemFontOfSize:13];
 }
 
 // 自定义导航栏

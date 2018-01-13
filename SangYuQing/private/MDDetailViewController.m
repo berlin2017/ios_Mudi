@@ -20,6 +20,9 @@
 #import "GiftModel.h"
 #import "HZHttpClient.h"
 #import "MuDiDetailModel.h"
+#import "ZhuiSiViewController.h"
+#import "DetailXiangCeViewController.h"
+#import "DetailVideoViewController.h"
 
 @interface MDDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,GiftViewDelegate,XianHuaViewControllerDelegate,ShangXiangViewControllerDelegate,ZhuangShiViewControllerDelegate,JiPinViewControllerDelegate>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
@@ -242,8 +245,20 @@
         
         NSInteger index = 0;
         NSMutableArray *array =[NSMutableArray new];
-        for (UIViewController *viewController in tabBarController.viewControllers) {
-            
+        for (int i=0;i< tabBarController.viewControllers.count;i++) {
+            UIViewController * viewController = tabBarController.viewControllers[i];
+            if (i==0) {
+               ZhuiSiViewController *cont =  (ZhuiSiViewController*)viewController;
+                cont.sz_id = _sz_id;
+            }
+            if (i==1) {
+                DetailXiangCeViewController *cont =  (DetailXiangCeViewController*)viewController;
+                cont.sz_id = _sz_id;
+            }
+            if (i==2) {
+                DetailVideoViewController *cont =  (DetailVideoViewController*)viewController;
+                cont.sz_id = _sz_id;
+            }
             if ([tabBarController.viewControllers lastObject]==viewController&&_names.count==3) {
                 
 
