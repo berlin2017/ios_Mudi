@@ -13,12 +13,21 @@
 #import "PrivateMoreViewController.h"
 #import "PrivateCreateViewController.h"
 #import "MDDetailViewController.h"
+#import "UserManager.h"
+#import "UserModel.h"
+#import "MuDIModel.h"
+#import "UserLoginViewController.h"
+#import "MyLikeViewController.h"
 
 @interface PrivateHomeViewController ()<UITableViewDelegate,UITableViewDataSource>{
     
 }
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
+@property (nonatomic,strong) UserModel *user;
+@property(nonatomic,strong)UITableView *tableview;
+@property (nonatomic,strong) NSMutableArray *followarray;
+@property (nonatomic,strong) NSMutableArray *creatarray;
 @end
 
 @implementation PrivateHomeViewController
@@ -27,24 +36,92 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view.
     self.navigationController.navigationBarHidden = YES;
-    
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserModel) name:kZANUserLoginSuccessNotification object:nil];
+    _user = [UserManager ahnUser];
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     [self.view setBackgroundColor:bgColor];
     
-    UITableView *tableview = [[UITableView alloc]init];
-    [self.view addSubview:tableview];
-    tableview.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
-    [tableview mas_makeConstraints:^(MASConstraintMaker *make) {
+    _followarray = [NSMutableArray new];
+    _creatarray = [NSMutableArray new];
+    _tableview = [[UITableView alloc]init];
+    [self.view addSubview:_tableview];
+    _tableview.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
+    [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
         make.top.mas_equalTo(self.view).mas_offset(-[[UIApplication sharedApplication] statusBarFrame].size.height);
     }];
-    tableview.delegate = self;
-    tableview.dataSource = self;
-    [tableview registerNib:[UINib nibWithNibName:@"PrivateTableViewCell" bundle:nil] forCellReuseIdentifier:@"siren_cell"];
-    [tableview registerNib:[UINib nibWithNibName:@"PrivateTopTableViewCell" bundle:nil] forCellReuseIdentifier:@"siren_top_cell"];
+    _tableview.delegate = self;
+    _tableview.dataSource = self;
+    _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(updateUserModel)];
+    _tableview.mj_header.automaticallyChangeAlpha = YES;
+    [_tableview registerNib:[UINib nibWithNibName:@"PrivateTableViewCell" bundle:nil] forCellReuseIdentifier:@"siren_cell"];
+    [_tableview registerNib:[UINib nibWithNibName:@"PrivateTopTableViewCell" bundle:nil] forCellReuseIdentifier:@"siren_top_cell"];
     
     [self.view addSubview:self.navigationView];
+    
+    [self requestList];
+    [self requestList2];
+}
+
+
+-(void)updateUserModel{
+    [self requestList];
+    [self requestList2];
+    [_tableview.mj_header endRefreshing];
+}
+
+-(void)requestList{
+    [HZLoadingHUD showHUDInView:self.view];
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcGET:@"/v1/gongmu/myfollow" parameters:nil success:^(NSURLSessionDataTask *task, id object) {
+        
+        if (![object[@"state_code"] isEqualToString:@"9999"]) {
+            NSArray *list = [MTLJSONAdapter modelsOfClass:[MuDIModel class] fromJSONArray:object[@"data"][@"followCemetery"] error:nil];
+            [_followarray removeAllObjects];
+            [_followarray addObjectsFromArray:list];
+            [_tableview reloadData];
+        }else{
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            //            [UserManager clearAllUser];
+            //            [[NSNotificationCenter defaultCenter] postNotificationName:kZANUserLoginSuccessNotification object:nil];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [viewController setHidesBottomBarWhenPushed:YES];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+        
+        [HZLoadingHUD hideHUDInView:self.view];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+        [HZLoadingHUD hideHUDInView:self.view];
+    }];
+}
+
+-(void)requestList2{
+    [HZLoadingHUD showHUDInView:self.view];
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcGET:@"/v1/cemetery/mylist" parameters:nil success:^(NSURLSessionDataTask *task, id object) {
+        
+        if (![object[@"state_code"] isEqualToString:@"9999"]) {
+            NSArray *list = [MTLJSONAdapter modelsOfClass:[MuDIModel class] fromJSONArray:object[@"data"][@"cemeteryData"] error:nil];
+            [_creatarray removeAllObjects];
+            [_creatarray addObjectsFromArray:list];
+            [_tableview reloadData];
+        }else{
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            //            [UserManager clearAllUser];
+            //            [[NSNotificationCenter defaultCenter] postNotificationName:kZANUserLoginSuccessNotification object:nil];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [viewController setHidesBottomBarWhenPushed:YES];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+        
+        [HZLoadingHUD hideHUDInView:self.view];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+        [HZLoadingHUD hideHUDInView:self.view];
+    }];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -62,7 +139,14 @@
     if (section==0) {
         return 0;
     }
-    return 5;
+    if(section==1){
+        return _creatarray.count;
+    }
+    
+    if(section==2){
+        return _followarray.count;
+    }
+    return 0;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -70,16 +154,20 @@
 }
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if (indexPath.section) {
+    if (indexPath.section==1) {
         PrivateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"siren_cell" forIndexPath:indexPath];
         cell.backgroundColor = [UIColor clearColor];
+        MuDIModel *model = _creatarray[indexPath.row];
+        [cell configWithModel:model];
         return cell;
-//    }else{
-//        PrivateTopTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"siren_top_cell" forIndexPath:indexPath];
-//        cell.backgroundColor = [UIColor clearColor];
-//        return cell;
-//    }
-    //    return nil;
+    }else if(indexPath.section==2){
+        PrivateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"siren_cell" forIndexPath:indexPath];
+        cell.backgroundColor = [UIColor clearColor];
+        MuDIModel *model = _followarray[indexPath.row];
+        [cell configWithModel:model];
+        return cell;
+    }
+    return nil;
 }
 
 -(UIView*)tableView:(UITableView *)tableView viewForHeaderInSection:(NSInteger)section{
@@ -96,7 +184,11 @@
             make.width.mas_equalTo(30);
         }];
         UILabel *label = [[UILabel alloc]init];
-        label.text = @"我创建的墓地";
+        if(section==2){
+            label.text = @"我关注的墓地";
+        }else{
+            label.text = @"我创建的墓地";
+        }
         [view addSubview:label];
         [label mas_makeConstraints:^(MASConstraintMaker *make) {
             make.left.mas_equalTo(imageview.mas_right).mas_offset(10);
@@ -112,7 +204,8 @@
             make.centerY.mas_equalTo(view);
         }];
         label2.userInteractionEnabled = YES;
-        UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toMore)];
+        label2.tag = 2000+section;
+        UITapGestureRecognizer *labelTapGestureRecognizer = [[UITapGestureRecognizer alloc] initWithTarget:self action:@selector(toMore:)];
         [label2 addGestureRecognizer:labelTapGestureRecognizer];
         
         UIView *line = [[UIView alloc]init];
@@ -139,17 +232,24 @@
     return nil;
 }
 
--(void)toMore{
-    PrivateMoreViewController *controller = [[PrivateMoreViewController alloc]init];
-    controller.hidesBottomBarWhenPushed = YES;
-    [self.navigationController pushViewController:controller animated:YES];
+-(void)toMore:(UITapGestureRecognizer*)gesture{
+    if (gesture.view.tag==2001) {
+        PrivateMoreViewController *controller = [[PrivateMoreViewController alloc]init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    }else{
+        MyLikeViewController *controller = [[MyLikeViewController alloc]init];
+        controller.hidesBottomBarWhenPushed = YES;
+        [self.navigationController pushViewController:controller animated:YES];
+    }
+    
 }
 
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
-//    if(indexPath.section==0){
-//        return 400;
-//    }
+    //    if(indexPath.section==0){
+    //        return 400;
+    //    }
     return 160;
 }
 
@@ -181,14 +281,14 @@
         //        NextViewController *vc = [[NextViewController alloc]init];
         //        [self presentViewController:vc animated:YES completion:nil];
     }];
-
-//    action1.backgroundColor = [UIColor colorWithRed:0.9305 green:0.3394 blue:1.0 alpha:1.0];
-
+    
+    //    action1.backgroundColor = [UIColor colorWithRed:0.9305 green:0.3394 blue:1.0 alpha:1.0];
+    
     UITableViewRowAction *action2 = [UITableViewRowAction rowActionWithStyle:UITableViewRowActionStyleDestructive title:@"取消关注" handler:^(UITableViewRowAction * _Nonnull action, NSIndexPath * _Nonnull indexPath) {
         NSLog(@"取消关注");
     }];
-
-
+    
+    
     if(indexPath.section==1){
         return @[action,action1];
     }else if (indexPath.section==2){
@@ -199,6 +299,14 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MDDetailViewController *controller = [[MDDetailViewController alloc]init];
+    
+    if (indexPath.section==1) {
+        MuDIModel *model = _creatarray[indexPath.row];
+        controller.sz_id = model.sz_id;
+    }else{
+        MuDIModel *model = _followarray[indexPath.row];
+        controller.sz_id = model.sz_id;
+    }
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }

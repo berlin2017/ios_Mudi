@@ -15,7 +15,7 @@
 @property (weak, nonatomic) IBOutlet UIButton *sendBtn;
 @property (weak, nonatomic) IBOutlet UITextField *pass_edit;
 @property (weak, nonatomic) IBOutlet UIButton *commit_btn;
-
+@property(nonatomic,assign) BOOL isRightPhone;
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
 @end
@@ -39,9 +39,59 @@
     [_sendBtn addTarget:self action:@selector(sendCode) forControlEvents:UIControlEventTouchUpInside];
     
 }
+- (IBAction)commit:(id)sender {
+    
+     [self checkPhone:_phone_edit.text];
+    if (!_isRightPhone) {
+        return;
+    }
+    
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcPOST:@"/v1/login/findpasswordsecond" parameters:@{@"mobile":_phone_edit.text,@"verdata":_code_edit.text,@"password":_pass_edit.text,@"repassword":_pass_edit.text} success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            [self.view makeCenterOffsetToast:@"密码修成功"];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
+}
 
 -(void)sendCode{
-    [self.view makeCenterOffsetToast:@"发送成功"];
+    [self checkPhone:_phone_edit.text];
+    if (!_isRightPhone) {
+        return;
+    }
+    
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcPOST:@"/v1/login/getcode" parameters:@{@"mobile":_phone_edit.text} success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            [self.view makeCenterOffsetToast:@"验证码发送成功"];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
+}
+
+-(void)checkPhone:(NSString *)phone{
+    if ([NSString isEmptyString:phone]) {
+        [self.view makeCenterOffsetToast:@"手机号不能为空"];
+        return;
+    }
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcPOST:@"/v1/login/findpasswordfirst" parameters:@{@"mobile":phone} success:^(NSURLSessionDataTask *task, id object) {
+        if (![object[@"state_code"] isEqualToString:@"0000"]) {
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }else{
+            _isRightPhone = YES;
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
 }
 
 // 自定义导航栏

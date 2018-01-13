@@ -3,27 +3,46 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "__33-[HomeViewController requestPage]_block_invoke:HomeViewController.m">
-      </ContextState>
-      <ContextState
-         contextName = "-[GiftView touchesBegan:withEvent:]:GiftView.m">
+         contextName = "-[MDDetailViewController viewDidLoad]:MDDetailViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "self.addImageView.layer">
-            </PersistentString>
-            <PersistentString
-               value = "[self.addImageView.layer containsPoint:curP]">
+               value = "contentView.frame">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__39-[UserInfoViewController change:value:]_block_invoke:UserInfoViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_user">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__33-[UserInfoViewController upload:]_block_invoke.344:UserInfoViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[UserInfoViewController tableView:cellForRowAtIndexPath:]:UserInfoViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_user">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__33-[HomeViewController requestPage]_block_invoke:HomeViewController.m">
       </ContextState>
       <ContextState
          contextName = "__39-[PublicHomeViewController requestList]_block_invoke:PublicHomeViewController.m">
       </ContextState>
       <ContextState
-         contextName = "-[MDDetailViewController viewDidLoad]:MDDetailViewController.m">
+         contextName = "-[GiftView touchesBegan:withEvent:]:GiftView.m">
          <PersistentStrings>
             <PersistentString
-               value = "contentView.frame">
+               value = "[self.addImageView.layer containsPoint:curP]">
+            </PersistentString>
+            <PersistentString
+               value = "self.addImageView.layer">
             </PersistentString>
          </PersistentStrings>
       </ContextState>

@@ -85,6 +85,8 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     MDDetailViewController *controller = [[MDDetailViewController alloc] init];
+    MuDIModel *model = _array[indexPath.row];
+    controller.sz_id = model.sz_id;
     [self.navigationController pushViewController:controller animated:YES];
 }
 

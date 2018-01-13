@@ -17,6 +17,8 @@
 #import "NSFileManager+Helper.h"
 #import "UIView+Helper.h"
 #import "UIView+ToastHelper.h"
+#import "UserManager.h"
+#import "UserModel.h"
 
 @interface UserSettingsViewController ()<UITableViewDelegate,UITableViewDataSource,AddressPickerViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
@@ -64,8 +66,33 @@
     [login_btn setTitle:@"退出登录" forState:UIControlStateNormal];
     [login_btn.layer setMasksToBounds:YES];
     [login_btn.layer setCornerRadius:5];
+    [login_btn addTarget:self action:@selector(loginout) forControlEvents:UIControlEventTouchUpInside];
+    if (![UserManager ahnUser]) {
+        [login_btn removeFromSuperview];
+    }
+}
+
+-(void)loginout{
+    [HZLoadingHUD showHUDInView:self.view];
     
-   
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcPOST:@"/v1/login/logout" parameters:nil success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            [self.view makeCenterOffsetToast:@"退出登录成功"];
+            [UserManager clearAllUser];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kZANUserLoginSuccessNotification object:nil];
+            [HZLoadingHUD hideHUDInView:self.view];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+        
+        [HZLoadingHUD hideHUDInView:self.view];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+        [HZLoadingHUD hideHUDInView:self.view];
+    }];
+
 }
 
 - (UIImage*) createImageWithColor: (UIColor*) color

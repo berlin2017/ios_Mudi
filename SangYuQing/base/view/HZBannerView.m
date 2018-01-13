@@ -238,6 +238,7 @@
 - (UIView *)carousel:(iCarousel *)carousel viewForItemAtIndex:(NSInteger)index reusingView:(UIView *)view
 {
     NSURL *URL = [_dataSource bannerView:self imageURLAtIndex:index];
+    UIImage *image = [_dataSource bannerView:self imageAtIndex:index];
     UIImageView *imageView = nil;
     if (!view) {
         view = [[UIView alloc] initWithFrame:carousel.bounds];
@@ -253,7 +254,13 @@
     else {
         imageView = (UIImageView *)[view viewWithTag:1];
     }
-    [imageView sd_extension_setImageWithURL:URL placeholderImage:_placeholderImage];
+    
+    if (URL) {
+      [imageView sd_extension_setImageWithURL:URL placeholderImage:_placeholderImage];
+    }else{
+         imageView.image = image;
+    }
+    
     return view;
 }
 

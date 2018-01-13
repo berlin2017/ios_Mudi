@@ -7,7 +7,10 @@
 //
 
 #import <UIKit/UIKit.h>
+@class UserModel;
 
 @interface UserHeaderTableViewCell : UITableViewCell
+
+-(void)configWithModel:(UserModel*)model;
 
 @end

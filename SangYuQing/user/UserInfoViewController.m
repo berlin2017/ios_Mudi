@@ -14,6 +14,8 @@
 #import "UserLoginViewController.h"
 #import "MMSheetView.h"
 #import "MMPopupItem.h"
+#import "UserModel.h"
+#import "UserManager.h"
 
 @interface UserInfoViewController ()<UITableViewDelegate,UITableViewDataSource,AddressPickerViewDelegate,UIImagePickerControllerDelegate,UINavigationControllerDelegate>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
@@ -22,6 +24,7 @@
 @property (nonatomic ,strong) NSString * location_string;
 @property (nonatomic ,strong) UITableView * tableview;
 @property (nonatomic ,strong) UIImage* photo;
+@property (nonatomic ,strong) UserModel* user;
 @end
 
 @implementation UserInfoViewController
@@ -33,7 +36,9 @@
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     [self.view setBackgroundColor:bgColor];
     [self.view addSubview:self.navigationView];
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserModel) name:kZANUserLoginSuccessNotification object:nil];
     
+    _user = [UserManager ahnUser];
     _tableview = [[UITableView alloc]init];
     _tableview.backgroundColor = [UIColor clearColor];
     _tableview.tableFooterView = [UIView new];
@@ -60,6 +65,11 @@
         _pickerView.isAutoOpenLast = NO;
     }
     return _pickerView;
+}
+
+-(void)updateUserModel{
+    _user = [UserManager ahnUser];
+    [_tableview reloadData];
 }
 
 #pragma mark - AddressPickerViewDelegate
@@ -133,7 +143,12 @@
         if (_photo) {
             [cell setPhotoWithImage:_photo];
         }else{
-            [cell setPhotoWithUrl:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514450989988&di=b9d2b71adc10306f918cc5ff3db4ebae&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01e4a1564da3d76ac7251c94308050.png%401280w_1l_2o_100sh.png"];
+            if (_user) {
+                [cell setPhotoWithUrl:_user.head_logo];
+            }else{
+                [cell setPhotoWithImage:[UIImage imageNamed:@"ic_user"]];
+            }
+            
         }
         return cell;
     }
@@ -142,20 +157,28 @@
     cell.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
     switch (indexPath.row) {
         case 0:
-            [cell configWithName:@"用户名" value:@"test"];
+            [cell configWithName:@"用户名" value:_user.account_name];
             [cell hideRight];
             break;
         case 1:
-            [cell configWithName:@"昵称" value:@"test_nick"];
+            [cell configWithName:@"昵称" value:_user.nickname];
             break;
         case 2:
-            [cell configWithName:@"性别" value:@"男"];
+            if (_user) {
+                if (_user.sex==0) {
+                    [cell configWithName:@"性别" value:@"男"];
+                }else{
+                    [cell configWithName:@"性别" value:@"女"];
+                }
+            }else{
+                [cell configWithName:@"性别" value:@"男"];
+            }
             break;
         case 3:
-            [cell configWithName:@"手机" value:@"12345667"];
+            [cell configWithName:@"手机" value:_user.mobile];
             break;
         case 4:
-            [cell configWithName:@"籍贯" value: _location_string];
+            [cell configWithName:@"籍贯" value:_user.household_address];
             break;
             
         default:
@@ -190,43 +213,6 @@
 
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section== 0 ) {
-//        self.modalPresentationStyle = UIModalPresentationOverCurrentContext;
-//        UIAlertController * alert = [UIAlertController alertControllerWithTitle:nil message:nil preferredStyle:UIAlertControllerStyleActionSheet];
-//        alert.view.tintColor = [UIColor blackColor];
-//        //通过拍照上传图片
-//        UIAlertAction * takingPicAction = [UIAlertAction actionWithTitle:@"拍照" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//
-//            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeCamera]) {
-//
-//                UIImagePickerController * imagePicker = [[UIImagePickerController alloc]init];
-//                imagePicker.delegate = self;
-//                imagePicker.allowsEditing = YES;
-//                imagePicker.sourceType = UIImagePickerControllerSourceTypeCamera;
-//                [self presentViewController:imagePicker animated:YES completion:nil];
-//            }
-//
-//        }];
-//        //从手机相册中选择上传图片
-//        UIAlertAction * okAction = [UIAlertAction actionWithTitle:@"从手机相册选择" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
-//
-//            if ([UIImagePickerController isSourceTypeAvailable:UIImagePickerControllerSourceTypeSavedPhotosAlbum]) {
-//                UIImagePickerController * imagePicker = [[UIImagePickerController alloc]init];
-//                imagePicker.delegate = self;
-//                imagePicker.allowsEditing = YES;
-//                imagePicker.sourceType = UIImagePickerControllerSourceTypeSavedPhotosAlbum;
-//                [self presentViewController:imagePicker animated:YES completion:nil];
-//            }
-//
-//        }];
-//
-//        UIAlertAction * cancelAction = [UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleCancel handler:^(UIAlertAction * _Nonnull action) {
-//
-//        }];
-//
-//        [alert addAction:takingPicAction];
-//        [alert addAction:okAction];
-//        [alert addAction:cancelAction];
-//        [self presentViewController:alert animated:YES completion:nil];
         
         MMPopupItem *albumItem = MMItemMake(@"打开相册", MMItemTypeNormal, ^(NSInteger index) {
             UIImagePickerController *picker = [[UIImagePickerController alloc] init];
@@ -272,7 +258,12 @@
                 
                 //输出 检查是否正确无误
                 NSLog(@"你输入的文本%@",envirnmentNameTextField.text);
+                if ([NSString isEmptyString:envirnmentNameTextField.text]) {
+                    [self.view makeCenterOffsetToast:@"昵称不能为空"];
+                     return ;
+                }
                 
+                [self change:@"nickname" value:envirnmentNameTextField.text];
                 
             }]];
             
@@ -290,12 +281,13 @@
                 
                 NSLog(@"在这里处理选择之后的事");
                 
+                [self change:@"sex" value:@"0"];
             }]];
             
             [sheet addAction:[UIAlertAction actionWithTitle:@"女" style:UIAlertActionStyleDefault handler:^(UIAlertAction *_Nonnull action) {
                 
                 NSLog(@"在这里处理选择之后的事");
-                
+                [self change:@"sex" value:@"1"];
             }]];
             
             [sheet addAction:[UIAlertAction actionWithTitle:@"取消"style:UIAlertActionStyleCancel handler:nil]];
@@ -319,7 +311,12 @@
                 
                 //输出 检查是否正确无误
                 NSLog(@"你输入的文本%@",envirnmentNameTextField.text);
+                if ([NSString isEmptyString:envirnmentNameTextField.text]) {
+                    [self.view makeCenterOffsetToast:@"手机号不能为空"];
+                    return ;
+                }
                 
+                [self change:@"mobile" value:envirnmentNameTextField.text];
                 
             }]];
             
@@ -342,45 +339,95 @@
 #pragma mark 调用系统相册及拍照功能实现方法
 - (void)imagePickerController:(UIImagePickerController *)picker didFinishPickingMediaWithInfo:(NSDictionary<NSString *,id> *)info
 {
+    [HZLoadingHUD showHUDInView:self.view];
     UIImage * chosenImage = info[UIImagePickerControllerEditedImage];
     UIImageView * picImageView = (UIImageView *)[self.view viewWithTag:500];
     picImageView.image = chosenImage;
     chosenImage = [self imageWithImageSimple:chosenImage scaledToSize:CGSizeMake(60, 60)];
-    NSData * imageData = UIImageJPEGRepresentation(chosenImage, 0.9);
-    
+    //    NSData * imageData = UIImageJPEGRepresentation(chosenImage, 0.9);
     _photo = chosenImage;
-    [_tableview reloadData];
+    [self upload:_photo];
     
-    //    [self saveImage:chosenImage withName:@"avatar.png"];
-    //    NSURL * filePath = [NSURL fileURLWithPath:[self documentFolderPath]];
-    //将图片上传到服务器
-    //    --------------------------------------------------------
-    //    AFHTTPRequestOperationManager * manager = [[AFHTTPRequestOperationManager alloc]initWithBaseURL:nil];
-    //    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
-    //    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html",@"text/javascript",@"text/json", nil];
-    //    NSString * urlString = [NSString stringWithFormat:@"%@appuser/modifyUserIcon",BASE_URL];
-    //    NSUserDefaults * userDefaults = [NSUserDefaults standardUserDefaults];
-    //    NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithCapacity:1];
-    //    [dict setObject:[userDefaults objectForKey:@"user_id"] forKey:@"user_id"];
-    //    [manager POST:urlString parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
-    //        //通过post请求上传用户头像图片,name和fileName传的参数需要跟后台协商,看后台要传的参数名
-    //        [formData appendPartWithFileData:imageData name:@"img" fileName:@"img.jpg" mimeType:@"image/jpeg"];
-    //
-    //    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
-    //        //解析后台返回的结果,如果不做一下处理,打印结果可能是一些二进制流数据
-    //        NSError *error;
-    //        NSDictionary * imageDict = [NSJSONSerialization JSONObjectWithData:responseObject options:NSJSONReadingMutableContainers error:&error];
-    //        //上传成功后更新数据
-    //        self.personModel.adperurl = imageDict[@"adperurl"];
-    //        NSLog(@"上传图片成功0---%@",imageDict);
-    //    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
-    //        NSLog(@"上传图片-- 失败  -%@",error);
-    //    }];
     [picker dismissViewControllerAnimated:YES completion:^{
         
     }];
     
 }
+
+-(void)upload:(UIImage *)image{
+     NSData * imageData = UIImageJPEGRepresentation(image, 0.9);
+    AFHTTPRequestOperationManager * manager = [[AFHTTPRequestOperationManager alloc]initWithBaseURL:nil];
+    manager.requestSerializer = [AFHTTPRequestSerializer serializer];
+    manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html",@"text/javascript",@"text/json", nil];
+    NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithCapacity:1];
+    [dict setObject:@"uploaddir" forKey:@"user"];
+    [dict setObject:@"_csrf" forKey:@"_csrf"];
+    [manager POST:@"http://jk.hwsyq.com/v1/ucenter/storeimg" parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
+        //通过post请求上传用户头像图片,name和fileName传的参数需要跟后台协商,看后台要传的参数名
+        [formData appendPartWithFileData:imageData name:@"UploadForm[image]" fileName:@"icon.jpg" mimeType:@"image/jpeg"];
+        
+    } success:^(AFHTTPRequestOperation *operation, id responseObject) {
+        //解析后台返回的结果,如果不做一下处理,打印结果可能是一些二进制流数据
+        if (![responseObject[@"state_code"] isEqualToString:@"8888"]) {
+            [self.view makeCenterOffsetToast:@"上传成功"];
+            [self change:@"head_logo" value:responseObject[@"image_src"]];
+        }else{
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+//            [UserManager clearAllUser];
+//             [[NSNotificationCenter defaultCenter] postNotificationName:kZANUserLoginSuccessNotification object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [viewController setHidesBottomBarWhenPushed:YES];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }
+        
+        [HZLoadingHUD hideHUDInView:self.view];
+    } failure:^(AFHTTPRequestOperation *operation, NSError *error) {
+        [self.view makeCenterOffsetToast:@"上传失败,请重试"];
+        [HZLoadingHUD hideHUDInView:self.view];
+    }];
+}
+
+//-(void)viewWillAppear:(BOOL)animated{
+//    if (_tableview) {
+//        _user = [UserManager ahnUser];
+//        [_tableview reloadData];
+//    }
+//}
+
+-(void)change:(NSString*)name value:(NSString*)value{
+    [HZLoadingHUD showHUDInView:self.view];
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcPOST:@"v1/ucenter/updateself" parameters:@{name:value} success:^(NSURLSessionDataTask *task, id object) {
+        if (object[@"state"]) {
+            [self.view makeCenterOffsetToast:@"修改信息成功"];
+            if ([name isEqualToString:@"head_logo"]) {
+                _user.head_logo = value;
+            }
+            if ([name isEqualToString:@"nickname"]) {
+                _user.nickname = value;
+            }
+            
+            if ([name isEqualToString:@"mobile"]) {
+                _user.mobile = value;
+            }
+            if ([name isEqualToString:@"sex"]) {
+                _user.sex = 1;
+            }
+            [UserManager saveAhnUser:_user];
+            [_tableview reloadData];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kZANUserLoginSuccessNotification object:nil];
+        }else{
+            [self.view makeCenterOffsetToast:@"修改信息失败,请重试"];
+        }
+        [HZLoadingHUD hideHUDInView:self.view];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"修改信息失败,请重试"];
+        [HZLoadingHUD hideHUDInView:self.view];
+    }];
+}
+
 //用户取消选取时调用
 - (void)imagePickerControllerDidCancel:(UIImagePickerController *)picker
 {

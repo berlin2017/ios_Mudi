@@ -1,12 +1,12 @@
 //
-//  PrivateMoreViewController.m
+//  MyLikeViewController.m
 //  SangYuQing
 //
-//  Created by mac on 2018/1/1.
+//  Created by mac on 2018/1/12.
 //  Copyright © 2018年 mac. All rights reserved.
 //
 
-#import "PrivateMoreViewController.h"
+#import "MyLikeViewController.h"
 #import "PrivateTableViewCell.h"
 #import "PrivateTopTableViewCell.h"
 #import "UIColor+Helper.h"
@@ -16,16 +16,15 @@
 #import "UserLoginViewController.h"
 #import "MuDIModel.h"
 
-@interface PrivateMoreViewController ()<UITableViewDelegate,UITableViewDataSource>
+@interface MyLikeViewController ()<UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
 @property (nonatomic,strong) NSMutableArray *array;
 @property (nonatomic,strong)UITableView *tableview;
-
 @end
 
-@implementation PrivateMoreViewController
+@implementation MyLikeViewController
 
 - (void)viewDidLoad {
     [super viewDidLoad];
@@ -34,12 +33,12 @@
     //    UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     //    [self.view setBackgroundColor:bgColor];
     [self.view addSubview:self.navigationView];
-      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(requestList) name:kZANUserLoginSuccessNotification object:nil];
+      [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserModel) name:kZANUserLoginSuccessNotification object:nil];
     _array = [NSMutableArray new];
     
     _tableview = [[UITableView alloc]init];
     [self.view addSubview:_tableview];
-//    tableview.backgroundColor = [UIColor clearColor];
+    //    tableview.backgroundColor = [UIColor clearColor];
     [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
@@ -48,6 +47,7 @@
     }];
     _tableview.delegate = self;
     _tableview.dataSource = self;
+    
     _tableview.mj_header = [MJRefreshNormalHeader headerWithRefreshingTarget:self refreshingAction:@selector(headerRefreshing)];
     _tableview.mj_header.automaticallyChangeAlpha = YES;
     [_tableview registerNib:[UINib nibWithNibName:@"PrivateTableViewCell" bundle:nil] forCellReuseIdentifier:@"siren_cell"];
@@ -61,13 +61,17 @@
     [self requestList];
 }
 
+-(void)updateUserModel{
+    [self requestList];
+}
+
 -(void)requestList{
     [HZLoadingHUD showHUDInView:self.view];
     HZHttpClient *client = [HZHttpClient httpClient];
-    [client hcGET:@"/v1/cemetery/mylist" parameters:nil success:^(NSURLSessionDataTask *task, id object) {
+    [client hcGET:@"/v1/gongmu/myfollow" parameters:nil success:^(NSURLSessionDataTask *task, id object) {
         
         if (![object[@"state_code"] isEqualToString:@"9999"]) {
-            NSArray *list = [MTLJSONAdapter modelsOfClass:[MuDIModel class] fromJSONArray:object[@"data"][@"cemeteryData"] error:nil];
+            NSArray *list = [MTLJSONAdapter modelsOfClass:[MuDIModel class] fromJSONArray:object[@"data"][@"followCemetery"] error:nil];
             [_array addObjectsFromArray:list];
             [_tableview reloadData];
         }else{
@@ -98,7 +102,7 @@
 
 -(UITableViewCell*)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     PrivateTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"siren_cell" forIndexPath:indexPath];
-//    cell.backgroundColor = [UIColor clearColor];
+    //    cell.backgroundColor = [UIColor clearColor];
     MuDIModel *model = _array[indexPath.row];
     [cell configWithModel:model];
     return cell;
@@ -126,7 +130,7 @@
         
         _scaleImageView = [[UIImageView alloc] initWithFrame:CGRectMake(0, 0, [UIScreen mainScreen].bounds.size.width, 64+ [[UIApplication sharedApplication] statusBarFrame].size.height)];
         _scaleImageView.image = [UIImage imageNamed:@"bar_bg"];
-//        _scaleImageView.alpha = 0;
+        //        _scaleImageView.alpha = 0;
         [_navigationView addSubview:_scaleImageView];
         
         UILabel *title = [[UILabel alloc]init];
@@ -137,13 +141,8 @@
             make.height.mas_equalTo(30);
         }];
         title.font = [UIFont systemFontOfSize:17];
-        if (_titleName) {
-            title.text = _titleName;
-        }else{
-            title.text = @"私人墓园";
-        }
         
-        
+        title.text = @"我的关注";
         UIImageView *back_imageview = [[UIImageView alloc]init];
         [_navigationView addSubview:back_imageview];
         [back_imageview mas_makeConstraints:^(MASConstraintMaker *make) {
@@ -163,5 +162,4 @@
 -(void)back{
     [self.navigationController popViewControllerAnimated:YES];
 }
-
 @end

@@ -15,12 +15,16 @@
 #import "UserSettingsViewController.h"
 #import "UserLoginViewController.h"
 #import "UserScoreViewController.h"
+#import "UserModel.h"
+#import "UserManager.h"
+#import "MyLikeViewController.h"
 
 
 @interface UserHomeViewController ()<UITableViewDelegate,UITableViewDataSource>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
-
+@property(nonatomic,strong) UITableView *tableview;
+@property (nonatomic,strong) UserModel *user;
 @end
 
 @implementation UserHomeViewController
@@ -32,21 +36,28 @@
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     [self.view setBackgroundColor:bgColor];
     
+    _user = [UserManager ahnUser];
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserModel) name:kZANUserLoginSuccessNotification object:nil];
     
-    UITableView *tableview = [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
-    tableview.backgroundColor = [UIColor clearColor];
-    tableview.tableFooterView = [UIView new];
-    tableview.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
-    [self.view addSubview:tableview];
-    [tableview mas_makeConstraints:^(MASConstraintMaker *make) {
+    _tableview= [[UITableView alloc]initWithFrame:CGRectZero style:UITableViewStyleGrouped];
+    _tableview.backgroundColor = [UIColor clearColor];
+    _tableview.tableFooterView = [UIView new];
+    _tableview.contentInset = UIEdgeInsetsMake(-35, 0, 0, 0);
+    [self.view addSubview:_tableview];
+    [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.edges.mas_equalTo(self.view);
         make.top.mas_equalTo(self.view).mas_offset(-[[UIApplication sharedApplication] statusBarFrame].size.height);
     }];
-    tableview.delegate = self;
-    tableview.dataSource = self;
-    [tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"user_cell"];
-    [tableview registerNib:[UINib nibWithNibName:@"UserHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:@"user_header"];
+    _tableview.delegate = self;
+    _tableview.dataSource = self;
+    [_tableview registerClass:[UITableViewCell class] forCellReuseIdentifier:@"user_cell"];
+    [_tableview registerNib:[UINib nibWithNibName:@"UserHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:@"user_header"];
     [self.view addSubview:self.navigationView];
+}
+
+-(void)updateUserModel{
+    _user = [UserManager ahnUser];
+    [_tableview reloadData];
 }
 
 - (void)scrollViewDidScroll:(UIScrollView *)scrollView{
@@ -100,6 +111,7 @@
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section== 0 ) {
         UserHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"user_header"];
+        [cell configWithModel:_user];
         return cell;
     }
     
@@ -114,7 +126,12 @@
         case 1:
             cell.imageView.image = [UIImage imageNamed:@"user_jifen"];
             cell.textLabel.text = @"我的积分";
-            cell.detailTextLabel.text = @"1000";
+            if (_user) {
+                cell.detailTextLabel.text = [NSString stringWithFormat:@"%zd",_user.bonus_point];
+            }else{
+                cell.detailTextLabel.text = @"0";
+            }
+            
             break;
         case 2:
             if(indexPath.row){
@@ -161,35 +178,67 @@
     [tableView deselectRowAtIndexPath:indexPath animated:YES];
     switch (indexPath.section) {
         case 0:{
-                        UserInfoViewController *controller = [[UserInfoViewController alloc]init];
-            //             TestViewController *controller = [[TestViewController alloc]init];
-                        controller.hidesBottomBarWhenPushed = YES;
-                        [self.navigationController pushViewController:controller animated:YES];
-//            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
-//            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
-//            [viewController setHidesBottomBarWhenPushed:YES];
-//            [self.navigationController pushViewController:viewController animated:YES];
+            if (_user) {
+                UserInfoViewController *controller = [[UserInfoViewController alloc]init];
+                //             TestViewController *controller = [[TestViewController alloc]init];
+                controller.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:controller animated:YES];
+            }else{
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+                UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+                [viewController setHidesBottomBarWhenPushed:YES];
+                [self.navigationController pushViewController:viewController animated:YES];
+            }
+            
+            
             break;
         }
         case 1:{
-            UserScoreViewController *controller = [[UserScoreViewController alloc]init];
-            controller.hidesBottomBarWhenPushed = YES;
-            [self.navigationController pushViewController:controller animated:YES];
+            if (_user) {
+                UserScoreViewController *controller = [[UserScoreViewController alloc]init];
+                controller.hidesBottomBarWhenPushed = YES;
+                [self.navigationController pushViewController:controller animated:YES];
+            }else{
+                [self.view makeCenterOffsetToast:@"请先登录"];
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+                UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+                [viewController setHidesBottomBarWhenPushed:YES];
+                [self.navigationController pushViewController:viewController animated:YES];
+            }
+            
             break;
         }
-        case 2:
+        case 2:{
+            if (!_user) {
+                [self.view makeCenterOffsetToast:@"请先登录"];
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+                UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+                [viewController setHidesBottomBarWhenPushed:YES];
+                [self.navigationController pushViewController:viewController animated:YES];
+                return;
+            }
             if(indexPath.row){
-                PrivateMoreViewController *controller = [[PrivateMoreViewController alloc]init];
+                
+                MyLikeViewController *controller = [[MyLikeViewController alloc]init];
                 controller.hidesBottomBarWhenPushed = YES;
-                controller.titleName = @"我的关注";
                 [self.navigationController pushViewController:controller animated:YES];
+                
             }else{
                 PrivateMoreViewController *controller = [[PrivateMoreViewController alloc]init];
                 controller.hidesBottomBarWhenPushed = YES;
                 [self.navigationController pushViewController:controller animated:YES];
             }
             break;
+        }
         case 3:{
+//            if (!_user) {
+//                [self.view makeCenterOffsetToast:@"请先登录"];
+//                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+//                UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+//                [viewController setHidesBottomBarWhenPushed:YES];
+//                [self.navigationController pushViewController:viewController animated:YES];
+//                return;
+//            }
             UserSettingsViewController *controller = [[UserSettingsViewController alloc]init];
             controller.hidesBottomBarWhenPushed = YES;
             [self.navigationController pushViewController:controller animated:YES];

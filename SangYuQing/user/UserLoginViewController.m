@@ -9,12 +9,17 @@
 #import "UserLoginViewController.h"
 #import "UserRegisterViewController.h"
 #import "UserFrogetPassViewController.h"
+#import "HZHttpClient.h"
+#import "UserManager.h"
+#import "UserModel.h"
 
 @interface UserLoginViewController (){
     
     __weak IBOutlet UIButton *login_btn;
     __weak IBOutlet UIButton *register_btn;
     __weak IBOutlet UILabel *forget_label;
+    __weak IBOutlet UITextField *username_edit;
+    __weak IBOutlet UITextField *userpass_edit;
 }
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
@@ -26,7 +31,7 @@
     [super viewDidLoad];
     // Do any additional setup after loading the view from its nib.
     self.navigationController.navigationBarHidden = YES;
-    UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
+    UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"user_login_bg"]];
     [self.view setBackgroundColor:bgColor];
     login_btn.layer.cornerRadius = 5;
     login_btn.layer.masksToBounds = YES;
@@ -44,6 +49,35 @@
     self.view.userInteractionEnabled = YES;
     UITapGestureRecognizer *key_recognizer = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(hideKey)];
     [self.view addGestureRecognizer:key_recognizer];
+}
+
+- (IBAction)login:(id)sender {
+    if ([NSString isEmptyString:username_edit.text]) {
+        [self.view makeCenterOffsetToast:@"用户名不能为空"];
+        return;
+    }
+    
+    if ([NSString isEmptyString:userpass_edit.text]) {
+        [self.view makeCenterOffsetToast:@"密码不能为空"];
+        return;
+    }
+    [HZLoadingHUD showHUDInView:self.view];
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcPOST:@"/v1/login/checklogin" parameters:@{@"account_name":username_edit.text,@"password":userpass_edit.text} success:^(NSURLSessionDataTask *task, id object) {
+        if (object[@"state"]) {
+            [self.view makeCenterOffsetToast:@"登录成功"];
+            UserModel *user = [MTLJSONAdapter modelOfClass:[UserModel class] fromJSONDictionary:object[@"data"][@"userData"] error:nil];
+            [UserManager saveAhnUser:user];
+            [[NSNotificationCenter defaultCenter] postNotificationName:kZANUserLoginSuccessNotification object:nil];
+            [self.navigationController popViewControllerAnimated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:@"登录失败,请重试"];
+        }
+        [HZLoadingHUD hideHUDInView:self.view];
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"登录失败,请重试"];
+        [HZLoadingHUD hideHUDInView:self.view];
+    }];
 }
 
 -(void)toFroget{

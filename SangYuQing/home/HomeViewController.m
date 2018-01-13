@@ -31,6 +31,8 @@
 
 @property(nonatomic,strong) NSArray * bottom_array;
 
+@property(nonatomic,strong) NSMutableArray * banner_array;
+
 @property(nonatomic,strong)UICollectionView *collectionView;//最新
 @property(nonatomic,strong)UICollectionView *collectionView2;//公墓
 
@@ -63,6 +65,7 @@
     [self.view setBackgroundColor:bgColor];
     [_scorllview addSubview:_contentView];
     
+    _banner_array = [NSMutableArray arrayWithObjects:[UIImage imageNamed:@"ic_banner1"],[UIImage imageNamed:@"ic_banner2"], nil];
     HZBannerView *bannerView = [[HZBannerView alloc] initWithFrame:CGRectMake(0, -[[UIApplication sharedApplication] statusBarFrame].size.height, [UIScreen mainScreen].bounds.size.width, 250)];
     bannerView.delegate = self;
     bannerView.dataSource = self;
@@ -320,16 +323,17 @@
 #pragma mark - Banner DataSource & Delegate
 - (NSURL *)bannerView:(HZBannerView *)bannerView imageURLAtIndex:(NSInteger)index
 {
-    if (index >= 4) {
-        return nil;
-    }
-    return [NSURL URLWithString:@"https://timgsa.baidu.com/timg?image&quality=80&size=b9999_10000&sec=1514450989988&di=b9d2b71adc10306f918cc5ff3db4ebae&imgtype=0&src=http%3A%2F%2Fimg.zcool.cn%2Fcommunity%2F01e4a1564da3d76ac7251c94308050.png%401280w_1l_2o_100sh.png"];
+    return nil;
+}
+
+-(UIImage*)bannerView:(HZBannerView *)bannerView imageAtIndex:(NSInteger)index{
+    return _banner_array[index];
 }
 
 
 - (NSInteger)numberOfBannerView:(HZBannerView *)bannerView
 {
-    return 4;
+    return _banner_array.count;
 }
 
 - (NSString *)bannerView:(HZBannerView *)bannerView imageTextAtIndex:(NSInteger)index

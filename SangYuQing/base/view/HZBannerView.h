@@ -26,6 +26,8 @@ typedef NS_ENUM(NSInteger, HZBannerViewMode) {
 - (NSInteger)numberOfBannerView:(HZBannerView *)bannerView;
 - (NSURL *)bannerView:(HZBannerView *)bannerView imageURLAtIndex:(NSInteger)index;
 
+- (UIImage *)bannerView:(HZBannerView *)bannerView imageAtIndex:(NSInteger)index;
+
 @optional
 - (NSString *)bannerView:(HZBannerView *)bannerView imageTextAtIndex:(NSInteger)index;
 - (UIImage *)placeholderImageOfBannerView:(HZBannerView *)bannerView;

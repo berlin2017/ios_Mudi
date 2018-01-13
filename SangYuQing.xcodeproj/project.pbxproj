@@ -14,6 +14,9 @@
 		04203DAB1FF62E5C003AA051 /* PrivateTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04203DA91FF62E5C003AA051 /* PrivateTableViewCell.m */; };
 		04203DAC1FF62E5C003AA051 /* PrivateTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04203DAA1FF62E5C003AA051 /* PrivateTableViewCell.xib */; };
 		04203DAE1FF645C7003AA051 /* Test.xib in Resources */ = {isa = PBXBuildFile; fileRef = 04203DAD1FF645C7003AA051 /* Test.xib */; };
+		04357AB320088D5300F94D49 /* UserManager.m in Sources */ = {isa = PBXBuildFile; fileRef = 04357AB220088D5300F94D49 /* UserManager.m */; };
+		04357AB620088DA000F94D49 /* UserModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 04357AB520088DA000F94D49 /* UserModel.m */; };
+		04357AB92008B8B300F94D49 /* MyLikeViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04357AB82008B8B300F94D49 /* MyLikeViewController.m */; };
 		04431DCA1FF4B7BE00A2A116 /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 04431DC91FF4B7BE00A2A116 /* AppDelegate.m */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		04431DCD1FF4B7BE00A2A116 /* ViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04431DCC1FF4B7BE00A2A116 /* ViewController.m */; };
 		04431DD01FF4B7BE00A2A116 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 04431DCE1FF4B7BE00A2A116 /* Main.storyboard */; };
@@ -219,6 +222,12 @@
 		04203DA91FF62E5C003AA051 /* PrivateTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateTableViewCell.m; sourceTree = "<group>"; };
 		04203DAA1FF62E5C003AA051 /* PrivateTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivateTableViewCell.xib; sourceTree = "<group>"; };
 		04203DAD1FF645C7003AA051 /* Test.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = Test.xib; sourceTree = "<group>"; };
+		04357AB120088D5300F94D49 /* UserManager.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserManager.h; sourceTree = "<group>"; };
+		04357AB220088D5300F94D49 /* UserManager.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserManager.m; sourceTree = "<group>"; };
+		04357AB420088DA000F94D49 /* UserModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = UserModel.h; sourceTree = "<group>"; };
+		04357AB520088DA000F94D49 /* UserModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = UserModel.m; sourceTree = "<group>"; };
+		04357AB72008B8B300F94D49 /* MyLikeViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MyLikeViewController.h; sourceTree = "<group>"; };
+		04357AB82008B8B300F94D49 /* MyLikeViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MyLikeViewController.m; sourceTree = "<group>"; };
 		04431DC51FF4B7BE00A2A116 /* SangYuQing.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = SangYuQing.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		04431DC81FF4B7BE00A2A116 /* AppDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = AppDelegate.h; sourceTree = "<group>"; };
 		04431DC91FF4B7BE00A2A116 /* AppDelegate.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = AppDelegate.m; sourceTree = "<group>"; };
@@ -710,6 +719,17 @@
 			path = view;
 			sourceTree = "<group>";
 		};
+		04357AAD20088D3A00F94D49 /* model */ = {
+			isa = PBXGroup;
+			children = (
+				04357AB120088D5300F94D49 /* UserManager.h */,
+				04357AB220088D5300F94D49 /* UserManager.m */,
+				04357AB420088DA000F94D49 /* UserModel.h */,
+				04357AB520088DA000F94D49 /* UserModel.m */,
+			);
+			path = model;
+			sourceTree = "<group>";
+		};
 		04431DBC1FF4B7BE00A2A116 = {
 			isa = PBXGroup;
 			children = (
@@ -864,6 +884,7 @@
 		04431EC11FF4D4B900A2A116 /* user */ = {
 			isa = PBXGroup;
 			children = (
+				04357AAD20088D3A00F94D49 /* model */,
 				049100BB2003A7B6003D56DF /* APOrderInfo.h */,
 				049100BC2003A7B7003D56DF /* APOrderInfo.m */,
 				04F13EFE1FFCB8E1008B1C3B /* view */,
@@ -889,6 +910,8 @@
 				0491FF65200304CD003D56DF /* UserScoreViewController.m */,
 				0491FF7620038F75003D56DF /* UserScoreDetailViewController.h */,
 				0491FF7720038F75003D56DF /* UserScoreDetailViewController.m */,
+				04357AB72008B8B300F94D49 /* MyLikeViewController.h */,
+				04357AB82008B8B300F94D49 /* MyLikeViewController.m */,
 			);
 			path = user;
 			sourceTree = "<group>";
@@ -1611,6 +1634,7 @@
 				0497C88F200751DD0075232C /* XianHuaViewController.m in Sources */,
 				0491FF7420038ADA003D56DF /* UserScorePayCollectionViewCell.m in Sources */,
 				049102242004A7B1003D56DF /* HZLoadingHUD.m in Sources */,
+				04357AB620088DA000F94D49 /* UserModel.m in Sources */,
 				0497C86C20063C0D0075232C /* VideoPlayViewController.m in Sources */,
 				04F13F6A1FFCDA55008B1C3B /* Province.m in Sources */,
 				0497C846200604870075232C /* WriteJiWenViewController.m in Sources */,
@@ -1651,6 +1675,7 @@
 				0497C86420062F130075232C /* ZANImageShowViewController.m in Sources */,
 				04F13F0A1FFCCB39008B1C3B /* UserInfoTableViewCell.m in Sources */,
 				0491016820049D44003D56DF /* UIView+Helper.m in Sources */,
+				04357AB92008B8B300F94D49 /* MyLikeViewController.m in Sources */,
 				04431EBC1FF4D49900A2A116 /* PrivateHomeViewController.m in Sources */,
 				0491015C20049D44003D56DF /* UIWebView+Helper.m in Sources */,
 				04431DD81FF4B7BE00A2A116 /* main.m in Sources */,
@@ -1664,6 +1689,7 @@
 				04F13F8D1FFE9D0D008B1C3B /* UserRegisterViewController.m in Sources */,
 				0491023E2004F41F003D56DF /* UILabel+Extension.m in Sources */,
 				0491016E20049D44003D56DF /* HZRoutePathConstVarables.m in Sources */,
+				04357AB320088D5300F94D49 /* UserManager.m in Sources */,
 				0491015320049D44003D56DF /* ZANLaunchHelperView.m in Sources */,
 				0491015120049D44003D56DF /* HZCustomTextFieldCell.m in Sources */,
 				0491015620049D44003D56DF /* HZWebBaseViewController.m in Sources */,
