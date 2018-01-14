@@ -7,7 +7,7 @@
 //
 
 #import "XiangCeCollectionViewCell.h"
-#import "PhotoModel.h"
+#import "PhotoItem.h"
 
 @interface XiangCeCollectionViewCell()
 @property (weak, nonatomic) IBOutlet UIImageView *xiangce_imageview;
@@ -22,7 +22,7 @@
 
 }
 
--(void)configWithModel:(PhotoModel*)model{
+-(void)configWithModel:(PhotoItem*)model{
     _xiangce_name.text = model.name;
     [_xiangce_imageview sd_setImageWithURL:[NSURL URLWithString:model.image]];
 }

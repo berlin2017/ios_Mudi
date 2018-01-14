@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class JiWenModel;
+@class ArticleModel;
 
 @interface ZhuiSiJiWenTableViewCell : UITableViewCell
 
--(void)configWithModel:(JiWenModel *)model;
+-(void)configWithModel:(ArticleModel *)model;
 @end

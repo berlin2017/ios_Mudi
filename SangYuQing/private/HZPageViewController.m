@@ -236,7 +236,7 @@ const NSUInteger kHZPageVcMaxVisiblePages     = 5;
             else {
                 make.left.mas_equalTo(_segmentContainerView.mas_left);
             }
-            make.width.mas_equalTo(60);
+            make.width.mas_equalTo(120);
         }];
         
         lastSegmentView = label;

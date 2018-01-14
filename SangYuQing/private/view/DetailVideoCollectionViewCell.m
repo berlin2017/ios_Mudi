@@ -7,7 +7,7 @@
 //
 
 #import "DetailVideoCollectionViewCell.h"
-#import "PhotoModel.h"
+#import "VideoModel.h"
 
 @interface DetailVideoCollectionViewCell()
 @property (weak, nonatomic) IBOutlet UIImageView *imageview;
@@ -22,7 +22,7 @@
     // Initialization code
 }
 
--(void)configWithModel:(PhotoModel*)model{
+-(void)configWithModel:(VideoModel*)model{
     [_imageview sd_setImageWithURL:[NSURL URLWithString:model.image]];
     _name.text = model.name;;
 }

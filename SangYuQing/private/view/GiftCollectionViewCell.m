@@ -30,8 +30,13 @@
 -(void)configWithModel:(GiftModel*)model{
     [_imageview sd_setImageWithURL:[NSURL URLWithString:model.image]];
     _name_label.text = model.name;
-    _jifen_label.text = model.jifen;
-    _time_label.text = model.time;
+    if (model.jifen==0) {
+        _jifen_label.text = @"免费";
+    }else{
+         _jifen_label.text = [NSString stringWithFormat:@"%zd积分",model.jifen];
+    }
+   
+    _time_label.text = [NSString stringWithFormat:@"%zd天",model.expired/24/3600];
 }
 
 @end

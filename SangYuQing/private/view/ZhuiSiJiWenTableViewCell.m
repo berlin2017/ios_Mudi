@@ -7,7 +7,7 @@
 //
 
 #import "ZhuiSiJiWenTableViewCell.h"
-#import "JiWenModel.h"
+#import "ArticleModel.h"
 
 @interface ZhuiSiJiWenTableViewCell()
 @property (weak, nonatomic) IBOutlet UILabel *titleLabel;
@@ -34,12 +34,20 @@
     // Configure the view for the selected state
 }
 
--(void)configWithModel:(JiWenModel *)model{
-    _titleLabel.text = model.title;
-    _time_label.text = model.time;
-    _content_label.text = model.content;
-    _count_label.text = [NSString stringWithFormat:@"阅读:%d",model.count];
-    _name_label.text = model.name;
+-(void)configWithModel:(ArticleModel *)model{
+    _titleLabel.text = model.jiwen_title;
+    _time_label.text = [self formateTime:model.create_time];
+    _content_label.text = model.jiwen_body;
+    _count_label.text = [NSString stringWithFormat:@"阅读:%zd",model.liulan_count];
+    _name_label.text = model.nickname;
+}
+
+-(NSString*)formateTime:(NSInteger )time{
+    NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
+    [stampFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    //以 1970/01/01 GMT为基准，然后过了secs秒的时间
+    NSDate *stampDate2 = [NSDate dateWithTimeIntervalSince1970:time];
+    return [stampFormatter stringFromDate:stampDate2];
 }
 
 @end

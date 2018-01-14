@@ -25,7 +25,7 @@
 
 - (HZVideoPlayerView *)playerView{
     if (!_playerView) {
-        _playerView= [[HZVideoPlayerView alloc] initWithVideoURL:[NSURL URLWithString:@"http://61.132.238.87/v.cctv.com/flash/mp4video6/TMS/2011/01/05/cf752b1c12ce452b3040cab2f90bc265_h264818000nero_aac32-1.mp4?wsrid_tag=5a5603d0_feidianxin88_19977-61934&wsiphost=local"]];
+        _playerView= [[HZVideoPlayerView alloc] initWithVideoURL:[NSURL URLWithString:@"http://www.hwsyq.com/data/video/2018/01/1514874517787.mp4"]];
         CGFloat height = CGRectGetHeight([UIApplication sharedApplication].statusBarFrame)+64;
         _playerView.frame = CGRectMake(0, height, [HZSystemInfoManager share].screenSize.width, [HZSystemInfoManager share].screenSize.width * 0.75);
         _playerView.delegate = self;

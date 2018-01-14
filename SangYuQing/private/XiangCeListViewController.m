@@ -9,13 +9,17 @@
 #import "XiangCeListViewController.h"
 #import "SZDetailModel.h"
 #import "XiangCeCollectionTableViewCell.h"
-#import "PhotoModel.h"
+#import "PhotoItem.h"
 #import "XiangCeCollectionViewCell.h"
 #import "ZANImageShowViewController.h"
+#import "UserLoginViewController.h"
 
 @interface XiangCeListViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource,HZImageShowViewControllerDelegate,HZImageShowViewControllerDataSource>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
+@property (nonatomic,strong) NSArray *list;
+@property(nonatomic,strong)UICollectionView* collectionview;
+
 @end
 
 @implementation XiangCeListViewController
@@ -27,14 +31,14 @@
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     [self.view setBackgroundColor:bgColor];
     [self.view addSubview:self.navigationView];
-    
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserModel) name:kZANUserLoginSuccessNotification object:nil];
     
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    layout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width-20)/3, ([UIScreen mainScreen].bounds.size.width-20)/3+20);
+    layout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width-20)/3, ([UIScreen mainScreen].bounds.size.width-20)/3+30);
     layout.minimumLineSpacing = 10;
     layout.minimumInteritemSpacing = 10;
     
-    UICollectionView* _collectionview = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+    _collectionview = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
     [self.view addSubview:_collectionview];
     [_collectionview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
@@ -46,8 +50,31 @@
     _collectionview.dataSource = self;
     _collectionview.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
     [_collectionview registerNib:[UINib nibWithNibName:@"XiangCeCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"xiangce_cell"];
+     [self requestList];
 }
 
+-(void)updateUserModel{
+    [self requestList];
+}
+
+-(void)requestList{
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcGET:@"/v1/gongmu/album" parameters:@{@"id":_sz_id,@"xcid":[NSString stringWithFormat:@"%zd",_xcid]}  success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            _list = [MTLJSONAdapter modelsOfClass:[PhotoItem class] fromJSONArray:object[@"data"][@"CemeteryInfo"][@"album"]  error:nil];
+            [_collectionview reloadData];
+        }else if([object[@"state_code"] isEqualToString:@"8888"]){
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
+}
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -55,14 +82,12 @@
 }
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 7;
+    return _list.count;
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PhotoModel *model1 = [[PhotoModel alloc]init];
-    model1.name = @"为人";
-    model1.image = @"https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=60c889ffb051f819f125044ce28f2dd0/ae51f3deb48f8c54cd34cafb3a292df5e1fe7f7a.jpg";
+    PhotoItem *model1 = _list[indexPath.row];
     XiangCeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"xiangce_cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
     [cell configWithModel:model1];
@@ -80,13 +105,14 @@
 #pragma mark -
 - (NSInteger)numberOfImages:(ZANImageShowViewController *)imageShowViewController
 {
-    return 10;
+    return _list.count;
 }
 
 - (NSURL *)imageShowViewController:(ZANImageShowViewController *)imageShowViewController imageURLAtIndex:(NSInteger)index
 {
-    if (index < 10) {
-        return [NSURL URLWithString:@"https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=60c889ffb051f819f125044ce28f2dd0/ae51f3deb48f8c54cd34cafb3a292df5e1fe7f7a.jpg"];
+    if (index < _list.count) {
+        PhotoItem *model = _list[index];
+        return [NSURL URLWithString:model.image];
     }
     return nil;
 }

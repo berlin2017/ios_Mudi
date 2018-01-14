@@ -17,4 +17,5 @@
 
 @interface GifListViewController : UIViewController
 @property(nonatomic,weak)id<GifListViewControllerDelegate>delegate;
+@property(nonatomic,assign)NSString *jc_id;
 @end

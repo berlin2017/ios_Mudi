@@ -7,6 +7,10 @@
 //
 
 #import "MuDiDetailModel.h"
+#import "ArticleModel.h"
+#import "LiuYanModel.h"
+#import "PhotoModel.h"
+#import "VideoModel.h"
 
 @implementation MuDiDetailModel
 
@@ -28,6 +32,9 @@
              @"mubei": @"mubei",
              @"beijing": @"beijing",
              @"follow": @"follow",
+             @"articles":@"articles",
+             @"albums":@"albums",
+             @"videos":@"videos",
              };
 }
 
@@ -35,5 +42,21 @@
 {
     return [MTLValueTransformer numberTransformer];
 }
+
++ (NSValueTransformer *)articlesJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[ArticleModel class]];
+}
+
++ (NSValueTransformer *)albumsJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[PhotoModel class]];
+}
+
++ (NSValueTransformer *)videosJSONTransformer
+{
+    return [MTLJSONAdapter arrayTransformerWithModelClass:[VideoModel class]];
+}
+
 
 @end

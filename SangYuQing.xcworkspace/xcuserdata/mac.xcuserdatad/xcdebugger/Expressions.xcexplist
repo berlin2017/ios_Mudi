@@ -3,12 +3,10 @@
    version = "1.0">
    <ContextStates>
       <ContextState
-         contextName = "-[MDDetailViewController viewDidLoad]:MDDetailViewController.m">
-         <PersistentStrings>
-            <PersistentString
-               value = "contentView.frame">
-            </PersistentString>
-         </PersistentStrings>
+         contextName = "__33-[UserInfoViewController upload:]_block_invoke.344:UserInfoViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__40-[DetailVideoViewController requestList]_block_invoke:DetailVideoViewController.m">
       </ContextState>
       <ContextState
          contextName = "__39-[UserInfoViewController change:value:]_block_invoke:UserInfoViewController.m">
@@ -19,7 +17,78 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__33-[UserInfoViewController upload:]_block_invoke.344:UserInfoViewController.m">
+         contextName = "__33-[MDDetailViewController confirm]_block_invoke_2:MDDetailViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_giftView.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[MTLJSONAdapter initWithModelClass:]:MTLJSONAdapter.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "object">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__37-[MDDetailViewController requestGift]_block_invoke:MDDetailViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_mubei_imageview.frame">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[XianHuaViewController viewDidLoad]:XianHuaViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "-[ZhuiSiViewController tableView:numberOfRowsInSection:]:ZhuiSiViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = " _detail">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__41-[PrivateCreateViewController requestAdd]_block_invoke:PrivateCreateViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__39-[MDDetailViewController requestDetail]_block_invoke:MDDetailViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "object[@&quot;data&quot;][@&quot;CemeteryInfo&quot;]">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PrivateCreateViewController commit]:PrivateCreateViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__39-[PublicHomeViewController requestList]_block_invoke:PublicHomeViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__33-[HomeViewController requestPage]_block_invoke:HomeViewController.m">
+      </ContextState>
+      <ContextState
+         contextName = "__33-[MDDetailViewController confirm]_block_invoke:MDDetailViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_giftView.frame">
+            </PersistentString>
+            <PersistentString
+               value = "_gitModel">
+            </PersistentString>
+         </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "-[PrivateCreateViewController textFieldDidBeginEditing:]:PrivateCreateViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = " _datePicker.tag ">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
          contextName = "-[UserInfoViewController tableView:cellForRowAtIndexPath:]:UserInfoViewController.m">
@@ -30,10 +99,15 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__33-[HomeViewController requestPage]_block_invoke:HomeViewController.m">
+         contextName = "__38-[PrivateCreateViewController upload:]_block_invoke.301:PrivateCreateViewController.m">
+         <PersistentStrings>
+            <PersistentString
+               value = "_choseImageUrl">
+            </PersistentString>
+         </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__39-[PublicHomeViewController requestList]_block_invoke:PublicHomeViewController.m">
+         contextName = "__33-[ZhuiSiViewController requestLY]_block_invoke:ZhuiSiViewController.m">
       </ContextState>
       <ContextState
          contextName = "-[GiftView touchesBegan:withEvent:]:GiftView.m">
@@ -47,9 +121,6 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__41-[PrivateCreateViewController requestAdd]_block_invoke:PrivateCreateViewController.m">
-      </ContextState>
-      <ContextState
          contextName = "-[PrivateCreateViewController valueChange:]:PrivateCreateViewController.m">
          <PersistentStrings>
             <PersistentString
@@ -58,20 +129,23 @@
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "__39-[MDDetailViewController requestDetail]_block_invoke:MDDetailViewController.m">
+         contextName = "-[MDDetailViewController viewDidLoad]:MDDetailViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = "object[@&quot;data&quot;][@&quot;CemeteryInfo&quot;]">
+               value = "contentView.frame">
             </PersistentString>
          </PersistentStrings>
       </ContextState>
       <ContextState
-         contextName = "-[PrivateCreateViewController textFieldDidBeginEditing:]:PrivateCreateViewController.m">
+         contextName = "-[ZhuiSiViewController tableView:cellForRowAtIndexPath:]:ZhuiSiViewController.m">
          <PersistentStrings>
             <PersistentString
-               value = " _datePicker.tag ">
+               value = "_detail.articles">
             </PersistentString>
          </PersistentStrings>
+      </ContextState>
+      <ContextState
+         contextName = "__41-[MDDetailViewController requestGiftList]_block_invoke:MDDetailViewController.m">
       </ContextState>
    </ContextStates>
 </VariablesViewState>

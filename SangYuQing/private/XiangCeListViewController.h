@@ -9,5 +9,6 @@
 #import <UIKit/UIKit.h>
 
 @interface XiangCeListViewController : UIViewController
-
+@property(nonatomic,copy)NSString *sz_id;
+@property(nonatomic,assign)NSInteger xcid;
 @end

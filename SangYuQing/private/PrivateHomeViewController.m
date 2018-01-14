@@ -303,9 +303,11 @@
     if (indexPath.section==1) {
         MuDIModel *model = _creatarray[indexPath.row];
         controller.sz_id = model.sz_id;
+        controller.cemetery_id = model.cemetery_id;
     }else{
         MuDIModel *model = _followarray[indexPath.row];
         controller.sz_id = model.sz_id;
+        controller.cemetery_id = model.cemetery_id;
     }
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];

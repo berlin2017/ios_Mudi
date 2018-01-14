@@ -390,12 +390,14 @@
         MDDetailViewController *controller = [[MDDetailViewController alloc]init];
         MuDIModel *model =  _top_array[indexPath.row];
         controller.sz_id = model.sz_id;
+        controller.cemetery_id = model.cemetery_id;
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }else if (collectionView.tag==3000){
         MDDetailViewController *controller = [[MDDetailViewController alloc]init];
         MuDIModel *model =  _bottom_array[indexPath.row];
         controller.sz_id = model.sz_id;
+        controller.cemetery_id = model.cemetery_id;
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }

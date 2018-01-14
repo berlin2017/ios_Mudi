@@ -174,6 +174,9 @@
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     MDDetailViewController *controller = [[MDDetailViewController alloc]init];
+    MuDIModel *model = _array[indexPath.row];
+    controller.sz_id = model.sz_id;
+    controller.cemetery_id = model.cemetery_id;
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }

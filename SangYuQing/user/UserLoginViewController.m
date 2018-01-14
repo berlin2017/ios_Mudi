@@ -64,7 +64,7 @@
     [HZLoadingHUD showHUDInView:self.view];
     HZHttpClient *client = [HZHttpClient httpClient];
     [client hcPOST:@"/v1/login/checklogin" parameters:@{@"account_name":username_edit.text,@"password":userpass_edit.text} success:^(NSURLSessionDataTask *task, id object) {
-        if (object[@"state"]) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
             [self.view makeCenterOffsetToast:@"登录成功"];
             UserModel *user = [MTLJSONAdapter modelOfClass:[UserModel class] fromJSONDictionary:object[@"data"][@"userData"] error:nil];
             [UserManager saveAhnUser:user];

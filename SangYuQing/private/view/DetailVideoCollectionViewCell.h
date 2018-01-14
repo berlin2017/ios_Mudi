@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@class PhotoModel;
+@class VideoModel;
 
 @interface DetailVideoCollectionViewCell : UICollectionViewCell
--(void)configWithModel:(PhotoModel*)model;
+-(void)configWithModel:(VideoModel*)model;
 @end

@@ -23,6 +23,12 @@
 #import "ZhuiSiViewController.h"
 #import "DetailXiangCeViewController.h"
 #import "DetailVideoViewController.h"
+#import "GiftCategoryModel.h"
+#import "UserLoginViewController.h"
+#import "UserModel.h"
+#import "UserManager.h"
+#import "DetailGiftModel.h"
+#import "JPModel.h"
 
 @interface MDDetailViewController ()<UICollectionViewDelegate,UICollectionViewDataSource,GiftViewDelegate,XianHuaViewControllerDelegate,ShangXiangViewControllerDelegate,ZhuangShiViewControllerDelegate,JiPinViewControllerDelegate>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
@@ -46,6 +52,10 @@
 @property(nonatomic,strong)UIImageView *photo;
 @property(nonatomic,strong)UILabel *name;
 @property(nonatomic,strong)UILabel *title_label;
+@property(nonatomic,strong)NSArray *gifts;
+@property(nonatomic,strong)GiftModel *gitModel;
+@property(nonatomic,strong)UserModel *user;
+@property(nonatomic,strong)NSArray *giftList;
 @end
 
 @implementation MDDetailViewController
@@ -57,7 +67,6 @@
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     [self.view setBackgroundColor:bgColor];
     [self.view addSubview:self.navigationView];
-    
     [self requestDetail];
     
     _names = [NSMutableArray arrayWithObjects:@"追思一生",@"相册",@"视频", nil];
@@ -162,8 +171,29 @@
     }];
     _photo.backgroundColor = [UIColor clearColor];
     //    photo.contentMode = UIViewContentModeScaleAspectFill;
-    [_photo sd_setImageWithURL:[NSURL URLWithString:@"http://www.hwsyq.com/data/images/shizhe/2017091422292149.jpg"]];
+//    [_photo sd_setImageWithURL:[NSURL URLWithString:@"http://www.hwsyq.com/data/images/shizhe/2017091422292149.jpg"]];
     
+    [self requestGiftList];
+    [self requestGift];
+}
+
+-(void)requestGiftList{
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcGET:@"/v1/jipin-category/get?cpids%5B%5D=1&cpids%5B%5D=2&cpids%5B%5D=3&cpids%5B%5D=4" parameters:nil  success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            _gifts = [MTLJSONAdapter modelsOfClass:[GiftCategoryModel class] fromJSONArray:object[@"data"]  error:nil];
+            NSLog(@"-----");
+        }else if([object[@"state_code"] isEqualToString:@"8888"]){
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
 }
 
 -(void)requestDetail{
@@ -286,12 +316,23 @@
        
         XianHuaViewController *controller = tabBarController.viewControllers[0];
         controller.delegate2 = self;
-        ShangXiangViewController *controller2 = tabBarController.viewControllers[0];
+        GiftCategoryModel *model = _gifts[0];
+        controller.list = model.sub_cate;
+        
+        ShangXiangViewController *controller2 = tabBarController.viewControllers[1];
         controller2.delegate2 = self;
-        JiPinViewController *controller3 = tabBarController.viewControllers[0];
+        GiftCategoryModel *model2 = _gifts[1];
+        controller2.list = model2.sub_cate;
+        
+        JiPinViewController *controller3 = tabBarController.viewControllers[2];
         controller3.delegate2 = self;
-        ZhuangShiViewController *controller4 = tabBarController.viewControllers[0];
+        GiftCategoryModel *model3 = _gifts[2];
+        controller3.list = model3.sub_cate;
+        
+        ZhuangShiViewController *controller4 = tabBarController.viewControllers[3];
         controller4.delegate2 = self;
+        GiftCategoryModel *model4 = _gifts[3];
+        controller4.list = model4.sub_cate;
         
         self.definesPresentationContext = YES;
         tabBarController.view.backgroundColor = [UIColor colorWithRed:0 green:0 blue:0 alpha:.4];
@@ -313,6 +354,7 @@
 }
 
 -(void)clickWithModel:(GiftModel*)model{
+    _gitModel = model;
     _giftView = [[GiftView alloc]initWithFrame:CGRectMake(100, 50, 60, 60)];
     [_giftView setImage:model.image];
     _giftView.userInteractionEnabled = YES;
@@ -375,17 +417,111 @@
 
 -(void)likeOrNot{
     _isLike = !_isLike;
+    NSString *type;
+    //网络请求  关注
     if (_isLike) {
-        _right_imageview.image = [UIImage imageNamed:@"user_like"];
+        type = @"1";
     }else{
-        _right_imageview.image = [UIImage imageNamed:@"ic_like"];
+        type = @"0";
     }
     
-    //网络请求  关注
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcGET:@"/v1/gongmu/follow" parameters:@{@"cemetery_id":_cemetery_id,@"type":type} success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+//             [self.view makeCenterOffsetToast:@"成功"];
+            if (_isLike) {
+                _right_imageview.image = [UIImage imageNamed:@"user_like"];
+                
+            }else{
+                _right_imageview.image = [UIImage imageNamed:@"ic_like"];
+            }
+        }else if([object[@"state_code"] isEqualToString:@"9999"]){
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+         [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
 }
 
 -(void)confirm{
-    [_giftView finishEdit];
+    if (![UserManager ahnUser]) {
+        [self.view makeCenterOffsetToast:@"请登录后继续操作"];
+        UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+        UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+        [self.navigationController pushViewController:viewController animated:YES];
+        return;
+    }
+    _user = [UserManager ahnUser];
+    NSString *content;
+    if (_user.bonus_point<_gitModel.jifen) {
+        content = @"积分不足,请充值后继续";
+    }
+    content = [NSString stringWithFormat:@"本次敬献需要%zd积分。\n使用用户积分支付,可用积分为:\n%zd",_gitModel.jifen,_user.bonus_point];
+    UIAlertController *alertController = [UIAlertController alertControllerWithTitle:@"提醒" message:content preferredStyle:UIAlertControllerStyleAlert];
+    //以下方法就可以实现在提示框中输入文本；
+    
+    //添加一个取消按钮
+    [alertController addAction:[UIAlertAction actionWithTitle:@"取消" style:UIAlertActionStyleDefault handler:nil]];
+    
+    //添加一个确定按钮 并获取AlertView中的第一个输入框 将其文本赋值给BUTTON的title
+    [alertController addAction:[UIAlertAction actionWithTitle:@"确定" style:UIAlertActionStyleDefault handler:^(UIAlertAction * _Nonnull action) {
+        if (_user.bonus_point<_gitModel.jifen) {
+            return ;
+        }
+        HZHttpClient *client = [HZHttpClient httpClient];
+        int x = ceilf(_giftView.frame.origin.x-[UIScreen mainScreen].bounds.size.height/2*1.0);
+        int y = ceilf(_giftView.frame.origin.y*1.0);
+        [client hcPOST:@"/v1/ucenter/handle-jibai" parameters:@{@"jpid":[NSString stringWithFormat:@"%zd",_gitModel.jipin_id],@"sz_id":_sz_id,@"jbtype":@"1",@"posx":[NSString stringWithFormat:@"%zd",x],@"posy":[NSString stringWithFormat:@"%zd",y]} success:^(NSURLSessionDataTask *task, id object) {
+            if ([object[@"state_code"] isEqualToString:@"0000"]) {
+                [_giftView finishEdit];
+                NSLog(@"-----");
+            }else if([object[@"state_code"] isEqualToString:@"9999"]){
+                [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+                UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+                UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+                [self.navigationController pushViewController:viewController animated:YES];
+            }else{
+                [self.view makeCenterOffsetToast:object[@"msg"]];
+            }
+        } failure:^(NSURLSessionDataTask *task, NSError *error) {
+             [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+        }];
+    }]];
+    
+    //present出AlertView
+    [self presentViewController:alertController animated:true completion:nil];
+   
+}
+
+-(void)requestGift{
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcGET:@"/v1/shizhe/get-jipins" parameters:@{@"sz_id":_sz_id,@"jpx_type":@"1"} success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            _giftList = [MTLJSONAdapter modelsOfClass:[DetailGiftModel class] fromJSONArray:object[@"data"] error:nil];
+            for (DetailGiftModel*model in _giftList) {
+                GiftView *git = [[GiftView alloc]initWithFrame:CGRectMake([model.posx floatValue], [model.posx floatValue]-60+[UIScreen mainScreen].bounds.size.height/2, 60, 60)];
+                JPModel *info = model.jipinInfo;
+                [git setImage:info.image];
+                [git finishEdit];
+                [self.view addSubview:git];
+            }
+            NSLog(@"-----");
+        }else if([object[@"state_code"] isEqualToString:@"9999"]){
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"获取礼物失败,请重试"];
+    }];
 }
 
 @end

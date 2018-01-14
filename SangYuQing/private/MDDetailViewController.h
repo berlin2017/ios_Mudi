@@ -11,5 +11,6 @@
 @interface MDDetailViewController : UIViewController
 
 @property(nonatomic,copy)NSString *sz_id;
+@property(nonatomic,copy)NSString *cemetery_id;
 
 @end

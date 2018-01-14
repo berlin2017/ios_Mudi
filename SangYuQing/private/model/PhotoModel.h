@@ -8,8 +8,14 @@
 
 #import <Foundation/Foundation.h>
 
-@interface PhotoModel : NSObject
+@interface PhotoModel  : MTLModel <MTLJSONSerializing>
 
-@property(nonatomic,copy)NSString *image;
+@property(nonatomic,assign)NSInteger szxc_id;
+@property(nonatomic,assign)NSInteger  user_id;
+@property(nonatomic,assign)NSInteger  sz_id;
 @property(nonatomic,copy)NSString *name;
+@property(nonatomic,assign)NSInteger  type;
+@property(nonatomic,assign)NSInteger  state;
+@property(nonatomic,assign)NSInteger create_time;
+@property(nonatomic,copy)NSString *image;
 @end

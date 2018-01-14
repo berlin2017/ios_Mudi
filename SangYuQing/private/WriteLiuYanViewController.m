@@ -7,11 +7,13 @@
 //
 
 #import "WriteLiuYanViewController.h"
+#import "UserLoginViewController.h"
 
 @interface WriteLiuYanViewController ()<UITextFieldDelegate>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
 @property(nonatomic,strong) UILabel *label;
+@property(nonatomic,strong) UITextField *textfild;
 @end
 
 @implementation WriteLiuYanViewController
@@ -35,18 +37,18 @@
     }];
     _label.text = @"剩余300字";
     
-    UITextField *textfild = [[UITextField alloc]init];
-    [self.view addSubview:textfild];
-    [textfild mas_makeConstraints:^(MASConstraintMaker *make) {
+    _textfild = [[UITextField alloc]init];
+    [self.view addSubview:_textfild];
+    [_textfild mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view).mas_offset(10);
         make.right.mas_equalTo(self.view).mas_offset(-10);
         make.top.mas_equalTo(self.navigationView.mas_bottom).mas_offset(20);
         make.height.mas_equalTo([UIScreen mainScreen].bounds.size.height-64-[[UIApplication sharedApplication] statusBarFrame].size.height - 80);
     }];
-    textfild.placeholder = @"请输入留言，留言将由建墓者筛选后显示";
-    textfild.backgroundColor = [UIColor whiteColor];
-    textfild.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
-    [textfild addTarget:self action:@selector(passConTextChange:) forControlEvents:UIControlEventEditingChanged];
+    _textfild.placeholder = @"请输入留言，留言将由建墓者筛选后显示";
+    _textfild.backgroundColor = [UIColor whiteColor];
+    _textfild.contentVerticalAlignment = UIControlContentVerticalAlignmentCenter;
+    [_textfild addTarget:self action:@selector(passConTextChange:) forControlEvents:UIControlEventEditingChanged];
    
 }
 
@@ -56,7 +58,7 @@
 
 -(void)passConTextChange:(id)sender{
     UITextField* target=(UITextField*)sender;
-    _label.text = [NSString stringWithFormat:@"剩余%d",300 - target.text.length];
+    _label.text = [NSString stringWithFormat:@"剩余%zd",300 - target.text.length];
 }
 
 // 自定义导航栏
@@ -112,7 +114,26 @@
 }
 
 -(void)commit{
-    [self.view makeCenterOffsetToast:@"留言成功"];
+    if ([NSString isEmptyString:_textfild.text]) {
+        [self.view makeCenterOffsetToast:@"内容不能为空"];
+        return;
+    }
+    
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcPOST:@"/v1/liuyan/handle-liuyan-post" parameters:@{@"szid":_sz_id,@"type":@"1",@"showname":@"0",@"content":_textfild.text}  success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            [self.view makeCenterOffsetToast:@"留言成功"];
+        }else if([object[@"state_code"] isEqualToString:@"8888"]){
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
 }
 
 -(void)back{

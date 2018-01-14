@@ -1,28 +1,31 @@
 //
-//  LiuYanModel.m
+//  ArticleModel.m
 //  SangYuQing
 //
-//  Created by mac on 2018/1/10.
+//  Created by mac on 2018/1/14.
 //  Copyright © 2018年 mac. All rights reserved.
 //
 
-#import "LiuYanModel.h"
+#import "ArticleModel.h"
 
-@implementation LiuYanModel
+@implementation ArticleModel
+
 + (NSDictionary *)JSONKeyPathsByPropertyKey
 {
     return @{
              @"user_id": @"user_id",
-             @"szly_id": @"szly_id",
+             @"szjw_id": @"szjw_id",
              @"sz_id": @"sz_id",
-             @"content": @"content",
-             @"type": @"type",
-             @"showname": @"showname",
+             @"jiwen_title": @"jiwen_title",
+             @"jiwen_type": @"jiwen_type",
+             @"liulan_count": @"liulan_count",
              @"state": @"state",
              @"create_time": @"create_time",
+             @"update_time": @"update_time",
              @"head_logo": @"head_logo",
              @"username": @"username",
              @"nickname": @"nickname",
+             @"jiwen_body": @"jiwen_body",
              };
 }
 
@@ -30,7 +33,7 @@
 {
     return [MTLValueTransformer numberTransformer];
 }
-+ (NSValueTransformer *)szly_idJSONTransformer
++ (NSValueTransformer *)szjw_idJSONTransformer
 {
     return [MTLValueTransformer numberTransformer];
 }
@@ -38,11 +41,11 @@
 {
     return [MTLValueTransformer numberTransformer];
 }
-+ (NSValueTransformer *)typeJSONTransformer
++ (NSValueTransformer *)jiwen_typeJSONTransformer
 {
     return [MTLValueTransformer numberTransformer];
 }
-+ (NSValueTransformer *)shownameJSONTransformer
++ (NSValueTransformer *)liulan_countJSONTransformer
 {
     return [MTLValueTransformer numberTransformer];
 }
@@ -51,6 +54,10 @@
     return [MTLValueTransformer numberTransformer];
 }
 + (NSValueTransformer *)create_timeJSONTransformer
+{
+    return [MTLValueTransformer numberTransformer];
+}
++ (NSValueTransformer *)update_timeJSONTransformer
 {
     return [MTLValueTransformer numberTransformer];
 }

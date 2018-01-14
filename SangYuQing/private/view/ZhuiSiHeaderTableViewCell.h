@@ -7,9 +7,9 @@
 //
 
 #import <UIKit/UIKit.h>
-@class SZDetailModel;
+@class MuDiDetailModel;
 
 @interface ZhuiSiHeaderTableViewCell : UITableViewCell
 
--(void)configWithModel:(SZDetailModel*)model;
+-(void)configWithModel:(MuDiDetailModel*)model;
 @end

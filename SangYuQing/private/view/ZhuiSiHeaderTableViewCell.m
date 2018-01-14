@@ -7,7 +7,7 @@
 //
 
 #import "ZhuiSiHeaderTableViewCell.h"
-#import "SZDetailModel.h"
+#import "MuDiDetailModel.h"
 
 @interface ZhuiSiHeaderTableViewCell()
 @property (weak, nonatomic) IBOutlet UILabel *name_label;
@@ -35,13 +35,13 @@
     // Configure the view for the selected state
 }
 
--(void)configWithModel:(SZDetailModel*)model{
-    _name_label.text = model.name;
-    _birthday_label.text = [NSString stringWithFormat:@"生辰:%@",model.birthday];
-    _death_label.text = [NSString stringWithFormat:@"祭辰:%@",model.death];
-    _fangke_label.text = [NSString stringWithFormat:@"访客: %d人",model.fangke];
-     _jidian_label.text = [NSString stringWithFormat:@"祭奠: %d人",model.jidian];
-    [_photo_image sd_setImageWithURL:[NSURL URLWithString:model.image]];
+-(void)configWithModel:(MuDiDetailModel*)model{
+    _name_label.text = model.sz_name;
+    _birthday_label.text = [NSString stringWithFormat:@"生辰:%@",model.birthdate];
+    _death_label.text = [NSString stringWithFormat:@"祭辰:%@",model.deathdate];
+    _fangke_label.text = [NSString stringWithFormat:@"访客: %@人",model.liulan_count];
+     _jidian_label.text = [NSString stringWithFormat:@"祭奠: %@人",model.jibai_count];
+    [_photo_image sd_setImageWithURL:[NSURL URLWithString:model.sz_avatar]];
 }
 
 @end

@@ -7,7 +7,6 @@
 //
 
 #import "ZhuiSiJieShaoTableViewCell.h"
-#import "SZDetailModel.h"
 
 @interface ZhuiSiJieShaoTableViewCell()
 @property (weak, nonatomic) IBOutlet UILabel *content_label;
@@ -45,12 +44,12 @@
     }
 }
 
--(void)configWithModel:(SZDetailModel*)model type:(int)type{
+-(void)configWithModel:(NSString*)model type:(int)type{
     _content_label.numberOfLines = type;
-    _content_label.text = model.jieshao;
+    _content_label.text = model;
 }
 
--(void)configWithModel:(SZDetailModel*)model{
+-(void)configWithModel:(NSString*)model{
     [self configWithModel:model type:4];
 }
 

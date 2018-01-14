@@ -8,11 +8,18 @@
 
 #import <Foundation/Foundation.h>
 
-@interface LiuYanModel : NSObject
+@interface LiuYanModel : MTLModel <MTLJSONSerializing>
 
-@property(nonatomic,copy)NSString *name;
+@property(nonatomic,assign)NSInteger szly_id;
+@property(nonatomic,assign)NSInteger  user_id;
+@property(nonatomic,assign)NSInteger  sz_id;
 @property(nonatomic,copy)NSString *content;
-@property(nonatomic,copy)NSString *image;
-@property(nonatomic,copy)NSString *time;
+@property(nonatomic,assign)NSInteger  type;
+@property(nonatomic,assign)NSInteger  showname;
+@property(nonatomic,assign)NSInteger  create_time;
+@property(nonatomic,assign)NSInteger  state;
+@property(nonatomic,copy)NSString *head_logo;
+@property(nonatomic,copy)NSString *username;
+@property(nonatomic,copy)NSString *nickname;
 
 @end

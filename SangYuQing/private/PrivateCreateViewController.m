@@ -150,7 +150,7 @@
     //创建一个日期格式
     NSDateFormatter *fmt = [[NSDateFormatter alloc] init];
     //设置日期的显示格式
-    fmt.dateFormat = @"yyyy年MM月dd日";
+    fmt.dateFormat = @"yyyy-MM-dd";
     //将日期转为指定格式显示
     NSString *dateStr = [fmt stringFromDate:datePicker.date];
     //不知道为啥有问题
@@ -260,7 +260,7 @@
     manager.requestSerializer = [AFHTTPRequestSerializer serializer];
     manager.responseSerializer.acceptableContentTypes = [NSSet setWithObjects:@"application/json",@"text/html",@"text/javascript",@"text/json", nil];
     NSMutableDictionary * dict = [NSMutableDictionary dictionaryWithCapacity:1];
-    [dict setObject:@"uploaddir" forKey:@"user"];
+    [dict setObject:@"uploaddir" forKey:@"shizhe"];
     [dict setObject:@"_csrf" forKey:@"_csrf"];
     [manager POST:@"http://jk.hwsyq.com/v1/ucenter/storeimg" parameters:dict constructingBodyWithBlock:^(id<AFMultipartFormData> formData) {
         //通过post请求上传用户头像图片,name和fileName传的参数需要跟后台协商,看后台要传的参数名
@@ -270,7 +270,7 @@
         //解析后台返回的结果,如果不做一下处理,打印结果可能是一些二进制流数据
         if (![responseObject[@"state_code"] isEqualToString:@"8888"]) {
 //            [self.view makeCenterOffsetToast:@"上传成功"];
-            _choseImageUrl = responseObject[@"data"][@"image_src"];
+            _choseImageUrl = responseObject[@"image_name"];
             CreatPhotoTableViewCell *cell = [_tableview cellForRowAtIndexPath:[NSIndexPath indexPathForRow:4 inSection:0]];
             cell.imageview.image = image;
         }else{
@@ -312,7 +312,7 @@
     }
     [param setValue:cell.edittext.text forKey:@"sz_name"];
     
-    NSIndexPath *path2 = [NSIndexPath indexPathForRow:0 inSection:0];
+    NSIndexPath *path2 = [NSIndexPath indexPathForRow:1 inSection:0];
     CreatEditTableViewCell *cell2 = [_tableview cellForRowAtIndexPath:path2];
     if([NSString isEmptyString:cell2.edittext.text]){
         [self.view makeCenterOffsetToast:@"请选择生辰日期"];
@@ -321,7 +321,7 @@
     
       [param setValue:cell2.edittext.text forKey:@"birthdate"];
     
-    NSIndexPath *path3 = [NSIndexPath indexPathForRow:0 inSection:0];
+    NSIndexPath *path3 = [NSIndexPath indexPathForRow:2 inSection:0];
     CreatEditTableViewCell *cell3 = [_tableview cellForRowAtIndexPath:path3];
     if([NSString isEmptyString:cell3.edittext.text]){
         [self.view makeCenterOffsetToast:@"请选择忌辰日期"];
@@ -329,7 +329,7 @@
     }
       [param setValue:cell3.edittext.text forKey:@"deathdate"];
     
-    NSIndexPath *path4 = [NSIndexPath indexPathForRow:0 inSection:0];
+    NSIndexPath *path4 = [NSIndexPath indexPathForRow:3 inSection:0];
     CreatEditTableViewCell *cell4 = [_tableview cellForRowAtIndexPath:path4];
     if([NSString isEmptyString:cell4.edittext.text]){
         [self.view makeCenterOffsetToast:@"请选择情感关系"];
@@ -337,7 +337,7 @@
     }
     [param setValue:cell4.edittext.text forKey:@"relation"];
     
-    if (_isChecked) {
+    if (!_isChecked) {
         NSIndexPath *path6 = [NSIndexPath indexPathForRow:6 inSection:0];
         CreatEditTableViewCell *cell6 = [_tableview cellForRowAtIndexPath:path6];
         if([NSString isEmptyString:cell6.edittext.text]){
@@ -351,6 +351,9 @@
     if (_choseImageUrl) {
           [param setValue:_choseImageUrl forKey:@"sz_avatar"];
     }
+    
+    [param setValue:[NSString stringWithFormat:@"%zd",_cemeteryType] forKey:@"type"];
+    [HZLoadingHUD showHUDInView:self.view];
     HZHttpClient *client = [HZHttpClient httpClient];
     [client hcPOST:@"/v1/cemetery/add" parameters:param  success:^(NSURLSessionDataTask *task, id object) {
         if ([object[@"state_code"] isEqualToString:@"0000"]) {
@@ -358,8 +361,10 @@
         }else{
              [self.view makeCenterOffsetToast:object[@"msg"]];
         }
+        [HZLoadingHUD hideHUDInView:self.view];
     } failure:^(NSURLSessionDataTask *task, NSError *error) {
         [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+        [HZLoadingHUD hideHUDInView:self.view];
     }];
 }
 

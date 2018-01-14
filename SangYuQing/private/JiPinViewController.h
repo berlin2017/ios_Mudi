@@ -16,4 +16,5 @@
 @end
 @interface JiPinViewController : HZPageViewController
 @property(nonatomic,weak)id<JiPinViewControllerDelegate>delegate2;
+@property(nonatomic,strong)NSArray *list;
 @end

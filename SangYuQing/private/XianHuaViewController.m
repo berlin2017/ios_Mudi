@@ -8,6 +8,9 @@
 
 #import "XianHuaViewController.h"
 #import "GifListViewController.h"
+#import "GiftLanMuModel.h"
+#import "GiftCategoryModel.h"
+#import "UserLoginViewController.h"
 
 @interface XianHuaViewController ()<HZPageVcDataSource, HZPageVcDelegate,GifListViewControllerDelegate>
 @property (nonatomic, strong) UIView *contentView;
@@ -26,18 +29,23 @@
     self.dataSource = self;
 }
 
+
 #pragma mark - HZPageVcDataSource & Delegate
 - (NSUInteger)numberOfContentForPageVc:(HZPageViewController *)pageVc
 {
-    return 10;
+
+    return _list.count;
 }
 - (NSString *)pageVc:(HZPageViewController *)pageVc titleAtIndex:(NSUInteger)index
 {
-    return @"title";
+     GiftLanMuModel *model = _list[index];
+    return model.jc_name;
 }
 - (UIViewController *)pageVc:(HZPageViewController *)pageVc viewControllerAtIndex:(NSUInteger)index
 {
+    GiftLanMuModel *model = _list[index];
     GifListViewController *con = [[GifListViewController alloc]init];
+    con.jc_id = model.jc_id;
     con.delegate = self;
     return con;
 }

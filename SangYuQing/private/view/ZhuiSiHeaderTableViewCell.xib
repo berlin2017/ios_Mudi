@@ -33,13 +33,13 @@
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="2FT-k5-d5Q">
-                        <rect key="frame" x="217" y="93" width="42" height="21"/>
+                        <rect key="frame" x="72" y="93" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.33333333333333331" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
                     </label>
                     <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="3Jq-II-2Wt">
-                        <rect key="frame" x="217" y="175" width="42" height="21"/>
+                        <rect key="frame" x="72" y="175" width="42" height="21"/>
                         <fontDescription key="fontDescription" type="system" pointSize="17"/>
                         <color key="textColor" white="0.33333333329999998" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                         <nil key="highlightedColor"/>
@@ -58,18 +58,18 @@
                     </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="3Jq-II-2Wt" firstAttribute="leading" secondItem="2FT-k5-d5Q" secondAttribute="leading" id="1QC-O8-y1y"/>
                     <constraint firstAttribute="trailing" secondItem="uzD-XB-hmR" secondAttribute="trailing" constant="10" id="8nX-3D-aXz"/>
                     <constraint firstItem="bRa-yp-P9Y" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="D2N-JL-yJZ"/>
                     <constraint firstItem="K4e-w4-Nt3" firstAttribute="leading" secondItem="bRa-yp-P9Y" secondAttribute="leading" id="DMA-GW-PbJ"/>
                     <constraint firstItem="2FT-k5-d5Q" firstAttribute="centerY" secondItem="K4e-w4-Nt3" secondAttribute="centerY" id="ERE-VQ-YKl"/>
                     <constraint firstItem="jfU-Ja-nHV" firstAttribute="leading" secondItem="K4e-w4-Nt3" secondAttribute="leading" id="Hqd-NO-MXA"/>
-                    <constraint firstItem="2FT-k5-d5Q" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="MQW-v6-uEB"/>
                     <constraint firstItem="3Jq-II-2Wt" firstAttribute="centerY" secondItem="jfU-Ja-nHV" secondAttribute="centerY" id="NEG-7i-QI9"/>
                     <constraint firstItem="uzD-XB-hmR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="OVD-NP-wYa"/>
                     <constraint firstAttribute="bottom" secondItem="uzD-XB-hmR" secondAttribute="bottom" constant="10" id="QtS-ST-XfC"/>
+                    <constraint firstItem="2FT-k5-d5Q" firstAttribute="leading" secondItem="K4e-w4-Nt3" secondAttribute="trailing" constant="20" id="TZd-0H-kuf"/>
                     <constraint firstItem="uzD-XB-hmR" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" constant="10" id="V3P-I6-QcK"/>
                     <constraint firstItem="bRa-yp-P9Y" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="10" id="jLf-3A-R1Y"/>
-                    <constraint firstItem="3Jq-II-2Wt" firstAttribute="centerX" secondItem="H2p-sc-9uM" secondAttribute="centerX" id="o6y-vX-fbq"/>
                     <constraint firstItem="K4e-w4-Nt3" firstAttribute="centerY" secondItem="H2p-sc-9uM" secondAttribute="centerY" id="omz-fL-xvM"/>
                     <constraint firstAttribute="bottom" secondItem="jfU-Ja-nHV" secondAttribute="bottom" constant="10.5" id="vBy-tj-b7O"/>
                 </constraints>

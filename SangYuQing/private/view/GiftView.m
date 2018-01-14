@@ -64,9 +64,9 @@
     CGFloat iconImageViewW = self.frame.size.width-20;
     CGFloat iconImageViewH = self.frame.size.height-20;
     self.iconImageView.frame = CGRectMake(iconImageViewX, iconImageViewY, iconImageViewW, iconImageViewH);
-    self.iconImageView.layer.borderWidth = 1;
-    self.iconImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
-    self.iconImageView.layer.masksToBounds = YES;
+//    self.iconImageView.layer.borderWidth = 1;
+//    self.iconImageView.layer.borderColor = [UIColor lightGrayColor].CGColor;
+//    self.iconImageView.layer.masksToBounds = YES;
 
     self.deleteImageView.frame = CGRectMake(0, 0, 20, 20);
     self.deleteImageView.image = [UIImage imageNamed:@"ic_wrong"];

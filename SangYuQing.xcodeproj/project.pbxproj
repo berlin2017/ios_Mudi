@@ -32,6 +32,13 @@
 		04431EC81FF4D59A00A2A116 /* BaseViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 04431EC71FF4D59A00A2A116 /* BaseViewController.m */; };
 		04431F011FF4F13000A2A116 /* HZBannerView.m in Sources */ = {isa = PBXBuildFile; fileRef = 04431F001FF4F13000A2A116 /* HZBannerView.m */; };
 		04431FD11FF512DB00A2A116 /* HomeNavCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 04431FD01FF512DB00A2A116 /* HomeNavCollectionViewCell.m */; };
+		046E111D200B3A480089DCCD /* ArticleModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E111C200B3A480089DCCD /* ArticleModel.m */; };
+		046E1120200B6DDC0089DCCD /* PhotoItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E111F200B6DDC0089DCCD /* PhotoItem.m */; };
+		046E1123200B72160089DCCD /* VideoModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E1122200B72160089DCCD /* VideoModel.m */; };
+		046E1126200B786B0089DCCD /* GiftCategoryModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E1125200B786B0089DCCD /* GiftCategoryModel.m */; };
+		046E1129200B78D30089DCCD /* GiftLanMuModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E1128200B78D30089DCCD /* GiftLanMuModel.m */; };
+		046E112C200B8DF60089DCCD /* DetailGiftModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E112B200B8DF60089DCCD /* DetailGiftModel.m */; };
+		046E112F200B8EBC0089DCCD /* JPModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 046E112E200B8EBC0089DCCD /* JPModel.m */; };
 		047720A21FF72EBF00817528 /* PrivateTopTableViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 047720A01FF72EBF00817528 /* PrivateTopTableViewCell.m */; };
 		047720A31FF72EBF00817528 /* PrivateTopTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 047720A11FF72EBF00817528 /* PrivateTopTableViewCell.xib */; };
 		049100622003A632003D56DF /* AlipaySDK.bundle in Resources */ = {isa = PBXBuildFile; fileRef = 049100602003A631003D56DF /* AlipaySDK.bundle */; };
@@ -259,6 +266,20 @@
 		04431F3D1FF4F19000A2A116 /* HZPrefixHeader.pch */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HZPrefixHeader.pch; sourceTree = "<group>"; };
 		04431FCF1FF512DB00A2A116 /* HomeNavCollectionViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = HomeNavCollectionViewCell.h; sourceTree = "<group>"; };
 		04431FD01FF512DB00A2A116 /* HomeNavCollectionViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = HomeNavCollectionViewCell.m; sourceTree = "<group>"; };
+		046E111B200B3A480089DCCD /* ArticleModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ArticleModel.h; sourceTree = "<group>"; };
+		046E111C200B3A480089DCCD /* ArticleModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ArticleModel.m; sourceTree = "<group>"; };
+		046E111E200B6DDC0089DCCD /* PhotoItem.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PhotoItem.h; sourceTree = "<group>"; };
+		046E111F200B6DDC0089DCCD /* PhotoItem.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PhotoItem.m; sourceTree = "<group>"; };
+		046E1121200B72160089DCCD /* VideoModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = VideoModel.h; sourceTree = "<group>"; };
+		046E1122200B72160089DCCD /* VideoModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = VideoModel.m; sourceTree = "<group>"; };
+		046E1124200B786B0089DCCD /* GiftCategoryModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftCategoryModel.h; sourceTree = "<group>"; };
+		046E1125200B786B0089DCCD /* GiftCategoryModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftCategoryModel.m; sourceTree = "<group>"; };
+		046E1127200B78D30089DCCD /* GiftLanMuModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = GiftLanMuModel.h; sourceTree = "<group>"; };
+		046E1128200B78D30089DCCD /* GiftLanMuModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = GiftLanMuModel.m; sourceTree = "<group>"; };
+		046E112A200B8DF60089DCCD /* DetailGiftModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailGiftModel.h; sourceTree = "<group>"; };
+		046E112B200B8DF60089DCCD /* DetailGiftModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailGiftModel.m; sourceTree = "<group>"; };
+		046E112D200B8EBC0089DCCD /* JPModel.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = JPModel.h; sourceTree = "<group>"; };
+		046E112E200B8EBC0089DCCD /* JPModel.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = JPModel.m; sourceTree = "<group>"; };
 		0477209F1FF72EBF00817528 /* PrivateTopTableViewCell.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = PrivateTopTableViewCell.h; sourceTree = "<group>"; };
 		047720A01FF72EBF00817528 /* PrivateTopTableViewCell.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = PrivateTopTableViewCell.m; sourceTree = "<group>"; };
 		047720A11FF72EBF00817528 /* PrivateTopTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = PrivateTopTableViewCell.xib; sourceTree = "<group>"; };
@@ -1275,6 +1296,20 @@
 				0497C85D20061F040075232C /* PhotoModel.m */,
 				0497C8A4200772560075232C /* GiftModel.h */,
 				0497C8A5200772560075232C /* GiftModel.m */,
+				046E111B200B3A480089DCCD /* ArticleModel.h */,
+				046E111C200B3A480089DCCD /* ArticleModel.m */,
+				046E111E200B6DDC0089DCCD /* PhotoItem.h */,
+				046E111F200B6DDC0089DCCD /* PhotoItem.m */,
+				046E1121200B72160089DCCD /* VideoModel.h */,
+				046E1122200B72160089DCCD /* VideoModel.m */,
+				046E1124200B786B0089DCCD /* GiftCategoryModel.h */,
+				046E1125200B786B0089DCCD /* GiftCategoryModel.m */,
+				046E1127200B78D30089DCCD /* GiftLanMuModel.h */,
+				046E1128200B78D30089DCCD /* GiftLanMuModel.m */,
+				046E112A200B8DF60089DCCD /* DetailGiftModel.h */,
+				046E112B200B8DF60089DCCD /* DetailGiftModel.m */,
+				046E112D200B8EBC0089DCCD /* JPModel.h */,
+				046E112E200B8EBC0089DCCD /* JPModel.m */,
 			);
 			path = model;
 			sourceTree = "<group>";
@@ -1609,8 +1644,10 @@
 				04F13F0F1FFCCCF4008B1C3B /* UserInfoListCell.m in Sources */,
 				0491017020049D44003D56DF /* HZGlobalConstVarables.m in Sources */,
 				0491FF7C200391F9003D56DF /* UserScoreLogTableViewCell.m in Sources */,
+				046E1129200B78D30089DCCD /* GiftLanMuModel.m in Sources */,
 				049102662005BA18003D56DF /* SZDetailModel.m in Sources */,
 				04F59CDF1FFA3391009EEF96 /* PrivateMoreViewController.m in Sources */,
+				046E1123200B72160089DCCD /* VideoModel.m in Sources */,
 				04431EC81FF4D59A00A2A116 /* BaseViewController.m in Sources */,
 				0497C843200602580075232C /* WriteLiuYanViewController.m in Sources */,
 				0491015F20049D44003D56DF /* MTLValueTransformer+Helper.m in Sources */,
@@ -1633,6 +1670,7 @@
 				04431EC41FF4D4C500A2A116 /* UserHomeViewController.m in Sources */,
 				0497C88F200751DD0075232C /* XianHuaViewController.m in Sources */,
 				0491FF7420038ADA003D56DF /* UserScorePayCollectionViewCell.m in Sources */,
+				046E1126200B786B0089DCCD /* GiftCategoryModel.m in Sources */,
 				049102242004A7B1003D56DF /* HZLoadingHUD.m in Sources */,
 				04357AB620088DA000F94D49 /* UserModel.m in Sources */,
 				0497C86C20063C0D0075232C /* VideoPlayViewController.m in Sources */,
@@ -1648,6 +1686,7 @@
 				049100BD2003A7B7003D56DF /* APOrderInfo.m in Sources */,
 				0491016B20049D44003D56DF /* UIView+ToastHelper.m in Sources */,
 				0497C87B200645850075232C /* CreatEditTableViewCell.m in Sources */,
+				046E111D200B3A480089DCCD /* ArticleModel.m in Sources */,
 				04431FD11FF512DB00A2A116 /* HomeNavCollectionViewCell.m in Sources */,
 				0491016420049D44003D56DF /* UIImageView+WebCacheExtension.m in Sources */,
 				0491017420049D44003D56DF /* HZSystemInfoManager.m in Sources */,
@@ -1659,6 +1698,7 @@
 				0491017620049D44003D56DF /* HZHelper.m in Sources */,
 				04F13F6E1FFCDE7A008B1C3B /* TestViewController.m in Sources */,
 				049102442004FABD003D56DF /* ZhuiSiViewController.m in Sources */,
+				046E112F200B8EBC0089DCCD /* JPModel.m in Sources */,
 				0491015720049D44003D56DF /* HZInputViewController.m in Sources */,
 				04F13F871FFE90FA008B1C3B /* UserLoginViewController.m in Sources */,
 				0491016320049D44003D56DF /* UIImage+Helper.m in Sources */,
@@ -1674,8 +1714,10 @@
 				0491017520049D44003D56DF /* HZRSA.m in Sources */,
 				0497C86420062F130075232C /* ZANImageShowViewController.m in Sources */,
 				04F13F0A1FFCCB39008B1C3B /* UserInfoTableViewCell.m in Sources */,
+				046E112C200B8DF60089DCCD /* DetailGiftModel.m in Sources */,
 				0491016820049D44003D56DF /* UIView+Helper.m in Sources */,
 				04357AB92008B8B300F94D49 /* MyLikeViewController.m in Sources */,
+				046E1120200B6DDC0089DCCD /* PhotoItem.m in Sources */,
 				04431EBC1FF4D49900A2A116 /* PrivateHomeViewController.m in Sources */,
 				0491015C20049D44003D56DF /* UIWebView+Helper.m in Sources */,
 				04431DD81FF4B7BE00A2A116 /* main.m in Sources */,

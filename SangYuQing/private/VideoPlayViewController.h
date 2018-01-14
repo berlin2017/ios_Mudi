@@ -10,4 +10,6 @@
 
 @interface VideoPlayViewController : UIViewController
 
+@property(nonatomic,copy)NSString *video_url;
+
 @end

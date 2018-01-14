@@ -7,8 +7,8 @@
 //
 
 #import <UIKit/UIKit.h>
-@class PhotoModel;
+@class PhotoItem;
 
 @interface XiangCeCollectionViewCell : UICollectionViewCell
--(void)configWithModel:(PhotoModel*)model;
+-(void)configWithModel:(PhotoItem*)model;
 @end

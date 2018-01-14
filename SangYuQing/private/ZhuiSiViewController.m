@@ -10,9 +10,8 @@
 #import "ZhuiSiLiuYanTableViewCell.h"
 #import "LiuYanModel.h"
 #import "ZhuiSiJiWenTableViewCell.h"
-#import "JiWenModel.h"
+#import "ArticleModel.h"
 #import "ZhuiSiHeaderTableViewCell.h"
-#import "SZDetailModel.h"
 #import "ZhuiSiJieShaoTableViewCell.h"
 #import "UITableView+FDTemplateLayoutCell.h"
 #import "WriteLiuYanViewController.h"
@@ -20,6 +19,8 @@
 #import "LiuYanMoreViewController.h"
 #import "JiWenMoreViewController.h"
 #import "UserLoginViewController.h"
+#import "MuDiDetailModel.h"
+#import "LiuYanModel.h"
 
 @interface ZhuiSiViewController ()<UITableViewDelegate,UITableViewDataSource,ZhuiSiJieShaoTableViewCellDelegate>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
@@ -27,7 +28,8 @@
 @property(nonatomic,strong)UITableView *tableview;
 @property(nonatomic,assign)int type;
 @property(nonatomic,copy)NSString* jieshao;
-@property(nonatomic,copy)NSArray* jiwenList;
+@property(nonatomic,strong)MuDiDetailModel* detail;
+@property(nonatomic,strong)NSArray * liuYan_list;
 @end
 
 @implementation ZhuiSiViewController
@@ -37,6 +39,7 @@
     // Do any additional setup after loading the view.
         [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserModel) name:kZANUserLoginSuccessNotification object:nil];
     _type = 4;
+    _liuYan_list = [NSArray new];
     self.navigationController.navigationBarHidden = YES;
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     [self.view setBackgroundColor:bgColor];
@@ -57,7 +60,7 @@
     [_tableview registerNib:[UINib nibWithNibName:@"ZhuiSiJiWenTableViewCell" bundle:nil] forCellReuseIdentifier:@"zhuisi_jiwen_cell"];
     [_tableview registerNib:[UINib nibWithNibName:@"ZhuiSiHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:@"zhuisi_header_cell"];
     [_tableview registerNib:[UINib nibWithNibName:@"ZhuiSiJieShaoTableViewCell" bundle:nil] forCellReuseIdentifier:@"zhuisi_jieshao_cell"];
-    [self requestPage];
+    [self updateUserModel];
 }
 
 -(void)requestPage{
@@ -83,7 +86,7 @@
     HZHttpClient *client = [HZHttpClient httpClient];
     [client hcGET:@"/v1/gongmu/articles" parameters:@{@"id":_sz_id}  success:^(NSURLSessionDataTask *task, id object) {
         if ([object[@"state_code"] isEqualToString:@"0000"]) {
-            _jiwenList = object[@"data"][@"CemeteryInfo"][@"articles"];
+            _detail = [MTLJSONAdapter modelOfClass:[MuDiDetailModel class] fromJSONDictionary:object[@"data"][@"CemeteryInfo"] error:nil];
             [_tableview reloadData];
         }else if([object[@"state_code"] isEqualToString:@"8888"]){
             [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
@@ -98,8 +101,30 @@
     }];
 }
 
+-(void)requestLY{
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcGET:@"/v1/gongmu/liuyan" parameters:@{@"id":_sz_id}  success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            _liuYan_list = [MTLJSONAdapter modelsOfClass:[LiuYanModel class] fromJSONArray:object[@"data"][@"CemeteryInfo"][@"liuyans"] error:nil];
+            [_tableview reloadData];
+        }else if([object[@"state_code"] isEqualToString:@"8888"]){
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
+}
+
+
 -(void)updateUserModel{
     [self requestPage];
+    [self requestJW];
+    [self requestLY];
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -113,9 +138,13 @@
         case 1:
             return 1;
         case 2:
-            return 10;
+            return _liuYan_list.count;
         case 3:
-            return 15;
+            if (_detail) {
+                return _detail.articles.count;
+            }
+            return 0;
+    
         default:
             break;
     }
@@ -126,14 +155,7 @@
     switch (indexPath.section) {
         case 0:{
             ZhuiSiHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zhuisi_header_cell"];
-            SZDetailModel *model = [[SZDetailModel alloc]init];
-            model.image = @"https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=60c889ffb051f819f125044ce28f2dd0/ae51f3deb48f8c54cd34cafb3a292df5e1fe7f7a.jpg";
-            model.name = @"小明";
-            model.birthday = @"2018-01-10";
-            model.death = @"2018-01-11";
-            model.fangke = 100;
-            model.jidian = 200;
-            [cell configWithModel:model];
+            [cell configWithModel:_detail];
             cell.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
             return cell;
         }
@@ -141,15 +163,7 @@
         case 1:
         {
             ZhuiSiJieShaoTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zhuisi_jieshao_cell"];
-            SZDetailModel *model = [[SZDetailModel alloc]init];
-            model.image = @"https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=60c889ffb051f819f125044ce28f2dd0/ae51f3deb48f8c54cd34cafb3a292df5e1fe7f7a.jpg";
-            model.name = @"小明";
-            model.birthday = @"2018-01-10";
-            model.death = @"2018-01-11";
-            model.fangke = 100;
-            model.jidian = 200;
-            model.jieshao = _jieshao;
-            [cell configWithModel:model type:_type];
+            [cell configWithModel:_jieshao type:_type];
             cell.delegate = self;
             cell.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
             return cell;
@@ -158,11 +172,7 @@
         case 2:
         {
             ZhuiSiLiuYanTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zhuisi_liuyan_cell"];
-            LiuYanModel *model = [[LiuYanModel alloc]init];
-            model.image = @"https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=60c889ffb051f819f125044ce28f2dd0/ae51f3deb48f8c54cd34cafb3a292df5e1fe7f7a.jpg";
-            model.name = @"小明";
-            model.time = @"2018-01-10";
-            model.content = @"break和continue都是用来控制循环结构的，主要是停止循环。1.break有时候我们想在某种条件出现的时候终止循环而不是等到循环条件为false才终止。这是我们可以使用break来完成。break用于完全结束一个循环，跳出循环体执行循环后面的语句。2.continuecontinue和break有点类似，区别在于continue只是终止本次循环，接着还执行后面的循环，break则完全终止循环。可以理解为continue是跳过当次循环中剩下的语句，执行下一次循环。";
+            LiuYanModel *model = _liuYan_list[indexPath.row];
             [cell configWithModel:model];
             cell.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
             return cell;
@@ -171,12 +181,7 @@
         case 3:
         {
             ZhuiSiJiWenTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zhuisi_jiwen_cell"];
-            JiWenModel *model = [[JiWenModel alloc]init];
-            model.title = @"标题";
-            model.count = 10;
-            model.name = @"小明";
-            model.time = @"2018-01-10 10:00:00";
-            model.content = @"nice gay";
+            ArticleModel *model =  _detail.articles[indexPath.row];
             [cell configWithModel:model];
             cell.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
             return cell;
@@ -245,10 +250,12 @@
 -(void)toMore:(UIButton*)btn{
     if (btn.tag==2) {
         LiuYanMoreViewController *controller = [[LiuYanMoreViewController alloc]init];
+        controller.sz_id = _sz_id;
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }else{
         JiWenMoreViewController *controller = [[JiWenMoreViewController alloc]init];
+        controller.sz_id = _sz_id;
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }
@@ -325,10 +332,12 @@
 -(void)toWrite:(UITapGestureRecognizer *)gesture{
     if (gesture.view.tag == 2) {
         WriteLiuYanViewController *controller = [[WriteLiuYanViewController alloc]init];
+        controller.sz_id = _sz_id;
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }else{
         WriteJiWenViewController *controller = [[WriteJiWenViewController alloc]init];
+        controller.sz_id = _sz_id;
         controller.hidesBottomBarWhenPushed = YES;
         [self.navigationController pushViewController:controller animated:YES];
     }
@@ -372,19 +381,6 @@
         back_imageview.userInteractionEnabled = YES;
         UITapGestureRecognizer *gesture = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(back)];
         [back_imageview addGestureRecognizer:gesture];
-        
-//        UILabel *right_title = [[UILabel alloc]init];
-//        [_navigationView addSubview:right_title];
-//        [right_title mas_makeConstraints:^(MASConstraintMaker *make) {
-//            make.right.mas_equalTo(_navigationView).mas_offset(-10);
-//            make.bottom.mas_equalTo(_navigationView).mas_offset(-17);
-//            make.height.mas_equalTo(30);
-//        }];
-//        right_title.font = [UIFont systemFontOfSize:14];
-//        right_title.text = @"积分记录";
-//        right_title.userInteractionEnabled = YES;
-//        UITapGestureRecognizer *tap = [[UITapGestureRecognizer alloc]initWithTarget:self action:@selector(toLog)];
-//        [right_title addGestureRecognizer:tap];
     }
     return _navigationView;
 }

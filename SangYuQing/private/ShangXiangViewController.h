@@ -16,4 +16,5 @@
 @end
 @interface ShangXiangViewController : HZPageViewController
 @property(nonatomic,weak)id<ShangXiangViewControllerDelegate>delegate2;
+@property(nonatomic,strong)NSArray *list;
 @end

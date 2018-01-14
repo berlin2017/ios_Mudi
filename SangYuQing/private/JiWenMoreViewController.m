@@ -9,14 +9,17 @@
 #import "JiWenMoreViewController.h"
 #import "HZRefreshTableView.h"
 #import "ZhuiSiJiWenTableViewCell.h"
-#import "JiWenModel.h"
 #import "JiWenDetailTableViewCell.h"
+#import "ArticleModel.h"
+#import "UserLoginViewController.h"
 
 @interface JiWenMoreViewController ()<HZRefreshTableDelegate,UITableViewDelegate,UITableViewDataSource>
 
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
-@property(nonatomic,strong)UITableView *tableview;
+@property(nonatomic,strong)HZRefreshTableView *tableview;
+@property(nonatomic,strong)NSMutableArray *list;
+@property(nonatomic,assign)NSInteger index;
 @end
 
 @implementation JiWenMoreViewController
@@ -24,12 +27,14 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+    [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserModel) name:kZANUserLoginSuccessNotification object:nil];
     self.navigationController.navigationBarHidden = YES;
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     [self.view setBackgroundColor:bgColor];
     [self.view addSubview:self.navigationView];
-    
-    _tableview = [[UITableView alloc]init];
+    _index = 0;
+    _list = [NSMutableArray new];
+    _tableview = [[HZRefreshTableView alloc]init];
     [self.view addSubview:_tableview];
     [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
@@ -40,16 +45,21 @@
     
     _tableview.backgroundColor = [UIColor clearColor];
     _tableview.delegate = self;
-    _tableview.dataSource = self;
-    [_tableview registerNib:[UINib nibWithNibName:@"ZhuiSiJiWenTableViewCell" bundle:nil] forCellReuseIdentifier:@"zhuisi_jiwen_cell"];
-     [_tableview registerNib:[UINib nibWithNibName:@"JiWenDetailTableViewCell" bundle:nil] forCellReuseIdentifier:@"jiwen_detail_cell"];
+    _tableview.realTableViewDataSource = self;
+    [_tableview->_tableView registerNib:[UINib nibWithNibName:@"ZhuiSiJiWenTableViewCell" bundle:nil] forCellReuseIdentifier:@"zhuisi_jiwen_cell"];
+     [_tableview->_tableView registerNib:[UINib nibWithNibName:@"JiWenDetailTableViewCell" bundle:nil] forCellReuseIdentifier:@"jiwen_detail_cell"];
+    [self requestJW];
+}
+
+-(void)updateUserModel{
+     [self requestJW];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
     if (section) {
         return 1;
     }
-    return 10;
+    return _list.count;
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
@@ -72,6 +82,27 @@
     return 0.01f;
 }
 
+-(void)requestJW{
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcGET:@"/v1/gongmu/articles" parameters:@{@"id":_sz_id}  success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            NSArray *list = [MTLJSONAdapter modelOfClass:[ArticleModel class] fromJSONDictionary:object[@"data"][@"CemeteryInfo"][@"articles"] error:nil];
+            [_list addObjectsFromArray:list];
+            [_tableview->_tableView reloadData];
+        }else if([object[@"state_code"] isEqualToString:@"8888"]){
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
+}
+
+
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
     if (indexPath.section) {
         JiWenDetailTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"jiwen_detail_cell"];
@@ -80,19 +111,16 @@
         return cell;
     }
     ZhuiSiJiWenTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zhuisi_jiwen_cell"];
-    JiWenModel *model = [[JiWenModel alloc]init];
-    model.title = @"标题";
-    model.count = 10;
-    model.name = @"小明";
-    model.time = @"2018-01-10 10:00:00";
-    model.content = @"nice gay";
+    ArticleModel *model = _list[indexPath.row];
     [cell configWithModel:model];
     cell.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
     return cell;
 }
 
 -(void)headerRefresh{
-    
+    [_list removeAllObjects];
+    [self requestJW];
+    [_tableview endAllRefreshing];
 }
 
 -(void)footerRefresh{

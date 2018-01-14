@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "SZDetailModel.h"
 
 @protocol ZhuiSiJieShaoTableViewCellDelegate <NSObject>
 
@@ -17,8 +16,8 @@
 
 @interface ZhuiSiJieShaoTableViewCell : UITableViewCell
 
--(void)configWithModel:(SZDetailModel*)model;
--(void)configWithModel:(SZDetailModel*)model type:(int)type;
+-(void)configWithModel:(NSString*)model;
+-(void)configWithModel:(NSString*)model type:(int)type;
 
 @property(nonatomic,weak)id<ZhuiSiJieShaoTableViewCellDelegate>delegate;
 @end

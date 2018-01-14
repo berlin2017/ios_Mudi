@@ -18,4 +18,5 @@
 @interface XianHuaViewController : HZPageViewController
 
 @property(nonatomic,weak)id<XianHuaViewControllerDelegate>delegate2;
+@property(nonatomic,strong)NSArray *list;
 @end

@@ -33,10 +33,17 @@
 }
 
 -(void)configWithModel:(LiuYanModel *)model{
-    [_photo sd_setImageWithURL:[NSURL URLWithString:model.image] placeholderImage:[UIImage imageNamed:@"ic_user"]];
-    _name.text = model.name;
-    _time.text = model.time;
+    [_photo sd_setImageWithURL:[NSURL URLWithString:model.head_logo] placeholderImage:[UIImage imageNamed:@"ic_user"]];
+    _name.text = model.nickname;
+    _time.text = [self formateTime:model.create_time];
     _content.text = model.content;
+}
+-(NSString*)formateTime:(NSInteger )time{
+    NSDateFormatter *stampFormatter = [[NSDateFormatter alloc] init];
+    [stampFormatter setDateFormat:@"YYYY-MM-dd HH:mm:ss"];
+    //以 1970/01/01 GMT为基准，然后过了secs秒的时间
+    NSDate *stampDate2 = [NSDate dateWithTimeIntervalSince1970:time];
+    return [stampFormatter stringFromDate:stampDate2];
 }
 
 @end

@@ -8,15 +8,19 @@
 
 #import "DetailXiangCeViewController.h"
 #import "ZhuiSiHeaderTableViewCell.h"
-#import "SZDetailModel.h"
 #import "XiangCeCollectionTableViewCell.h"
 #import "PhotoModel.h"
 #import "XiangCeCollectionViewCell.h"
 #import "XiangCeListViewController.h"
+#import "MuDiDetailModel.h"
+#import "UserLoginViewController.h"
 
 @interface DetailXiangCeViewController ()<UITableViewDelegate,UITableViewDataSource,UICollectionViewDelegate,UICollectionViewDataSource>
 @property(nonatomic,strong) UIView *navigationView;       // 导航栏
 @property (nonatomic,strong) UIImageView *scaleImageView; // 顶部图片
+@property (nonatomic,strong) MuDiDetailModel *detail;
+@property (nonatomic,strong) UITableView *tableview;
+@property(nonatomic,strong)UICollectionView* collectionview ;
 @end
 
 @implementation DetailXiangCeViewController
@@ -24,41 +28,47 @@
 - (void)viewDidLoad {
     [super viewDidLoad];
     // Do any additional setup after loading the view.
+     [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(updateUserModel) name:kZANUserLoginSuccessNotification object:nil];
     self.navigationController.navigationBarHidden = YES;
     UIColor *bgColor = [UIColor colorWithPatternImage: [UIImage imageNamed:@"main_bg"]];
     [self.view setBackgroundColor:bgColor];
     [self.view addSubview:self.navigationView];
     
-    UITableView *tableview = [[UITableView alloc]init];
-    tableview.tableFooterView = [UIView new];
-    [self.view addSubview:tableview];
-    [tableview mas_makeConstraints:^(MASConstraintMaker *make) {
+    _tableview = [[UITableView alloc]init];
+    _tableview.tableFooterView = [UIView new];
+    [self.view addSubview:_tableview];
+    [_tableview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
         make.top.mas_equalTo(self.navigationView.mas_bottom);
         make.right.mas_equalTo(self.view);
         make.height.mas_equalTo(140);
     }];
-    tableview.delegate = self;
-    tableview.dataSource = self;
-    [tableview registerNib:[UINib nibWithNibName:@"ZhuiSiHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:@"zhuisi_header_cell"];
+    _tableview.delegate = self;
+    _tableview.dataSource = self;
+    [_tableview registerNib:[UINib nibWithNibName:@"ZhuiSiHeaderTableViewCell" bundle:nil] forCellReuseIdentifier:@"zhuisi_header_cell"];
     
     UICollectionViewFlowLayout *layout = [UICollectionViewFlowLayout new];
-    layout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width-20)/3, ([UIScreen mainScreen].bounds.size.width-20)/3+20);
+    layout.itemSize = CGSizeMake(([UIScreen mainScreen].bounds.size.width-20)/3, ([UIScreen mainScreen].bounds.size.width-20)/3+30);
     layout.minimumLineSpacing = 10;
     layout.minimumInteritemSpacing = 10;
     
-    UICollectionView* _collectionview = [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
+    _collectionview= [[UICollectionView alloc]initWithFrame:CGRectZero collectionViewLayout:layout];
     [self.view addSubview:_collectionview];
     [_collectionview mas_makeConstraints:^(MASConstraintMaker *make) {
         make.left.mas_equalTo(self.view);
         make.right.mas_equalTo(self.view);
-        make.top.mas_equalTo(tableview.mas_bottom).mas_offset(20);
+        make.top.mas_equalTo(_tableview.mas_bottom).mas_offset(20);
         make.bottom.mas_equalTo(self.view);
     }];
     _collectionview.delegate = self;
     _collectionview.dataSource = self;
     _collectionview.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
     [_collectionview registerNib:[UINib nibWithNibName:@"XiangCeCollectionViewCell" bundle:nil] forCellWithReuseIdentifier:@"xiangce_cell"];
+    [self requestList];
+}
+
+-(void)updateUserModel{
+    [self requestList];
 }
 
 -(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section{
@@ -66,7 +76,7 @@
 }
 
 -(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView{
-    return 2;
+    return 1;
 }
 
 -(CGFloat)tableView:(UITableView *)tableView heightForRowAtIndexPath:(NSIndexPath *)indexPath{
@@ -86,44 +96,59 @@
 }
 
 -(UITableViewCell *)tableView:(UITableView *)tableView cellForRowAtIndexPath:(NSIndexPath *)indexPath{
-    SZDetailModel *model = [[SZDetailModel alloc]init];
-    model.image = @"https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=60c889ffb051f819f125044ce28f2dd0/ae51f3deb48f8c54cd34cafb3a292df5e1fe7f7a.jpg";
-    model.name = @"小明";
-    model.birthday = @"2018-01-10";
-    model.death = @"2018-01-11";
-    model.fangke = 100;
-    model.jidian = 200;
     ZhuiSiHeaderTableViewCell *cell = [tableView dequeueReusableCellWithIdentifier:@"zhuisi_header_cell"];
-    
-    [cell configWithModel:model];
+    [cell configWithModel:_detail];
     cell.backgroundColor = [UIColor colorWithHexString:@"DFDFDF"];
     return cell;
     
+}
+
+
+-(void)requestList{
+    HZHttpClient *client = [HZHttpClient httpClient];
+    [client hcGET:@"/v1/gongmu/albums" parameters:@{@"id":_sz_id}  success:^(NSURLSessionDataTask *task, id object) {
+        if ([object[@"state_code"] isEqualToString:@"0000"]) {
+            _detail = [MTLJSONAdapter modelOfClass:[MuDiDetailModel class] fromJSONDictionary:object[@"data"][@"CemeteryInfo"] error:nil];
+            [_tableview reloadData];
+            [_collectionview reloadData];
+        }else if([object[@"state_code"] isEqualToString:@"8888"]){
+            [self.view makeCenterOffsetToast:@"登录信息已过期，请重新登录"];
+            UIStoryboard *sb = [UIStoryboard storyboardWithName:@"user" bundle:nil];
+            UserLoginViewController * viewController = [sb instantiateViewControllerWithIdentifier:@"user_login"];
+            [self.navigationController pushViewController:viewController animated:YES];
+        }else{
+            [self.view makeCenterOffsetToast:object[@"msg"]];
+        }
+    } failure:^(NSURLSessionDataTask *task, NSError *error) {
+        [self.view makeCenterOffsetToast:@"请求失败,请重试"];
+    }];
 }
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
     return 1;
 }
+
 - (NSInteger)collectionView:(UICollectionView *)collectionView numberOfItemsInSection:(NSInteger)section
 {
-    return 7;
+    return _detail.albums.count;
     
 }
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    PhotoModel *model1 = [[PhotoModel alloc]init];
-    model1.name = @"为人";
-    model1.image = @"https://gss1.bdstatic.com/9vo3dSag_xI4khGkpoWK1HF6hhy/baike/w%3D268%3Bg%3D0/sign=60c889ffb051f819f125044ce28f2dd0/ae51f3deb48f8c54cd34cafb3a292df5e1fe7f7a.jpg";
+    PhotoModel *model = _detail.albums[indexPath.row];
     XiangCeCollectionViewCell *cell = [collectionView dequeueReusableCellWithReuseIdentifier:@"xiangce_cell" forIndexPath:indexPath];
     cell.backgroundColor = [UIColor whiteColor];
-    [cell configWithModel:model1];
+    [cell configWithModel:model];
     return cell;
 }
 
 - (void)collectionView:(UICollectionView *)collectionView didSelectItemAtIndexPath:(NSIndexPath *)indexPath
 {
     XiangCeListViewController *controller = [[XiangCeListViewController alloc]init];
+    controller.sz_id = _sz_id;
+    PhotoModel *model = _detail.albums[indexPath.row];
+    controller.xcid = model.szxc_id;
     controller.hidesBottomBarWhenPushed = YES;
     [self.navigationController pushViewController:controller animated:YES];
 }
